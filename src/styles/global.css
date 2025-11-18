@@ -25,13 +25,14 @@
 
   button,
   input,
-  textarea {
+  label {
     border: none;
     outline: none;
     background: none;
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
+    line-height: inherit;
     color: inherit;
   }
   
@@ -41,4 +42,3 @@
     line-height: 100%;
   }
 
-  
