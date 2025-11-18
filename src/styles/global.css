@@ -1,0 +1,44 @@
+
+
+:root {
+    --primary-color: #99C08E; /* for making */
+    --secondary-color: #99C08E; /* for modification */
+    --tertiary-color: #99C08E; /* for confirmation */
+    --quaternary-color: #DDDDDD; /* for cancellation */
+
+    font-family: 'Pretendard', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  button,
+  input,
+  textarea {
+    border: none;
+    outline: none;
+    background: none;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+  }
+  
+  p {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 100%;
+  }
+
+  
