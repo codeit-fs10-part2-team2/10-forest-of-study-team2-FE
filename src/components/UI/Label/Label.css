@@ -1,0 +1,17 @@
+.label-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.label-children {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+}

@@ -1,8 +1,3 @@
-/* Button.jsx */
-/* Base button component */
-/*
-*/
-
 import React from 'react';
 import './Button.css';
 

@@ -1,0 +1,16 @@
+.input-text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-text {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #0000001A;
+    border-radius: 8px;
+}
+
+.input-text:focus {
+    outline: none;
+}

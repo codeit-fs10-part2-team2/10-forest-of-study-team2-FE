@@ -1,0 +1,21 @@
+.emoji-picker-container {
+  position: relative;
+}
+
+.emoji-picker-wrapper {
+  position: fixed;
+  z-index: 9999;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  width: 352px;
+}
+
+@media (max-width: 499px) {
+  .emoji-picker-wrapper {
+    width: calc(100vw - 32px);
+    max-width: 400px;
+  }
+}
+

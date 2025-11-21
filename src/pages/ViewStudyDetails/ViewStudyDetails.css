@@ -1,0 +1,457 @@
+.app {
+  max-width: 1920px;
+  margin: 0 auto;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.main-container {
+  max-width: 100vw;
+  margin: 0 auto;
+  background-color: #ffffff;
+  max-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  border: 0px solid red;
+  border-radius: 12px;
+}
+
+.header {
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.engagement-metrics {
+  color: #ffffff;
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  position: relative;
+  flex-wrap: nowrap;
+}
+
+.engagement-metrics.wrap-enabled {
+  flex-wrap: wrap;
+}
+
+.engagement-metrics.wrap-enabled > .emoji-picker-container {
+  flex-basis: 100%;
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* emoji-picker styles moved to components/UI/EmojiPicker/EmojiPicker.css */
+
+.add-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background-color: #f0f0f0;
+    border: 1px solid #0000001A;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.metric-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: #00000080;
+  border: 1px solid #0000001A;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.metric-btn:hover,
+.add-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.metric-btn .icon,
+.add-btn .icon {
+  font-size: 16px;
+}
+
+.title-section {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #000;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.intro-section {
+  margin-bottom: 16px;
+}
+
+.intro-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.intro-text {
+  font-family: 'Pretendard';
+  font-weight: 500;
+  font-size: 18px;
+  color: #414141;
+  line-height: 26px;
+}
+
+.points-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.points-label {
+    font-family: 'Pretendard';
+    font-weight: 400;
+    font-size: 16px;
+    color: #666;
+    line-height: 100%;
+}
+
+.points-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: #FFFFFF;
+  color: #414141;
+  border: 1px solid #0000001A;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.points-btn:hover {
+  background-color: #45a049;
+}
+
+.leaf-icon {
+  font-size: 16px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding-top: 20px;
+}
+
+.action-link {
+  color: #666;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.action-link:hover {
+  color: #333;
+}
+
+.divider {
+  color: #ccc;
+  font-size: 14px;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  align-items: center;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.nav-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.main-content {
+
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.habit-tracker-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+  border: 1px solid #0000001A;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.habit-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.grid-header {
+  display: grid;
+  grid-template-columns: 200px repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.habit-header-cell {
+  font-weight: 600;
+  color: #666;
+  padding: 8px;
+}
+
+.day-header-cell {
+  text-align: center;
+  font-weight: 600;
+  color: #666;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.habit-row {
+  display: grid;
+  grid-template-columns: 200px repeat(7, 1fr);
+  gap: 8px;
+  align-items: center;
+}
+
+.habit-name-cell {
+    text-align: right;
+    font-family: 'Pretendard';
+    font-weight: 700;
+    font-size: 16px;
+    color: #414141;
+    padding: 12px 8px;
+    word-break: keep-all;
+}
+
+.habit-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: 4px;
+}
+
+.habit-cell:hover {
+  background-color: #f5f5f5;
+}
+
+.habit-icon {
+  width: 36px;
+  height: 36px;
+  display: block;
+  transition: opacity 0.2s;
+}
+
+/* Tablet Screen Responsive (<= 768px) */
+/* Tablet Screen Responsive (<= 768px) */
+/* Tablet Screen Responsive (<= 768px) */
+/* Tablet Screen Responsive (<= 768px) */
+@media (max-width: 768px) {
+
+    .main-container {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+  .grid-header,
+  .habit-row {
+    grid-template-columns: 150px repeat(7, 1fr);
+  }
+
+  .engagement-metrics {
+    color: #ffffff;
+    justify-content: flex-start;
+    align-self: flex-start;
+    flex-wrap: wrap;
+  }
+
+  /* 모바일에서는 항상 wrap 활성화 */
+  .engagement-metrics {
+    flex-wrap: wrap;
+  }
+
+  /* 습관기록표 최상위 컨테이너 패딩 */
+  .main-content {
+    /* margin-left: 8px;
+    margin-right: 8px; */
+
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 16px;
+    padding-right: 16px;
+
+  }
+
+  .habit-name-cell {
+    font-family: 'Pretendard';
+    font-weight: 700;
+    color: #414141;
+    line-height: 100%;
+    font-size: 18px;
+  }
+
+  .main-title {
+    font-size: 24px;
+  }
+}
+
+
+/* Mobile Screen Responsive (<= 499px) */
+@media (max-width: 499px) {
+ 
+    .main-container {
+        max-width: 100vh;
+        margin: 0 auto;
+        background-color: #ffffff;
+        min-height: 100vh;
+        width: 100%;
+        box-sizing: border-box;
+        border: 0px solid red;
+        border-radius: 12px;
+        padding: 0 8px;
+      }
+
+    .header {
+      padding: 20px 0;
+    }
+
+    .header-top {
+      flex-direction: column;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+
+    .engagement-metrics {
+      color: #ffffff;
+      order: 2;
+      justify-content: flex-start;
+      align-self: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .add-btn {
+      white-space: nowrap;
+    }
+  
+    .action-buttons {
+      order: 1;
+      justify-content: flex-end;
+      align-self: flex-end;
+      margin-bottom: 0px;
+      padding-top: 0px;
+    }
+
+    .title-section {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+     .main-content {
+        border-radius: 10px;
+        /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+        border: 1px solid #0000001A;
+        padding-left: 0px;
+        padding-right: 0px;
+        overflow-x: auto;
+      }
+
+     .habit-tracker-card {
+       margin: 0 4px;
+       overflow-x: auto;        /* scrollable in mobile screen(<= 499px) */
+       min-width: fit-content;  /* scrollable fit content width in mobile screen(<= 499px) */
+     }
+
+     .habit-grid {
+       min-width: 600px;  /* scrollable grid width in mobile screen(<= 499px) */
+     }
+
+     .grid-header,
+     .habit-row {
+       min-width: 600px;  /* scrollable row width in mobile screen(<= 499px) */
+     }
+
+    .grid-header,
+    .habit-row {
+      grid-template-columns: 150px repeat(7, 1fr);
+    }
+  
+    .habit-name-cell {
+      font-family: 'Pretendard';
+      font-weight: 700;
+      color: #414141;
+      line-height: 100%;
+      font-size: 18px;
+    }
+  
+    .main-title {
+      font-size: 24px;
+    }
+  }
+  
