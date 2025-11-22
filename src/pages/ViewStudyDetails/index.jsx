@@ -3,6 +3,7 @@ import './ViewStudyDetails.css'
 import icStickerGreen from './images/ic_sticker_green.svg'
 import icIncomplete from './images/ic_incomplete.svg'
 import EmojiPickerButton from '../../components/UI/EmojiPicker/EmojiPicker'
+import { Link } from 'react-router-dom'
 
 const viewStudyDetailTitle = '연우의 개발공장';
 const studyDescription = 'Slow And Steady Wins The Race! 다들 오늘 하루도 화이팅 :)';
@@ -122,11 +123,11 @@ const ViewStudyDetails = () => {
                         <EmojiPickerButton onEmojiSelect={handleEmojiSelect} />
                     </div>
                     <div className="action-buttons">
-                        <a href="#" className="action-link">공유하기</a>
+                        <Link to="#" className="action-link">공유하기</Link>
                         <span className="divider">|</span>
-                        <a href="#" className="action-link">수정하기</a>
+                        <Link to="#" className="action-link">수정하기</Link>
                         <span className="divider">|</span>
-                        <a href="#" className="action-link">스터디 삭제하기</a>
+                        <Link to="#" className="action-link">스터디 삭제하기</Link>
                     </div>
                 </div>
 

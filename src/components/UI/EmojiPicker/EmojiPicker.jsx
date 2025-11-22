@@ -27,7 +27,7 @@ const EmojiPickerButton = ({ onEmojiSelect }) => {
     setShowEmojiPicker(false)
   }
 
-  // 외부 클릭 시 emoji picker 닫기
+  // closing the emoji picker when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
