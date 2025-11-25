@@ -14,3 +14,10 @@
 .input-text:focus {
     outline: none;
 }
+
+.password-modal-input-container-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #0000001A;
+    border-radius: 18px;
+}

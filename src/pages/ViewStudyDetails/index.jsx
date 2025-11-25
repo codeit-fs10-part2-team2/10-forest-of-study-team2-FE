@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import icStickerGreen from './images/ic_sticker_green.svg';
-import icIncomplete from './images/ic_incomplete.svg';
+import Sticker from '../../components/UI/Sticker/Sticker';
 import arrowRightIcon from '../../assets/images/icons/arrow_right.svg';
 import EmojiPickerButton from '../../components/UI/EmojiPicker/EmojiPicker';
 import Button from '../../components/UI/Button/Button';
@@ -153,10 +152,9 @@ const ViewStudyDetails = () => {
                                 className="habit-cell"
                                 onClick={() => toggleHabit(habit.id, dayIndex)} // call the toggleHabit function with the habit id and day index
                             >
-                                <img 
-                                src={habit.completed.includes(dayIndex) ? icStickerGreen : icIncomplete} // set the icon based on the completion status
-                                alt={habit.completed.includes(dayIndex) ? 'completed' : 'incomplete'}
-                                className="habit-icon"
+                                <Sticker 
+                                completed={habit.completed.includes(dayIndex)} // set the completion status
+                                className={`habit-icon ${habit.completed.includes(dayIndex) ? 'completed' : 'incomplete'}`}
                                 />
                             </div>
                             ))}

@@ -1,7 +1,7 @@
 import React from 'react'
 import './Label.css'
 
-const Label = ({ children, htmlFor, labelClassName, labelStyle, labelId, labelText }) => {
+const Label = ({ children, htmlFor, labelClassName, labelId, labelText }) => {
     return (
         <label htmlFor={htmlFor} className={`label ${labelClassName}`} id={labelId}>
             {labelText && <span className="label-text">{labelText}</span>}
