@@ -69,11 +69,6 @@ const ViewStudyDetails = () => {
     setShouldWrap(emojiMetrics.length >= 4); // enable wrap if the emojiMetrics has 4 or more items
   }, [emojiMetrics]); // re-run the effect when the emojiMetrics changes(when the emoji is added or removed)
 
-  // If emojiMetrics has 4 or more items, enable wrap
-  useEffect(() => {
-    setShouldWrap(emojiMetrics.length >= 4); // enable wrap if the emojiMetrics has 4 or more items
-  }, [emojiMetrics]); // re-run the effect when the emojiMetrics changes(when the emoji is added or removed)
-
   return (
     <>
     <main>
@@ -153,8 +148,8 @@ const ViewStudyDetails = () => {
                                 onClick={() => toggleHabit(habit.id, dayIndex)} // call the toggleHabit function with the habit id and day index
                             >
                                 <Sticker 
-                                completed={habit.completed.includes(dayIndex)} // set the completion status
-                                className={`habit-icon ${habit.completed.includes(dayIndex) ? 'completed' : 'incomplete'}`}
+                                  completed={habit.completed.includes(dayIndex)} // set the completion status
+                                  className={`habit-icon ${habit.completed.includes(dayIndex) ? 'completed' : 'incomplete'}`}
                                 />
                             </div>
                             ))}
