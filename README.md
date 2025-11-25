@@ -1,28 +1,31 @@
-코드잇 풀스택 10기 초급 프로젝트
+# 습관 추적기 (Habit Tracker)
 
-파트2 팀2 팀원:선태영 
-=================================================================================================
-UI 컴포넌트 작업: 프로젝트 '공부의 숲'을 위한 공통 컴포넌트 리스트
+한국어 습관 추적기 웹 애플리케이션입니다.
 
-1. Button.jsx: 버튼 공통 컴포넌트
-2. InputText.jsx: 입력박스 공통 컴포넌트
-3. Label.jsx: 입력, 수정, 삭제 페이지, 모달 등에 사용될 Label 컴포넌트
-4. Sticker.jsx: 모든 페이지에 사용될 큰 제목과 그 아래의 간단소개, 간단 설명 영역에 쓰일 스티커 컴포넌트
-=================================================================================================
+## 기능
 
-# React + Vite
+- 주간 습관 기록표
+- 습관 완료/미완료 토글
+- 참여자 수, 좋아요, 이모지 표시
+- 포인트 획득 표시
+- 깔끔하고 현대적인 UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 설치 및 실행
 
-Currently, two official plugins are available:
+```bash
+# 의존성 설치
+npm install
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# 개발 서버 실행
+npm run dev
 
-## React Compiler
+# 빌드
+npm run build
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 기술 스택
 
-## Expanding the ESLint configuration
+- React 18
+- Vite
+- CSS3
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

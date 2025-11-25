@@ -10,6 +10,8 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   width: 352px;
+  max-height: calc(100vh - 32px);
+  max-width: calc(100vw - 32px);
 }
 
 @media (max-width: 499px) {

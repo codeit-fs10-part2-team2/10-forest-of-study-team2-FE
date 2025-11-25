@@ -2,18 +2,18 @@
   max-width: 1920px;
   margin: 0 auto;
   background-color: #f5f5f5;
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 .main-container {
   max-width: 100vw;
   margin: 0 auto;
   background-color: #ffffff;
-  max-height: 100vh;
   width: 100%;
   box-sizing: border-box;
   border: 0px solid red;
   border-radius: 12px;
+  /* min-height: 100vh; */
 }
 
 .header {
@@ -32,6 +32,11 @@
   margin-bottom: 20px;
 }
 
+.arrow-right-icon {
+  width: 16px;
+  height: 16px;
+}
+
 .engagement-metrics {
   color: #ffffff;
   display: flex;
@@ -39,16 +44,28 @@
   align-items: center;
   position: relative;
   flex-wrap: nowrap;
+  flex: 0 1 auto;
+  min-width: 0;
 }
 
 .engagement-metrics.wrap-enabled {
   flex-wrap: wrap;
+  align-content: flex-start;
+  flex: 1 1 50%;
+  max-width: 50%;
+  min-width: 0;
 }
 
 .engagement-metrics.wrap-enabled > .emoji-picker-container {
-  flex-basis: 100%;
-  width: 100%;
-  margin-top: 8px;
+  flex-basis: auto;
+  width: auto;
+  margin-top: 0;
+  order: 999;
+}
+
+.engagement-metrics.wrap-enabled > .metric-btn {
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 
 /* emoji-picker styles moved to components/UI/EmojiPicker/EmojiPicker.css */
@@ -198,6 +215,8 @@
 .nav-btn {
   display: flex;
   align-items: center;
+  gap: 6px;
+  justify-content: center;
   padding: 10px 20px;
   background-color: #f0f0f0;
   border: none;
@@ -205,6 +224,13 @@
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s;
+}
+
+.nav-btn-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
 }
 
 .nav-btn:hover {
@@ -222,7 +248,7 @@
   width: 100%;
   box-sizing: border-box;
   max-width: 100%;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .habit-tracker-card {
@@ -234,6 +260,7 @@
 }
 
 .card-title {
+  margin-left: 10px;
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 20px;
@@ -328,12 +355,14 @@
     flex-wrap: wrap;
   }
 
-  /* 모바일에서는 항상 wrap 활성화 */
+  /* always wrap in mobile screen */
   .engagement-metrics {
     flex-wrap: wrap;
   }
 
-  /* 습관기록표 최상위 컨테이너 패딩 */
+
+
+  /* habit tracker card padding */
   .main-content {
     /* margin-left: 8px;
     margin-right: 8px; */
@@ -342,7 +371,16 @@
     margin-right: 0px;
     padding-left: 16px;
     padding-right: 16px;
-
+    padding-bottom: 16px;
+    margin-bottom: 15px;
+    overflow-y: visible;
+    overflow-x: auto;
+    min-height: auto;
+  }
+  
+  .habit-tracker-card {
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .habit-name-cell {
@@ -369,10 +407,10 @@
         min-height: 100vh;
         width: 100%;
         box-sizing: border-box;
-        border: 0px solid red;
+        border: 1px solid red;
         border-radius: 12px;
         padding: 0 8px;
-      }
+    }
 
     .header {
       padding: 20px 0;
@@ -382,6 +420,7 @@
       flex-direction: column;
       gap: 16px;
       align-items: stretch;
+      min-height: 0;
     }
 
 
@@ -391,10 +430,30 @@
       justify-content: flex-start;
       align-self: flex-start;
       flex-wrap: wrap;
+      flex: 0 0 auto;
+      width: 100%;
     }
 
-    .add-btn {
-      white-space: nowrap;
+
+    .engagement-metrics.wrap-enabled {
+      flex-wrap: wrap;
+      align-content: flex-start;
+      flex: 0 0 auto;
+      max-width: 100%;
+      min-width: 0;
+      width: 100%;
+    }
+    
+    .engagement-metrics.wrap-enabled > .emoji-picker-container {
+      flex-basis: auto;
+      width: auto;
+      margin-top: 0;
+      order: 999;
+    }
+    
+    .engagement-metrics.wrap-enabled > .metric-btn {
+      flex-shrink: 0;
+      flex-grow: 0;
     }
   
     .action-buttons {
@@ -420,12 +479,19 @@
         padding-left: 0px;
         padding-right: 0px;
         overflow-x: auto;
+        overflow-y: visible;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        flex-shrink: 0;
       }
 
      .habit-tracker-card {
        margin: 0 4px;
        overflow-x: auto;        /* scrollable in mobile screen(<= 499px) */
        min-width: fit-content;  /* scrollable fit content width in mobile screen(<= 499px) */
+       width: 100%;
+       box-sizing: border-box;
      }
 
      .habit-grid {

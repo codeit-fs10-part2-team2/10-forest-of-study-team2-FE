@@ -1,9 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react'
-import './ViewStudyDetails.css'
-import icStickerGreen from './images/ic_sticker_green.svg'
-import icIncomplete from './images/ic_incomplete.svg'
-import EmojiPickerButton from '../../components/UI/EmojiPicker/EmojiPicker'
-import { Link } from 'react-router-dom'
+import React, { useState, useRef, useEffect } from 'react';
+import icStickerGreen from './images/ic_sticker_green.svg';
+import icIncomplete from './images/ic_incomplete.svg';
+import arrowRightIcon from '../../assets/images/icons/arrow_right.svg';
+import EmojiPickerButton from '../../components/UI/EmojiPicker/EmojiPicker';
+import Button from '../../components/UI/Button/Button';
+import { Link } from 'react-router-dom';
+import './ViewStudyDetails.css';
 
 const viewStudyDetailTitle = '연우의 개발공장';
 const studyDescription = 'Slow And Steady Wins The Race! 다들 오늘 하루도 화이팅 :)';
@@ -16,89 +18,62 @@ const ViewStudyDetails = () => {
     { id: 4, name: '스트레칭', completed: [] },
     { id: 5, name: '사이드 프로젝트', completed: [] },
     { id: 6, name: '물 2L 마시기', completed: [] },
-  ])
+  ]); // habits list
 
-  const days = ['월', '화', '수', '목', '금', '토', '일']
-  const [engagement] = useState({ participants: 37, likes: 11, emojis: 9 })
-  const [points] = useState(310)
+  const days = ['월', '화', '수', '목', '금', '토', '일']; // days list for habit tracker card
+  const [points] = useState(310); // points value
   
   // initial emoji list: 3
   const [emojiMetrics, setEmojiMetrics] = useState([
     { emoji: '👩‍💻', count: 37 },
     { emoji: '👍', count: 11 },
     { emoji: '🤩', count: 9 },
-  ])
+  ]);
   
-  const [shouldWrap, setShouldWrap] = useState(false)
-  const engagementMetricsRef = useRef(null)
-  const metricButtonsRef = useRef([])
+  const [shouldWrap, setShouldWrap] = useState(false);    // whether to wrap the engagement metrics buttons in mobile screen
+  const engagementMetricsRef = useRef(null);              // engagement-metrics div - used to check the width of the div in mobile screen
+  const metricButtonsRef = useRef([]);                    // metric-btn buttons - used to check the width of the buttons in mobile screen
 
   const toggleHabit = (habitId, dayIndex) => {
     setHabits(habits.map(habit => {
       if (habit.id === habitId) {
-        const completed = [...habit.completed]
-        const index = completed.indexOf(dayIndex)
-        if (index > -1) {
-          completed.splice(index, 1)
+        const completed = [...habit.completed];
+        const index = completed.indexOf(dayIndex);
+        if (index > -1) {              // if the day is already completed, remove it
+          completed.splice(index, 1);
         } else {
-          completed.push(dayIndex)
+          completed.push(dayIndex);     // if the day is not completed, add it to the completed list
         }
-        return { ...habit, completed }
+        return { ...habit, completed }; // return the updated habit
       }
-      return habit
+      return habit;                    // return the original habit
     }))
   }
 
   const handleEmojiSelect = (emoji) => {
     setEmojiMetrics(prevMetrics => {
-      const existingIndex = prevMetrics.findIndex(item => item.emoji === emoji)
-      if (existingIndex > -1) {
-        //  if same emoji, count + 1
-        const updated = [...prevMetrics]
-        updated[existingIndex] = {
-          ...updated[existingIndex],
-          count: updated[existingIndex].count + 1
-        }
-        return updated
-      } else {
-        // add new emoji
-        return [...prevMetrics, { emoji, count: 1 }]
+      const existingIndex = prevMetrics.findIndex(item => item.emoji === emoji);
+      if (existingIndex > -1) {              // if the emoji already exists, count + 1
+        const updated = [...prevMetrics];   
+        updated[existingIndex] = {       
+          ...updated[existingIndex],            // update the existing emoji
+          count: updated[existingIndex].count + 1, // increment the count
+        };
+        return updated;                 // return the updated metrics
       }
-    })
+      return [...prevMetrics, { emoji, count: 1 }]; // add the new emoji to the metrics
+    }) // return the updated metrics
   }
 
-  // Make sure the total width of the emoji buttons exceeds half the screen.
+  // Enable wrap when button count is 4 or more
   useEffect(() => {
-    const checkWidth = () => {
-      if (engagementMetricsRef.current && metricButtonsRef.current.length > 0) {
-        let totalWidth = 0
-        metricButtonsRef.current.forEach((btn) => {
-          if (btn) {
-            totalWidth += btn.offsetWidth + 3 // gap included
-          }
-        })
-        
-        const containerWidth = engagementMetricsRef.current.offsetWidth
-        const halfWidth = containerWidth / 2
-        
-        setShouldWrap(totalWidth > halfWidth)
-      }
-    }
+    setShouldWrap(emojiMetrics.length >= 4); // enable wrap if the emojiMetrics has 4 or more items
+  }, [emojiMetrics]); // re-run the effect when the emojiMetrics changes(when the emoji is added or removed)
 
-    // checkwidth
-    checkWidth()
-
-    // resize EventListener
-    window.addEventListener('resize', checkWidth)
-    
-    // checkwidth when emojiMetrics is changed
-    const timeoutId = setTimeout(checkWidth, 100)
-
-    return () => {
-      window.removeEventListener('resize', checkWidth)
-      clearTimeout(timeoutId)
-    }
-  }, [emojiMetrics])
+  // If emojiMetrics has 4 or more items, enable wrap
+  useEffect(() => {
+    setShouldWrap(emojiMetrics.length >= 4); // enable wrap if the emojiMetrics has 4 or more items
+  }, [emojiMetrics]); // re-run the effect when the emojiMetrics changes(when the emoji is added or removed)
 
   return (
     <>
@@ -111,35 +86,35 @@ const ViewStudyDetails = () => {
                       className={`engagement-metrics ${shouldWrap ? 'wrap-enabled' : ''}`}
                     >
                         {emojiMetrics.map((item, index) => (
-                          <button 
+                          <Button 
                             key={index} 
                             ref={(el) => metricButtonsRef.current[index] = el}
                             className="metric-btn"
                           >
-                            <span className="icon">{item.emoji}</span>
-                            <span>{item.count}</span>
-                          </button>
+                            <span className="icon">{item.emoji}</span> 
+                            <span>{item.count}</span> {/* emoji count */}
+                          </Button>
                         ))}
-                        <EmojiPickerButton onEmojiSelect={handleEmojiSelect} />
+                        <EmojiPickerButton onEmojiSelect={handleEmojiSelect} /> {/* emoji picker button - used to select the emoji and add the emoji to the metrics */}
                     </div>
                     <div className="action-buttons">
-                        <Link to="#" className="action-link">공유하기</Link>
+                        <Link to="#" className="action-link">공유하기</Link> {/* share button */}
                         <span className="divider">|</span>
-                        <Link to="#" className="action-link">수정하기</Link>
+                        <Link to="#" className="action-link">수정하기</Link> {/* edit button */}
                         <span className="divider">|</span>
-                        <Link to="#" className="action-link">스터디 삭제하기</Link>
+                        <Link to="#" className="action-link">스터디 삭제하기</Link> {/* delete button */}
                     </div>
                 </div>
 
                 <div className="title-section">
-                    <h1 className="main-title">{viewStudyDetailTitle}</h1>
+                    <h1 className="main-title">{viewStudyDetailTitle}</h1> {/* study title */}
                     <div className="nav-buttons">
-                        <button className="nav-btn">
-                        <span>오늘의 습관 {'>'}</span>
-                        </button>
-                        <button className="nav-btn">
-                        <span>오늘의 집중 {'>'}</span>
-                        </button>
+                        <Button className="nav-btn">
+                          <span className="nav-btn-text">오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className="arrow-right-icon" /></span> {/* habit button */}
+                        </Button>
+                        <Button className="nav-btn">
+                          <span className="nav-btn-text">오늘의 집중 <img src={arrowRightIcon} alt="arrow right" className="arrow-right-icon" /></span> {/* focus button */}
+                        </Button>
                     </div>
                 </div>
                 <div className="content-section">
@@ -148,11 +123,11 @@ const ViewStudyDetails = () => {
                         <p className="intro-text">{studyDescription}</p>
                     </div>
                     <div className="points-section">
-                        <span className="points-label">현재까지 획득한 포인트</span>
-                        <button className="points-btn">
+                        <span className="points-label">현재까지 획득한 포인트</span> {/* points label */}
+                        <Button className="points-btn"> {/* points button */}
                             <span className="leaf-icon">🌱</span>
-                            <span>{points}P 획득</span>
-                        </button>
+                            <span>{points}P 획득</span> {/* points button */}
+                        </Button>
                     </div>
                 </div>
             </div>
@@ -174,12 +149,12 @@ const ViewStudyDetails = () => {
                             <div className="habit-name-cell">{habit.name}</div>
                             {days.map((day, dayIndex) => (
                             <div
-                                key={dayIndex}
+                                key={dayIndex} 
                                 className="habit-cell"
-                                onClick={() => toggleHabit(habit.id, dayIndex)}
+                                onClick={() => toggleHabit(habit.id, dayIndex)} // call the toggleHabit function with the habit id and day index
                             >
                                 <img 
-                                src={habit.completed.includes(dayIndex) ? icStickerGreen : icIncomplete}
+                                src={habit.completed.includes(dayIndex) ? icStickerGreen : icIncomplete} // set the icon based on the completion status
                                 alt={habit.completed.includes(dayIndex) ? 'completed' : 'incomplete'}
                                 className="habit-icon"
                                 />

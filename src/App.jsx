@@ -7,9 +7,7 @@ function App() {
     <>
         <div className="app">
           <Header />
-          <div className="main-content">
-            <ViewStudyDetails />
-          </div>
+          <ViewStudyDetails />
         </div>
     </>
   )
