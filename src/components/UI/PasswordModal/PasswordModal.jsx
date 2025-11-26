@@ -5,7 +5,7 @@ import Label from '../Label/Label';
 import icEyeOpen from '../../assets/images/icons/eye_open.svg';
 import icEyeClose from '../../assets/images/icons/eye_closed.svg';
 import { useState } from 'react';
-import './PasswordModal.css';
+import styles from './PasswordModal.module.css';
 
 const PasswordModal = ({ 
     password, 
@@ -34,21 +34,21 @@ const PasswordModal = ({
     };
     return (
     <>
-        <div className="password-modal-container">
-            <div className="password-modal-content">
+        <div className={styles.passwordModalContainer}>
+            <div className={styles.passwordModalContent}>
                 <Label labelText={modalTitleText} labelClassName={modalTitleClassName} labelId={modalTitleId}></Label>
                 <span className={onPasswordExitClassName} onClick={onPasswordExit}>{onPasswordExitText}</span>
             </div>
-            <div className="password-modal-error-message">
+            <div className={styles.passwordModalErrorMessage}>
                 <Label labelText={errorMessageText} labelClassName={errorMessageClassName} labelId={errorMessageId}></Label>
             </div>
-            <div className="password-modal-input-container">
+            <div className={styles.passwordModalInputContainer}>
                 <Label htmlFor="password" labelText="비밀번호" />
                 <InputText id={passwordInputId} value={password} onChange={onPasswordChange} placeholder={passwordInputPlaceholder} type={passwordInputType} className={passwordInputClassName} />
-                <img src={isPasswordVisible ? icEyeOpen : icEyeClose} alt="비밀번호 보기" className="password-eye-icon" onClick={() => setIsPasswordVisible(!isPasswordVisible)} />
+                <img src={isPasswordVisible ? icEyeOpen : icEyeClose} alt="비밀번호 보기" className={styles.passwordEyeIcon} onClick={() => setIsPasswordVisible(!isPasswordVisible)} />
             </div>
-            <div className="password-modal-button-container">
-                <Button className="password-submit-btn" onClick={onPasswordSubmit}>{buttonText}</Button>
+            <div className={styles.passwordModalButtonContainer}>
+                <Button className={styles.passwordSubmitBtn} onClick={onPasswordSubmit}>{buttonText}</Button>
             </div>
         </div>
     </>

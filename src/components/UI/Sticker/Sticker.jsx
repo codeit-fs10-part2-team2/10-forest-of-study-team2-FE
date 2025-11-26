@@ -1,12 +1,11 @@
 import React from 'react';
 import icStickerGreen from '../../../pages/ViewStudyDetails/images/ic_sticker_green.svg';
 import icIncomplete from '../../../pages/ViewStudyDetails/images/ic_incomplete.svg';
-import './Sticker.css';
+import styles from './Sticker.module.css';
 
-const stickerClassName = 'sticker';
 const Sticker = ({ completed, className }) => {
     return (
-        <img src={completed ? icStickerGreen : icIncomplete} alt={completed ? 'completed' : 'incomplete'} className={`${stickerClassName} ${className}`} />
+        <img src={completed ? icStickerGreen : icIncomplete} alt={completed ? 'completed' : 'incomplete'} className={className || styles.stickerIcon} />
 
     );
 

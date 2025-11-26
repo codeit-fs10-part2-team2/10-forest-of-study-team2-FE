@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import Button from '../Button/Button';
-import './EmojiPicker.css';
+import styles from './EmojiPicker.module.css';
 
 const EmojiPickerButton = ({ onEmojiSelect }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -50,19 +50,19 @@ const EmojiPickerButton = ({ onEmojiSelect }) => {
   }, [showEmojiPicker]); // re-run the effect when the showEmojiPicker changes
 
   return (
-    <div className="emoji-picker-container">
+    <div className={styles.emojiPickerContainer}>
       <Button 
         ref={addButtonRef}
-        className="add-btn"
+        className={styles.addBtn}
         onClick={handleAddEmoji}
       >
-        <span className="icon">+</span>
+        <span className={styles.icon}>+</span>
         <span>추가</span>
       </Button>
       {showEmojiPicker && (
         <div 
           ref={emojiPickerRef} 
-          className="emoji-picker-wrapper"
+          className={styles.emojiPickerWrapper}
           style={{
             top: `${emojiPickerPosition.top}px`,
             right: emojiPickerPosition.right === 'auto' ? 'auto' : `${emojiPickerPosition.right}px`,
@@ -71,7 +71,7 @@ const EmojiPickerButton = ({ onEmojiSelect }) => {
         >
           <EmojiPicker
             onEmojiClick={handleEmojiClick}
-            searchPlaceHolder="Search"
+            searchPlaceHolder={styles.searchPlaceHolder}
             width="100%"
             height="400px"
             style={{ maxHeight: 'calc(100vh - 32px)' }}
