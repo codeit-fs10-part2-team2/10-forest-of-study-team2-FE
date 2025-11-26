@@ -1,6 +1,3 @@
 
 # should ignore the following
 node_modules/
-.gitignore
-
-git rm --cached node_modules/ -r
