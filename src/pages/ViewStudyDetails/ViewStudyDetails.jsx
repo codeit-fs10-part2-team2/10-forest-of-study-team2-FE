@@ -72,12 +72,12 @@ const ViewStudyDetails = () => {
   return (
     <>
     <main>
-        <div className="main-container">
-            <div className="header">
-                <div className="header-top">
+        <div className={styles.mainContainer}>
+            <div className={styles.header}>
+                <div className={styles.headerTop}>
                     <div 
                       ref={engagementMetricsRef}
-                      className={shouldWrap ? styles.wrapEnabled : styles.engagementMetrics}
+                      className={`${styles.engagementMetrics} ${shouldWrap ? styles.wrapEnabled : ''}`}
                     >
                         {emojiMetrics.map((item, index) => (
                           <Button 
@@ -101,7 +101,7 @@ const ViewStudyDetails = () => {
                 </div>
 
                 <div className={styles.titleSection}>
-                    <h1 className="main-title">{viewStudyDetailTitle}</h1> {/* study title */}
+                    <h1 className={styles.mainTitle}>{viewStudyDetailTitle}</h1> {/* study title */}
                     <div className={styles.navButtons}>
                         <Button className={styles.navBtn}>
                           <span className={styles.navBtnText}>오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span> {/* habit button */}
@@ -126,7 +126,7 @@ const ViewStudyDetails = () => {
                 </div>
             </div>
 
-            <div className={styles.mainContent}>
+            <div className={styles.mainContent} data-main-content>
                 <div className={styles.habitTrackerCard}>
                     <h2 className={styles.cardTitle}>습관 기록표</h2>
                     <div className={styles.habitGrid}>

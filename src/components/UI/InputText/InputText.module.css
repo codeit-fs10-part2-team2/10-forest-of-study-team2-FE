@@ -1,23 +1,16 @@
-.input-text-container {
+.inputTextContainer {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.input-text {
+.inputText {
     width: 100%;
     padding: 8px;
     border: 1px solid #0000001A;
     border-radius: 8px;
 }
 
-.input-text:focus {
+.inputText:focus {
     outline: none;
-}
-
-.password-modal-input-container-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #0000001A;
-    border-radius: 18px;
 }

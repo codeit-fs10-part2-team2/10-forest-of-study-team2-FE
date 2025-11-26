@@ -1,4 +1,4 @@
-.modal-container {
+.modalContainer {
     position: fixed;
     top: 0;
     left: 0;
@@ -6,4 +6,25 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
+}
+
+.modalContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.modalBody {
+    display: flex;
+    flex-direction: column;
+}
+
+.modalFooter {
+    display: flex;
+    flex-direction: column;
+}
+
+.modalTitle {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
 }

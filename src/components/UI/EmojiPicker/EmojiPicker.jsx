@@ -13,7 +13,7 @@ const EmojiPickerButton = ({ onEmojiSelect }) => {
     if (!showEmojiPicker && addButtonRef.current) {
       const rect = addButtonRef.current.getBoundingClientRect();                      // get the bounding client rect of the add button
       
-      const mainContent = document.querySelector('.main-content');                    // get the main-content element
+      const mainContent = document.querySelector('[data-main-content]');                    // get the main-content element
       const mainContentRect = mainContent ? mainContent.getBoundingClientRect() : null;            // get the bounding client rect of the main-content
       const leftPosition = mainContentRect ? mainContentRect.left + window.scrollX + 16 : rect.left + window.scrollX;       // get the left position of the main-content
       const topPosition = rect.bottom + window.scrollY + 8;                             // get the top position of the add button
