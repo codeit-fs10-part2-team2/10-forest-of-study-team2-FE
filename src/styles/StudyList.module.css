@@ -1,0 +1,40 @@
+.title {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #414141;
+}
+
+.cardList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(240px, 1fr));
+  gap: 24px;
+  overflow: hidden;
+}
+
+.inputBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.buttonBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.msgBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.emptyMessage {
+  color: #818181;
+  font-size: 14px;
+}
