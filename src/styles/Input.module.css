@@ -1,0 +1,105 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  position: relative;
+}
+
+.introInput {
+  height: 100px;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 16px;
+  color: #414141;
+  line-height: 50px;
+}
+
+.input {
+  display: block;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 6px 20px;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+.input::placeholder {
+  font-weight: 400;
+  color: #818181;
+} 
+
+.inputLabel {
+  padding: 12px 20px;
+}
+
+.inputSearch {
+  width: 245px;
+  padding-left: 35px;
+}
+
+.emoji {
+  position: absolute;
+  top: 9px;
+  left: 15px;
+  margin: 2px;
+  width: 14px;
+}
+
+.sortButton {
+  color: #818181;
+}
+
+.LoadMoreButton {
+  width: 260px;
+  padding: 17px;
+  color: #5c8352;
+  cursor: pointer;
+}
+
+.LoadMoreButton:hover {
+  background-color: #5c8352;
+  color: #fff;
+} 
+
+.LoadMoreButton:active {
+  transform: scale(0.99);
+}
+
+.thumbNailSelect {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap : 16px;
+  margin: 0 auto;
+}
+
+.thumbNailSelect > div {
+  cursor: pointer;
+  border-radius: 10px;
+  height: 120px;
+}
+
+.eyesButton {
+  position: absolute;
+  right: 20px;
+  bottom: 12px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.passwordBox {
+  width: 100%;
+  border: none;
+}
+
+.selectIcon {
+  position: absolute;
+  bottom: calc(50% - 16px);
+  left: calc(50% - 16px);
+}
+
+.test {
+  position: relative;
+}
