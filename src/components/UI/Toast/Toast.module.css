@@ -1,5 +1,5 @@
 /* Toast container fixed at the bottom right for visibility */
-.toast-container {
+.toastContainer {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -17,26 +17,26 @@
 }
 
 /* Exit animation: Slide out to the right */
-.toast-container.dismissing {
+.toastContainer.dismissing {
     animation: slideOut 0.5s ease-in forwards;
 }
 
-.toast-icon {
+.toastIcon {
     font-size: 1.2em;
     margin-right: 10px;
 }
 
-.toast-icon img {
+.toastIcon img {
     width: 20px;
     height: 20px;
 }
 
-.toast-message {
+.toastMessage {
     flex-grow: 1;
     font-weight: 500;
 }
 
-.toast-close {
+.toastClose {
     background: none;
     border: none;
     color: white;
@@ -47,20 +47,20 @@
     transition: opacity 0.2s;
 }
 
-.toast-close:hover {
+.toastClose:hover {
     opacity: 1;
 }
 
 /* Color variations */
-.toast-success {
+.toastSuccess {
     background-color: #4CAF50; /* Green */
 }
 
-.toast-error {
+.toastError {
     background-color: #F44336; /* Red */
 }
 
-.toast-info {
+.toastInfo {
     background-color: #2196F3; /* Blue */
 }
 

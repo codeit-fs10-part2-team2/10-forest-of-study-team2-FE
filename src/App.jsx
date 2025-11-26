@@ -1,6 +1,6 @@
 import React from 'react'
-import ViewStudyDetails from './pages/ViewStudyDetails'
-import Header from './components/Layouts/Header/header.jsx'
+import ViewStudyDetails from './pages/ViewStudyDetails/ViewStudyDetails.jsx'
+import Header from './components/Layouts/Header/Header.jsx'
 
 function App() {
   return (
