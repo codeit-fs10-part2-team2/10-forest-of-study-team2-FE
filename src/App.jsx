@@ -11,7 +11,7 @@ import ViewStudyDetails from './pages/ViewStudyDetails/ViewStudyDetails.jsx'
 function App() {
   return (
     <>
-      <div className="app">
+      <div className="app container">
         <Header />
         <Routes>
           <Route key='/' path='/' element={<LandingPage />}></Route>
