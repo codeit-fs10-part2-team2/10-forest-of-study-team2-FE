@@ -1,0 +1,31 @@
+#timer-page
+{
+	width: 1248px;
+	height: 774px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #FFFFFF;  
+    padding: 40px;
+}
+.title-page
+{
+    
+}
+
+/* tablet */
+@media (max-width: 744px)
+{
+	#timer-page
+	{   
+		height: 726px;
+	}
+}
+
+/* mobile */
+@media (max-width: 375px)
+{
+	#timer-page
+	{
+		
+	}
+}
