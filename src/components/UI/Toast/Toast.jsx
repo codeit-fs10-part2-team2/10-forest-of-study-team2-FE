@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import './Toast.css';
+import styles from './Toast.module.css';
 
 const Toast = ({ message, type = 'info', duration = 3000, onDismiss }) => {
 
@@ -31,11 +31,11 @@ const Toast = ({ message, type = 'info', duration = 3000, onDismiss }) => {
     if (!isVisible) return null;
     
     return (
-        <div className={`toast-container toast-${type}`}>
-            <div className="toast-icon"><img src={icons[type] || icons.info} alt={type} /></div>
-            <div className="toast-message">{message}</div>
-            <button className="toast-close" onClick={handleDismiss}>
-                &times;
+        <div className={styles.toastContainer}>
+            <div className={styles.toastIcon}><img src={icons[type] || icons.info} alt={type} /></div>
+            <div className={styles.toastMessage}>{message}</div>
+            <button className={styles.toastClose} onClick={handleDismiss}>
+                <img src={closeIcon} alt="close" />
             </button>
         </div>
     );

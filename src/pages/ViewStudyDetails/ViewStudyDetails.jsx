@@ -3,8 +3,8 @@ import Sticker from '../../components/UI/Sticker/Sticker';
 import arrowRightIcon from '../../assets/images/icons/arrow_right.svg';
 import EmojiPickerButton from '../../components/UI/EmojiPicker/EmojiPicker';
 import Button from '../../components/UI/Button/Button';
+import styles from './ViewStudyDetails.module.css';
 import { Link } from 'react-router-dom';
-import './ViewStudyDetails.css';
 
 const viewStudyDetailTitle = '연우의 개발공장';
 const studyDescription = 'Slow And Steady Wins The Race! 다들 오늘 하루도 화이팅 :)';
@@ -72,84 +72,84 @@ const ViewStudyDetails = () => {
   return (
     <>
     <main>
-        <div className="main-container">
-            <div className="header">
-                <div className="header-top">
+        <div className={styles.mainContainer}>
+            <div className={styles.header}>
+                <div className={styles.headerTop}>
                     <div 
                       ref={engagementMetricsRef}
-                      className={`engagement-metrics ${shouldWrap ? 'wrap-enabled' : ''}`}
+                      className={`${styles.engagementMetrics} ${shouldWrap ? styles.wrapEnabled : ''}`}
                     >
                         {emojiMetrics.map((item, index) => (
                           <Button 
                             key={index} 
                             ref={(el) => metricButtonsRef.current[index] = el}
-                            className="metric-btn"
+                            className={styles.metricBtn}
                           >
-                            <span className="icon">{item.emoji}</span> 
+                            <span className={styles.icon}>{item.emoji}</span> 
                             <span>{item.count}</span> {/* emoji count */}
                           </Button>
                         ))}
                         <EmojiPickerButton onEmojiSelect={handleEmojiSelect} /> {/* emoji picker button - used to select the emoji and add the emoji to the metrics */}
                     </div>
-                    <div className="action-buttons">
-                        <Link to="#" className="action-link">공유하기</Link> {/* share button */}
-                        <span className="divider">|</span>
-                        <Link to="#" className="action-link">수정하기</Link> {/* edit button */}
-                        <span className="divider">|</span>
-                        <Link to="#" className="action-link">스터디 삭제하기</Link> {/* delete button */}
+                    <div className={styles.actionButtons}>
+                        <Link to="#" className={styles.actionLink}>공유하기</Link> {/* share button */}
+                        <span className={styles.divider}>|</span>
+                        <Link to="#" className={styles.actionLink}>수정하기</Link> {/* edit button */}
+                        <span className={styles.divider}>|</span>
+                        <Link to="#" className={styles.actionLink}>스터디 삭제하기</Link> {/* delete button */}
                     </div>
                 </div>
 
-                <div className="title-section">
-                    <h1 className="main-title">{viewStudyDetailTitle}</h1> {/* study title */}
-                    <div className="nav-buttons">
-                        <Button className="nav-btn">
-                          <span className="nav-btn-text">오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className="arrow-right-icon" /></span> {/* habit button */}
+                <div className={styles.titleSection}>
+                    <h1 className={styles.mainTitle}>{viewStudyDetailTitle}</h1> {/* study title */}
+                    <div className={styles.navButtons}>
+                        <Button className={styles.navBtn}>
+                          <span className={styles.navBtnText}>오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span> {/* habit button */}
                         </Button>
-                        <Button className="nav-btn">
-                          <span className="nav-btn-text">오늘의 집중 <img src={arrowRightIcon} alt="arrow right" className="arrow-right-icon" /></span> {/* focus button */}
+                        <Button className={styles.navBtn}>
+                          <span className={styles.navBtnText}>오늘의 집중 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span> {/* focus button */}
                         </Button>
                     </div>
                 </div>
-                <div className="content-section">
-                    <div className="intro-section">
-                        <h2 className="intro-title">소개</h2>
-                        <p className="intro-text">{studyDescription}</p>
+                <div className={styles.contentSection}>
+                    <div className={styles.introSection}>
+                        <h2 className={styles.introTitle}>소개</h2>
+                        <p className={styles.introText}>{studyDescription}</p>
                     </div>
-                    <div className="points-section">
-                        <span className="points-label">현재까지 획득한 포인트</span> {/* points label */}
-                        <Button className="points-btn"> {/* points button */}
-                            <span className="leaf-icon">🌱</span>
-                            <span>{points}P 획득</span> {/* points button */}
+                    <div className={styles.pointsSection}>
+                        <span className={styles.pointsLabel}>현재까지 획득한 포인트</span> {/* points label */}
+                        <Button className={styles.pointsBtn}> {/* points button */}
+                            <span className={styles.leafIcon}>🌱</span>
+                            <span className={styles.pointsText}>{points}P 획득</span> {/* points button */}
                         </Button>
                     </div>
                 </div>
             </div>
 
-            <div className="main-content">
-                <div className="habit-tracker-card">
-                    <h2 className="card-title">습관 기록표</h2>
-                    <div className="habit-grid">
-                        <div className="grid-header">
-                        <div className="habit-header-cell"></div>
+            <div className={styles.mainContent} data-main-content>
+                <div className={styles.habitTrackerCard}>
+                    <h2 className={styles.cardTitle}>습관 기록표</h2>
+                    <div className={styles.habitGrid}>
+                        <div className={styles.gridHeader}>
+                        <div className={styles.habitHeaderCell}></div>
                         {days.map((day, index) => (
-                            <div key={index} className="day-header-cell">
+                            <div key={index} className={styles.dayHeaderCell}>
                             {day}
                             </div>
                         ))}
                         </div>
                         {habits.map(habit => (
-                        <div key={habit.id} className="habit-row">
-                            <div className="habit-name-cell">{habit.name}</div>
+                        <div key={habit.id} className={styles.habitRow}>
+                            <div className={styles.habitNameCell}>{habit.name}</div>
                             {days.map((day, dayIndex) => (
                             <div
                                 key={dayIndex} 
-                                className="habit-cell"
+                                className={styles.habitCell}
                                 onClick={() => toggleHabit(habit.id, dayIndex)} // call the toggleHabit function with the habit id and day index
                             >
                                 <Sticker 
                                   completed={habit.completed.includes(dayIndex)} // set the completion status
-                                  className={`habit-icon ${habit.completed.includes(dayIndex) ? 'completed' : 'incomplete'}`}
+                                  className={habit.completed.includes(dayIndex) ? styles.completed : styles.incomplete}
                                 />
                             </div>
                             ))}
