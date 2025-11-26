@@ -7,15 +7,18 @@ import { Route, Routes } from 'react-router';
 import TodayHabitPage from './pages/TodayHabitPage';
 import React from 'react'
 import ViewStudyDetails from './pages/ViewStudyDetails/ViewStudyDetails.jsx'
-import Header from './components/Layouts/Header/Header.jsx'
 
 function App() {
   return (
     <>
-        <div className="app">
-          <Header />
-          <ViewStudyDetails />
-        </div>
+      <div className="app">
+        <Header />
+        <Routes>
+          <Route key='/' path='/' element={<LandingPage />}></Route>
+          <Route key='/enrollment' path='/enrollment' element={<InsertionPage />}></Route>
+          <Route key='/detail' path='/detail/:studyId' element={<ViewStudyDetails />}></Route>
+        </Routes>
+      </div>
     </>
   )
 }
