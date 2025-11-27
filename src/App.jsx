@@ -10,13 +10,6 @@ import TodayHabitPage from './pages/TodayHabitPage';
 
 function App() {
 
-  useEffect(() => {
-    fetch('/health')
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
-  }, []);
-
   return (
     <>
       <div className="app container">
