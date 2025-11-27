@@ -2,7 +2,7 @@ import React from 'react';
 import InputLabel from '../molecule/InputLabel';
 import ThumbNailSelect from '../molecule/ThumbNailSelect';
 import templateStyles from '../../styles/Template.module.css';
-import styles from '../../styles/StudyInsertionPage.module.css';
+import styles from '../../styles/Input.module.css';
 
 //스터디 만들기 폼
 const StudyInsertion = () => {
