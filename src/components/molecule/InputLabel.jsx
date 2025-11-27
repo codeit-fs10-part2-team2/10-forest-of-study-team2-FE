@@ -1,6 +1,7 @@
 import styles from '../../styles/Input.module.css';
-import eyes from '../../images/icon/eyes1.svg'
-import showEyes from '../../images/icon/eyes2.svg'
+
+const eyes = '/images/icon/eyes1.svg';
+const showEyes = '/images/icon/eyes2.svg';
 
 
 const InputLabel = ({
