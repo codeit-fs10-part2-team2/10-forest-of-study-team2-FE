@@ -1,11 +1,13 @@
 .mainContainer {
-  max-width: 100vw;
+  max-width: 1200px;
   margin: 0 auto;
+  margin-top: 20px;
   background-color: #ffffff;
-  width: 100%;
+  width: 87%;
   box-sizing: border-box;
   border: 0px solid red;
   border-radius: 12px;
+  overflow-x: hidden;
   /* min-height: 100vh; */
 }
 
@@ -356,13 +358,46 @@
 @media (max-width: 768px) {
 
     .mainContainer {
+        max-width: 100%;
+        width: 100%;
         margin-left: 0px;
         margin-right: 0px;
+        margin-top: 20px;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .header {
+        padding: 16px;
+        width: 100%;
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .headerTop {
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    .contentSection {
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    .titleSection {
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
     }
 
   .gridHeader,
   .habitRow {
-    grid-template-columns: 150px repeat(7, 1fr);
+    grid-template-columns: 120px repeat(7, minmax(0, 1fr));
+    width: 100%;
+    max-width: 100%;
   }
 
   .engagementMetrics {
@@ -381,9 +416,6 @@
 
   /* habit tracker card padding */
   .mainContent {
-    /* margin-left: 8px;
-    margin-right: 8px; */
-
     margin-left: 0px;
     margin-right: 0px;
     padding-left: 16px;
@@ -391,8 +423,11 @@
     padding-bottom: 16px;
     margin-bottom: 15px;
     overflow-y: visible;
-    overflow-x: auto;
+    overflow-x: hidden;
     min-height: auto;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .habitTrackerCard {
@@ -416,21 +451,28 @@
 
 /* Mobile Screen Responsive (<= 499px) */
 @media (max-width: 499px) {
- 
+
     .mainContainer {
-        max-width: 100vh;
+        max-width: 100%;
+        width: 100%;
         margin: 0 auto;
+        margin-top: 20px;
+        margin-right: 10px;
         background-color: #ffffff;
         min-height: 100vh;
-        width: 100%;
         box-sizing: border-box;
         border: 1px solid red;
         border-radius: 12px;
-        padding: 0 8px;
+        padding: 0;
+        overflow-x: hidden;
     }
 
     .header {
-      padding: 20px 0;
+      padding: 16px;
+      width: 100%;
+      box-sizing: border-box;
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
     .headerTop {
@@ -438,6 +480,21 @@
       gap: 16px;
       align-items: stretch;
       min-height: 0;
+      width: 100%;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+
+    .contentSection {
+      width: 100%;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+
+    .titleSection {
+      width: 100%;
+      box-sizing: border-box;
+      overflow-x: hidden;
     }
 
 
@@ -486,11 +543,12 @@
         border-radius: 10px;
         /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
         border: 1px solid #0000001A;
-        padding-left: 0px;
-        padding-right: 0px;
-        overflow-x: auto;
+        padding-left: 8px;
+        padding-right: 8px;
+        overflow-x: hidden;
         overflow-y: visible;
         width: 100%;
+        max-width: 100%;
         min-width: 0;
         box-sizing: border-box;
         flex-shrink: 0;
@@ -499,23 +557,30 @@
      .habitTrackerCard {
        margin: 0 4px;
        overflow-x: auto;        /* scrollable in mobile screen(<= 499px) */
-       min-width: fit-content;  /* scrollable fit content width in mobile screen(<= 499px) */
+       min-width: 0;  /* allow flexible width in mobile screen(<= 499px) */
        width: 100%;
+       max-width: 100%;
        box-sizing: border-box;
      }
 
      .habitGrid {
-       min-width: 600px;  /* scrollable grid width in mobile screen(<= 499px) */
+       min-width: 0;  /* flexible grid width in mobile screen(<= 499px) */
+       width: 100%;
+       max-width: 100%;
      }
 
      .gridHeader,
      .habitRow {
-       min-width: 600px;  /* scrollable row width in mobile screen(<= 499px) */
+       min-width: 0;  /* flexible row width in mobile screen(<= 499px) */
+       width: 100%;
+       max-width: 100%;
      }
 
     .gridHeader,
     .habitRow {
-      grid-template-columns: 150px repeat(7, 1fr);
+      grid-template-columns: 100px repeat(7, minmax(0, 1fr));
+      width: 100%;
+      max-width: 100%;
     }
   
     .habitNameCell {
@@ -529,5 +594,211 @@
     .mainTitle {
       font-size: 24px;
     }
+
+    /* Habit List Modal - Mobile Responsive */
+    .habitItemWrapper {
+      width: 90%;
+    }
+
+    .habitAddButton {
+      width: 90%;
+    }
+
+    .habitButtonContainer {
+      flex-direction: row;
+      gap: 8px;
+      width: 100%;
+      padding: 0 8px;
+      box-sizing: border-box;
+    }
+
+    .habitButtonContainer button {
+      width: calc(50% - 4px);
+      min-width: 0;
+      flex: 1;
+    }
   }
+
+/* Habit List Modal Styles */
+.inputHabit {
+  width: 100%;
+}
+
+.habitListContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  padding: 4px 0;
+}
+
+
+.habitItemWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  width: 70%;
+}
+
+.habitListItem {
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Pretendard';
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F5F5F5;
+  border-radius: 20px;
+  padding: 8px 16px;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.habitListItem:hover {
+  background-color: #E8E8E8;
+}
+
+.habitName {
+  font-family: 'Pretendard';
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  flex: 1;
+  text-align: center;
+}
+
+.deleteIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.deleteIcon {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  /* background-color: #FF6B6B; */
+  border-radius: 50%;
+  padding: 4px;
+  transition: transform 0.2s;
+}
+
+.deleteIcon:hover {
+  transform: scale(1.1);
+}
+
+.habitInputForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.habitInputForm {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.habitInputForm input {
+  width: 100%;
+  padding: 12px 20px;
+  border: 2px solid #E0E0E0;
+  border-radius: 20px;
+  font-size: 16px;
+  background-color: #F5F5F5;
+}
+
+.habitListPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.habitAddButton {
+  background-color: #fff;
+  border: 2px solid #E0E0E0;
+  border-radius: 20px;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  z-index: 1;
+  font-size: 24px;
+  color: #666;
+  min-height: 48px;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.habitAddButton:hover {
+  background-color: #F9F9F9;
+  border-color: #4A90E2;
+  color: #4A90E2;
+}
+
+.habitButtonContainer {
+  display: flex;
+  gap: 12px;
+  margin-top: 0;
+  position: relative;
+  z-index: 1;
+  justify-content: center;
+}
+
+.habitButtonContainer button {
+  width: 200px;
+  min-width: 100px;
+  padding: 8px 16px;
+  border-radius: 18px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'EF_jejudoldam', sans-serif;
+  background-color: #E0E0E0;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-sizing: border-box;
+  line-height: 1.5;
+  height: auto;
+}
+
+/* Calculate button height: padding-top (8px) + line-height (14px * 1.5 = 21px) + padding-bottom (8px) = 37px */
+.habitButtonContainer {
+  margin-top: px;
+}
+
+.habitButtonContainer button:first-child {
+  background-color: #E0E0E0;
+  color: #333;
+}
+
+.habitButtonContainer button:first-child:hover {
+  background-color: #D0D0D0;
+}
+
+.habitButtonContainer button:last-child {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+.habitButtonContainer button:last-child:hover {
+  background-color: #45a049;
+}
   

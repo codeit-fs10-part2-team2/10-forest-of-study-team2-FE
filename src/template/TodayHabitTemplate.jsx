@@ -1,6 +1,6 @@
 import React from 'react';
-import TodayHabit from '../components/organism/TodayHabit';
 import styles from '../styles/Template.module.css';
+import TodayHabit from '../components/organism/TodayHabit';
 
 const TodayHabitTemplate = () => {
   return (

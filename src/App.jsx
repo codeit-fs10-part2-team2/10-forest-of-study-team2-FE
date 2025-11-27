@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import InsertionPage from './pages/InsertionPage';
-import LandingPage from './pages/LandingPage';
 import Header from './components/UI/Header';
 import { Route, Routes } from 'react-router';
+import LandingPage from './pages/LandingPage';
+import StudyInsertionPage from './pages/StudyInsertionPage';
+import StudyDetailTemplate from './template/StudyDetailTemplate';
+import StudyInsertionTemplate from './template/StudyInsertionTemplate';
 import TodayHabitPage from './pages/TodayHabitPage';
-import React from 'react'
-import ViewStudyDetails from './pages/ViewStudyDetails/ViewStudyDetails.jsx'
 
 function App() {
 
@@ -23,8 +23,10 @@ function App() {
         <Header />
         <Routes>
           <Route key='/' path='/' element={<LandingPage />}></Route>
-          <Route key='/enrollment' path='/enrollment' element={<InsertionPage />}></Route>
-          <Route key='/detail' path='/detail/:studyId' element={<ViewStudyDetails />}></Route>
+          <Route key='/enrollment' path='/enrollment' element={<StudyInsertionPage />}></Route>
+          <Route key='/enrollment/:studyId' path='/enrollment/:studyId' element={<StudyInsertionTemplate />}></Route>
+          <Route key='/detail' path='/detail/:studyId' element={<StudyDetailTemplate />}></Route>
+          <Route key='/todayHabit' path='/todayHabit' element={<TodayHabitPage />}></Route>
         </Routes>
       </div>
     </>

@@ -1,12 +1,16 @@
 import React from 'react';
+import { useParams } from 'react-router';
 import styles from '../styles/Template.module.css';
-import CreateForm from '../components/organism/CreateForm';
+import StudyInsertion from '../components/organism/StudyInsertion';
+import EditForm from '../components/organism/EditForm';
 
 const StudyInsertionTemplate = () => {
+  const { studyId } = useParams();
+  
   return (
-    <div className={styles.createWrapper}>
+    <div className={`${styles.wrapper} ${styles.StudyInsertionWrapper}`}>
       <div className={styles.container}>
-        <CreateForm />
+        {studyId ? <EditForm /> : <StudyInsertion />}
       </div>
     </div>
   );
