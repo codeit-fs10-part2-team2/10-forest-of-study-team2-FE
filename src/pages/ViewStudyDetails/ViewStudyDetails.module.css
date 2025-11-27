@@ -52,7 +52,7 @@
 }
 
 /* Child selectors when wrap-enabled is active */
-.engagementMetrics.wrapEnabled > :global(.emoji-picker-container) {
+.engagementMetrics.wrapEnabled > :global(.EmojiPickerContainer) {
   flex-basis: auto;
   width: auto;
   margin-top: 0;
@@ -219,6 +219,12 @@
   color: #333;
 }
 
+.todayActionLink {
+  position: absolute;
+  top: 2;
+  right: 0;
+}
+
 .divider {
   color: #ccc;
   font-size: 14px;
@@ -257,7 +263,7 @@
 }
 
 .mainContent {
-
+  
     margin-left: 0px;
     margin-right: 0px;
     padding-left: 16px;
@@ -278,12 +284,30 @@
   border: 1px solid #0000001A;
 }
 
+.todayHabitTrackerCard {
+  text-align: center;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .cardTitle {
   margin-left: 10px;
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 20px;
   color: #333;
+}
+
+.todayHabitCardTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+  min-width: 280px;
+  position: relative;
+  margin: 0 auto 15px;
 }
 
 .habitGrid {
@@ -429,7 +453,9 @@
     max-width: 100%;
     box-sizing: border-box;
   }
-  
+
+
+
   .habitTrackerCard {
     width: 100%;
     box-sizing: border-box;
@@ -453,26 +479,17 @@
 @media (max-width: 499px) {
 
     .mainContainer {
-        max-width: 100%;
-        width: 100%;
-        margin: 0 auto;
-        margin-top: 20px;
-        margin-right: 10px;
-        background-color: #ffffff;
-        min-height: 100vh;
-        box-sizing: border-box;
-        border: 1px solid red;
-        border-radius: 12px;
-        padding: 0;
-        overflow-x: hidden;
-    }
-
-    .header {
-      padding: 16px;
+      max-width: 1200px;
+      margin: 0 0 0 0;
+      margin-top: 20px;
+      margin-right: 0px;
+      background-color: #ffffff;
       width: 100%;
       box-sizing: border-box;
-      max-width: 100%;
+      border: 0px solid red;
+      border-radius: 12px;
       overflow-x: hidden;
+      /* min-height: 100vh; */
     }
 
     .headerTop {
@@ -543,12 +560,14 @@
         border-radius: 10px;
         /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
         border: 1px solid #0000001A;
-        padding-left: 8px;
+        margin-left: 10px;
+        margin-right: 10px;
+        padding-left: 0px;
         padding-right: 8px;
-        overflow-x: hidden;
+        overflow-x: visible;
         overflow-y: visible;
-        width: 100%;
-        max-width: 100%;
+        width: calc(100% - 20px);
+        max-width: calc(100% - 20px);
         min-width: 0;
         box-sizing: border-box;
         flex-shrink: 0;
@@ -556,6 +575,7 @@
 
      .habitTrackerCard {
        margin: 0 4px;
+       margin-bottom: 0px;
        overflow-x: auto;        /* scrollable in mobile screen(<= 499px) */
        min-width: 0;  /* allow flexible width in mobile screen(<= 499px) */
        width: 100%;
@@ -564,14 +584,14 @@
      }
 
      .habitGrid {
-       min-width: 0;  /* flexible grid width in mobile screen(<= 499px) */
+       min-width: 0;
        width: 100%;
        max-width: 100%;
      }
 
      .gridHeader,
      .habitRow {
-       min-width: 0;  /* flexible row width in mobile screen(<= 499px) */
+       min-width: 0;
        width: 100%;
        max-width: 100%;
      }
@@ -579,8 +599,9 @@
     .gridHeader,
     .habitRow {
       grid-template-columns: 100px repeat(7, minmax(0, 1fr));
-      width: 100%;
-      max-width: 100%;
+      min-width: 500px;  /* ensure grid is wider than container to enable scrolling */
+      width: auto;
+      max-width: none;
     }
   
     .habitNameCell {
@@ -632,6 +653,10 @@
   padding: 4px 0;
 }
 
+.todayHabitListContainer {
+  align-items: center;
+}
+
 
 .habitItemWrapper {
   display: flex;
@@ -673,6 +698,20 @@
   color: #333;
   flex: 1;
   text-align: center;
+}
+
+.todayHabitName:hover {
+  color: #fff;
+}
+
+.todayHabitListItem {
+  max-width: 400px;
+  min-width: 280px;
+}
+
+.todayHabitListItem:hover {
+  background-color: #99C08E;
+  color: #fff;
 }
 
 .deleteIconContainer {
