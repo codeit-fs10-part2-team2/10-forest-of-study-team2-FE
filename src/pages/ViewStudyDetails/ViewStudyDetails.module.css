@@ -219,6 +219,12 @@
   color: #333;
 }
 
+.todayActionLink {
+  position: absolute;
+  top: 2;
+  right: 0;
+}
+
 .divider {
   color: #ccc;
   font-size: 14px;
@@ -278,12 +284,30 @@
   border: 1px solid #0000001A;
 }
 
+.todayHabitTrackerCard {
+  text-align: center;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .cardTitle {
   margin-left: 10px;
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 20px;
   color: #333;
+}
+
+.todayHabitCardTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+  min-width: 280px;
+  position: relative;
+  margin: 0 auto 15px;
 }
 
 .habitGrid {
@@ -629,6 +653,10 @@
   padding: 4px 0;
 }
 
+.todayHabitListContainer {
+  align-items: center;
+}
+
 
 .habitItemWrapper {
   display: flex;
@@ -670,6 +698,20 @@
   color: #333;
   flex: 1;
   text-align: center;
+}
+
+.todayHabitName:hover {
+  color: #fff;
+}
+
+.todayHabitListItem {
+  max-width: 400px;
+  min-width: 280px;
+}
+
+.todayHabitListItem:hover {
+  background-color: #99C08E;
+  color: #fff;
 }
 
 .deleteIconContainer {
