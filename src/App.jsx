@@ -9,6 +9,14 @@ import React from 'react'
 import ViewStudyDetails from './pages/ViewStudyDetails/ViewStudyDetails.jsx'
 
 function App() {
+
+  useEffect(() => {
+    fetch('/health')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+  }, []);
+
   return (
     <>
       <div className="app container">
