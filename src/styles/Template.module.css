@@ -49,6 +49,28 @@
   transform: scale(0.99);
 }
 
+/* 스터디 수정하기 버튼 added by Taeyoung Seon, 11/26/2025 */
+.studyEdit {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: none;
+  background-color: #5c8352;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.studyEdit:active {
+  transform: scale(0.99);
+}
+
+.studyEdit:hover {
+  background-color: #41643a;
+}
+/* 스터디 수정하기 버튼 added by Taeyoung Seon, 11/26/2025 */
+
 .create {
   display: flex;
   flex-direction: column;

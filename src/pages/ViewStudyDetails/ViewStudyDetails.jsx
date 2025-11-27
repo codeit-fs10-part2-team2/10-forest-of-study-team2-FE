@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Sticker from '../../components/UI/Sticker/Sticker';
 import arrowRightIcon from '../../assets/images/icons/arrow_right.svg';
 import EmojiPickerButton from '../../components/UI/EmojiPicker/EmojiPicker';
 import Button from '../../components/UI/Button/Button';
+import HabitTrackerCard from '../../components/organism/HabitTrackerCard';
+import Modal from '../../components/UI/Model/Modal';
+import HabitList from '../../components/molecule/HabitList';
 import styles from './ViewStudyDetails.module.css';
 import { Link } from 'react-router-dom';
 
@@ -30,6 +32,7 @@ const ViewStudyDetails = () => {
   ]);
   
   const [shouldWrap, setShouldWrap] = useState(false);    // whether to wrap the engagement metrics buttons in mobile screen
+  const [showHabitModal, setShowHabitModal] = useState(false); // whether to show the habit list modal
   const engagementMetricsRef = useRef(null);              // engagement-metrics div - used to check the width of the div in mobile screen
   const metricButtonsRef = useRef([]);                    // metric-btn buttons - used to check the width of the buttons in mobile screen
 
@@ -47,6 +50,27 @@ const ViewStudyDetails = () => {
       }
       return habit;                    // return the original habit
     }))
+  }
+
+  const handleDeleteHabit = (habitId) => {
+    setHabits(habits.filter(habit => habit.id !== habitId));
+  }
+
+  const handleAddHabit = (habitName) => {
+    const newHabit = {
+      id: habits.length > 0 ? Math.max(...habits.map(h => h.id)) + 1 : 1,
+      name: habitName,
+      completed: []
+    };
+    setHabits([...habits, newHabit]);
+  }
+
+  const handleCancelHabit = () => {
+    // Reset form or close modal if needed
+  }
+
+  const handleCompleteEdit = () => {
+    setShowHabitModal(false);
   }
 
   const handleEmojiSelect = (emoji) => {
@@ -103,7 +127,7 @@ const ViewStudyDetails = () => {
                 <div className={styles.titleSection}>
                     <h1 className={styles.mainTitle}>{viewStudyDetailTitle}</h1> {/* study title */}
                     <div className={styles.navButtons}>
-                        <Button className={styles.navBtn}>
+                        <Button className={styles.navBtn} onClick={() => setShowHabitModal(true)}>
                           <span className={styles.navBtnText}>오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span> {/* habit button */}
                         </Button>
                         <Button className={styles.navBtn}>
@@ -127,39 +151,29 @@ const ViewStudyDetails = () => {
             </div>
 
             <div className={styles.mainContent} data-main-content>
-                <div className={styles.habitTrackerCard}>
-                    <h2 className={styles.cardTitle}>습관 기록표</h2>
-                    <div className={styles.habitGrid}>
-                        <div className={styles.gridHeader}>
-                        <div className={styles.habitHeaderCell}></div>
-                        {days.map((day, index) => (
-                            <div key={index} className={styles.dayHeaderCell}>
-                            {day}
-                            </div>
-                        ))}
-                        </div>
-                        {habits.map(habit => (
-                        <div key={habit.id} className={styles.habitRow}>
-                            <div className={styles.habitNameCell}>{habit.name}</div>
-                            {days.map((day, dayIndex) => (
-                            <div
-                                key={dayIndex} 
-                                className={styles.habitCell}
-                                onClick={() => toggleHabit(habit.id, dayIndex)} // call the toggleHabit function with the habit id and day index
-                            >
-                                <Sticker 
-                                  completed={habit.completed.includes(dayIndex)} // set the completion status
-                                  className={habit.completed.includes(dayIndex) ? styles.completed : styles.incomplete}
-                                />
-                            </div>
-                            ))}
-                        </div>
-                        ))}
-                    </div>
-                </div>
+              <HabitTrackerCard habits={habits} days={days} onToggleHabit={toggleHabit} />
             </div>
         </div>
     </main>
+    {showHabitModal && (
+      <Modal 
+        title="습관 목록"
+        onClose={() => setShowHabitModal(false)}
+        footer={
+          <div className={styles.habitButtonContainer}>
+            <Button onClick={() => setShowHabitModal(false)}>취소</Button>
+            <Button onClick={handleCompleteEdit}>수정 완료</Button>
+          </div>
+        }
+      >
+        <HabitList 
+          habits={habits}
+          onDeleteHabit={handleDeleteHabit}
+          onCancelHabit={handleCancelHabit}
+          onAddHabit={handleAddHabit}
+        />
+      </Modal>
+    )}
     </>
   )
 }
