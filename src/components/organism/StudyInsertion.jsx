@@ -53,7 +53,7 @@ const StudyInsertion = () => {
       </div>
 
       <div className={styles.buttonBox}>
-        <button className={styles.Button}>만들기</button>
+        <button className={styles.button}>만들기</button>
       </div>
     </section>
   );

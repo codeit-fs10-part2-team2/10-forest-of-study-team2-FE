@@ -3,7 +3,11 @@ import styles from '../../pages/ViewStudyDetails/ViewStudyDetails.module.css';
 import InputHabit from './InputHabit';
 import icDelete from '../../assets/images/icons/ic_delete.svg';
 
-
+/**
+ * HabitList component that displays the list of habits
+   updated by Taeyoung Seon, 11/27/2025
+   InputHabit component is included
+ */
 const HabitList = ({ habits = [], onDeleteHabit, onCancelHabit, onAddHabit }) => {
   return (
     <div className={styles.inputHabit}>

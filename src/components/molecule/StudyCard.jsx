@@ -5,7 +5,7 @@ import day from 'dayjs';
 import { Link } from 'react-router';
 
 //스터디카드
-const StudyCard = ({ nickName, studyName, description, createdAt, point, thumbNail = 0, stats = [] }) => {
+const StudyCard = ({ key, nickName, studyName, description, createdAt, point, thumbNail = 0, stats = [] }) => {
 
   //사용자의 스터디 생성일자를 '2025-11-11' -> 금일 기준 '00'일째인지 
   const dayDiff = (createdAt) => {
@@ -23,7 +23,7 @@ const StudyCard = ({ nickName, studyName, description, createdAt, point, thumbNa
 
   return (
     <section>
-      <Link to='/detail/1' className={styles.underlineLink}>
+      <Link to={`/detail/${key}`} className={styles.underlineLink}>
         <div className={`${styles.container} ${styles[`thumbnail${thumbNail}`]}`} > 
           <ThumbNail value={thumbNail}>
             <div className={styles.content}>

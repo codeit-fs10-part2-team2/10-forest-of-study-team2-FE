@@ -104,7 +104,7 @@
   position: relative;
 }
 
-/*만들기/수정하기 버튼*/
+/*>>>만들기/수정하기 버튼*/
 .buttonBox {
   display: flex;
   flex-direction: column;
@@ -130,4 +130,4 @@
 .button:active {
   transform: scale(0.99);
 }
-/*만들기/수정하기 버튼*/
+/*만들기/수정하기 버튼<<<*/
