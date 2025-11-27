@@ -14,7 +14,7 @@ const ThumbNailSelect = () => {
           const selected = index === 0;
           
           return (
-            <div className={styles.test} key={key}>
+            <div className={styles.selectBox} key={key}>
               <ThumbNail 
                 value={key}
                 selected={selected}

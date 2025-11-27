@@ -1,7 +1,8 @@
 import React from 'react';
 import InputLabel from '../molecule/InputLabel';
 import ThumbNailSelect from '../molecule/ThumbNailSelect';
-import styles from '../../styles/Template.module.css';
+import templateStyles from '../../styles/Template.module.css';
+import styles from '../../styles/Input.module.css';
 
 //스터디 만들기 폼
 const EditForm = () => {
@@ -21,7 +22,7 @@ const EditForm = () => {
 
   return (
     <section>
-      <h2 className={styles.title}>스터디 수정하기</h2>
+      <h2 className={templateStyles.title}>스터디 수정하기</h2>
 
       <div>
         {topInputFields.map((field, index) => ( 
@@ -51,8 +52,8 @@ const EditForm = () => {
         ))}
       </div>
 
-      <div className={styles.create}>
-        <button className={styles.studyEdit}>수정하기</button>
+      <div className={styles.buttonBox}>
+        <button className={styles.button}>수정하기</button>
       </div>
     </section>
   );
