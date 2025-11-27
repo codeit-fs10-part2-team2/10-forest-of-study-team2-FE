@@ -1,6 +1,7 @@
 import styles from './Header.module.css';
-import imgLogoForest from '../../../assets/images/logos/img_logo.svg';
 import React from 'react';
+
+const imgLogoForest = '/assets/images/logos/img_logo.svg';
 
 export default function Header() {
     return (

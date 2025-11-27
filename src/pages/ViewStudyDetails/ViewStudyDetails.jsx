@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import arrowRightIcon from '../../assets/images/icons/arrow_right.svg';
 import EmojiPickerButton from '../../components/UI/EmojiPicker/EmojiPicker';
+
+const arrowRightIcon = '/assets/images/icons/arrow_right.svg';
 import Button from '../../components/UI/Button/Button';
 import HabitTrackerCard from '../../components/organism/HabitTrackerCard';
 import Modal from '../../components/UI/Model/Modal';
@@ -128,10 +129,10 @@ const ViewStudyDetails = () => {
                     <h1 className={styles.mainTitle}>{viewStudyDetailTitle}</h1> {/* study title */}
                     <div className={styles.navButtons}>
                         <Button className={styles.navBtn} onClick={() => setShowHabitModal(true)}>
-                          <span className={styles.navBtnText}>오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span> {/* habit button */}
+                          <span className={styles.navBtnText}>오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
                         </Button>
                         <Button className={styles.navBtn}>
-                          <span className={styles.navBtnText}>오늘의 집중 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span> {/* focus button */}
+                          <span className={styles.navBtnText}>오늘의 집중 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
                         </Button>
                     </div>
                 </div>
