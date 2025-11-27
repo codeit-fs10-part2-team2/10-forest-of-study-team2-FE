@@ -2,10 +2,11 @@ import React from 'react';
 import Button from '../Button/Button';
 import InputText from '../InputText/InputText';
 import Label from '../Label/Label';
-import icEyeOpen from '../../assets/images/icons/eye_open.svg';
-import icEyeClose from '../../assets/images/icons/eye_closed.svg';
 import { useState } from 'react';
 import styles from './PasswordModal.module.css';
+
+const icEyeOpen = '/assets/images/icons/eye-open.svg';
+const icEyeClose = '/assets/images/icons/eye-closed.svg';
 
 const PasswordModal = ({ 
     password, 
