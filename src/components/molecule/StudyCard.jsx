@@ -2,6 +2,7 @@ import styles from '../../styles/StudyCard.module.css';
 import Emoji from '../atom/Emoji';
 import ThumbNail from '../atom/ThumbNail';
 import day from 'dayjs';
+import { Link } from 'react-router';
 
 //스터디카드
 const StudyCard = ({ nickName, studyName, description, createdAt, point, thumbNail = 0, stats = [] }) => {
@@ -22,26 +23,28 @@ const StudyCard = ({ nickName, studyName, description, createdAt, point, thumbNa
 
   return (
     <section>
-      <div className={`${styles.container} ${styles[`thumbnail${thumbNail}`]}`} > 
-        <ThumbNail value={thumbNail}>
-          <div className={styles.content}>
-            <div className={styles.titleBox}>
-              <h3 className={styles.title}>
-                <p className={styles.nickName}>{nickName}</p><p style={{ color: textColor }} className={styles.studyName}>의 {studyName}</p>
-              </h3>
-              {point && 
-              <div className={styles.badge}> 
-                <img className={styles.emoji} src='/src/images/icon/ic_point.svg' alt="Point" /> 
-                {point}P 획득 
-              </div>}
+      <Link to='/detail/1' className={styles.underlineLink}>
+        <div className={`${styles.container} ${styles[`thumbnail${thumbNail}`]}`} > 
+          <ThumbNail value={thumbNail}>
+            <div className={styles.content}>
+              <div className={styles.titleBox}>
+                <h3 className={styles.title}>
+                  <p className={styles.nickName}>{nickName}</p><p style={{ color: textColor }} className={styles.studyName}>의 {studyName}</p>
+                </h3>
+                {point && 
+                <div className={styles.badge}> 
+                  <img className={styles.emoji} src='/src/images/icon/ic_point.svg' alt="Point" /> 
+                  {point}P 획득 
+                </div>}
+              </div>
+              <p style={{ color: textColor }} className={styles.meta}>{date}일째 진행 중</p>
+              <p style={{ color: textColor }} className= {styles.description}>{description}</p>
             </div>
-            <p style={{ color: textColor }} className={styles.meta}>{date}일째 진행 중</p>
-            <p style={{ color: textColor }} className= {styles.description}>{description}</p>
-          </div>
-          
-          <Emoji stats={stats} />
-        </ThumbNail>
-      </div>
+            
+            <Emoji stats={stats} />
+          </ThumbNail>
+        </div>
+      </Link>
     </section>
   );
 }

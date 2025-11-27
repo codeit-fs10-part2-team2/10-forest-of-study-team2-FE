@@ -1,10 +1,11 @@
 import React from 'react';
 import InputLabel from '../molecule/InputLabel';
 import ThumbNailSelect from '../molecule/ThumbNailSelect';
-import styles from '../../styles/Template.module.css';
+import templateStyles from '../../styles/Template.module.css';
+import styles from '../../styles/StudyInsertionPage.module.css';
 
 //스터디 만들기 폼
-const CreateForm = () => {
+const StudyInsertion = () => {
   
   //'배경선택' 전(위) 위치한 text input
   const topInputFields = [
@@ -21,7 +22,7 @@ const CreateForm = () => {
 
   return (
     <section>
-      <h2 className={styles.title}>스터디 만들기</h2>
+      <h2 className={templateStyles.title}>스터디 만들기</h2>
 
       <div>
         {topInputFields.map((field, index) => ( 
@@ -51,11 +52,11 @@ const CreateForm = () => {
         ))}
       </div>
 
-      <div className={styles.create}>
-        <button className={styles.studyCreate}>만들기</button>
+      <div className={styles.StudyInsertionBox}>
+        <button className={templateStyles.Button}>만들기</button>
       </div>
     </section>
   );
 };
 
-export default CreateForm;
+export default StudyInsertion;

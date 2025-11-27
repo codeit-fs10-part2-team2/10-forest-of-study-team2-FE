@@ -1,12 +1,12 @@
+import React from 'react'
 import { useState } from 'react'
 import './App.css'
-import InsertionPage from './pages/InsertionPage';
-import LandingPage from './pages/LandingPage';
 import Header from './components/UI/Header';
 import { Route, Routes } from 'react-router';
-import TodayHabitPage from './pages/TodayHabitPage';
-import React from 'react'
+import LandingPage from './pages/LandingPage';
+import StudyInsertionPage from './pages/StudyInsertionPage';
 import ViewStudyDetails from './pages/ViewStudyDetails/ViewStudyDetails.jsx'
+import TodayHabitPage from './pages/TodayHabitPage';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Header />
         <Routes>
           <Route key='/' path='/' element={<LandingPage />}></Route>
-          <Route key='/enrollment' path='/enrollment' element={<InsertionPage />}></Route>
+          <Route key='/enrollment' path='/enrollment' element={<StudyInsertionPage />}></Route>
           <Route key='/detail' path='/detail/:studyId' element={<ViewStudyDetails />}></Route>
         </Routes>
       </div>

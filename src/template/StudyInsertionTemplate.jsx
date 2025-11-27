@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from '../styles/Template.module.css';
-import CreateForm from '../components/organism/CreateForm';
+import StudyInsertion from '../components/organism/StudyInsertion';
 
 const StudyInsertionTemplate = () => {
   return (
-    <div className={styles.createWrapper}>
+    <div className={`${styles.wrapper} ${styles.StudyInsertionWrapper}`}>
       <div className={styles.container}>
-        <CreateForm />
+        <StudyInsertion />
       </div>
     </div>
   );

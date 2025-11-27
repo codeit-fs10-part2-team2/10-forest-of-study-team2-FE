@@ -6,7 +6,7 @@
   overflow: hidden;
   border: 1px solid rgba(131, 131, 131, 0.5);
   border-radius: 20px;
-
+  cursor: pointer;
 }
 
 .thumbNail {
@@ -43,6 +43,10 @@
 .thumbnail6 .nickName,
 .thumbnail7 .nickName {
   color: #fff;
+}
+
+.underlineLink {
+  text-decoration: none;
 }
 
 .content {

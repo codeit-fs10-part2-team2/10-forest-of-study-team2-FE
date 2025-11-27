@@ -39,7 +39,7 @@
   padding-left: 35px;
 }
 
-.emoji {
+.iconSearch {
   position: absolute;
   top: 9px;
   left: 15px;
@@ -66,6 +66,8 @@
 .LoadMoreButton:active {
   transform: scale(0.99);
 }
+
+
 
 .thumbNailSelect {
   display: grid;
@@ -100,6 +102,6 @@
   left: calc(50% - 16px);
 }
 
-.test {
+.selectBox {
   position: relative;
 }
