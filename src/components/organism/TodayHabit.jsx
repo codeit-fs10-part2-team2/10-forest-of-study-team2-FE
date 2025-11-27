@@ -2,7 +2,7 @@ import React from 'react';
 import templateStyles from '../../styles/Template.module.css';
 import styles from '../../pages/ViewStudyDetails/ViewStudyDetails.module.css';
 import Button from '../UI/Button/Button';
-import arrowRightIcon from '../../assets/images/icons/arrow_right.svg';
+import arrowRightIcon from '/public/assets/images/icons/arrow_right.svg';
 import day from 'dayjs';
 
 const viewStudyDetailTitle = '연우의 개발공장';
