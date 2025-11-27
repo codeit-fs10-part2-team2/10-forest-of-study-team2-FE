@@ -1,4 +1,4 @@
-.logo-forest-container {
+.logoForestContainer {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -7,7 +7,7 @@
     padding-bottom: 20px;
 }
   
-.logo-forest { 
+.logoForest { 
     width: 182px;
     height: 60px;
 }
