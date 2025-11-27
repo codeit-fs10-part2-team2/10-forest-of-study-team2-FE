@@ -19,6 +19,7 @@ function App() {
           <Route key='/enrollment' path='/enrollment' element={<StudyInsertionPage />}></Route>
           <Route key='/enrollment/:studyId' path='/enrollment/:studyId' element={<StudyInsertionTemplate />}></Route>
           <Route key='/detail' path='/detail/:studyId' element={<StudyDetailTemplate />}></Route>
+          <Route key='/todayHabit' path='/todayHabit' element={<TodayHabitPage />}></Route>
         </Routes>
       </div>
     </>
