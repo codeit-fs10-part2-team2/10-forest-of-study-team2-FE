@@ -23,12 +23,17 @@
   padding: 6px 20px;
   font-size: 14px;
   background-color: #fff;
+  outline: none;
 }
 
 .input::placeholder {
   font-weight: 400;
   color: #818181;
 } 
+
+.input:focus {
+  border: 2px solid red; /* 포커스 시 테두리 색상 변경 */
+}
 
 .inputLabel {
   padding: 12px 20px;
@@ -56,6 +61,7 @@
   padding: 17px;
   color: #5c8352;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .LoadMoreButton:hover {
@@ -77,7 +83,16 @@
 .thumbNailSelect > div {
   cursor: pointer;
   border-radius: 10px;
-  height: 120px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+/* Mobile - 2열 4행으로 변경 */
+@media (max-width: 767px) {
+  .thumbNailSelect {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
 }
 
 .eyesButton {
@@ -92,6 +107,18 @@
 .passwordBox {
   width: 100%;
   border: none;
+  outline: none;
+}
+
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* 비밀번호 wrapper의 포커스 스타일 (div에 적용) */
+.passwordWrapper:focus-within {
+  border-color: red;
 }
 
 .selectIcon {
@@ -109,6 +136,7 @@
   display: flex;
   flex-direction: column;
   margin: 40px auto 0;
+  overflow: hidden;
 }
 
 .button {
