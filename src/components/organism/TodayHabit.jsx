@@ -1,7 +1,8 @@
 import React from 'react';
+import EmptyState from '../UI/EmptyState';
+import Button from '../UI/Button/Button';
 import templateStyles from '../../styles/Template.module.css';
 import styles from '../../pages/ViewStudyDetails/ViewStudyDetails.module.css';
-import Button from '../UI/Button/Button';
 import arrowRightIcon from '/public/assets/images/icons/arrow_right.svg';
 import day from 'dayjs';
 
@@ -42,15 +43,13 @@ const TodayHabit = () => {
         </Button>
       </div>
     </section>
-    <section style={{ marginTop: '20px' }}>
+    <section className={styles.habitSection}>
     <div className={`${styles.habitTrackerCard} ${styles.todayHabitTrackerCard}`}>
       <div>
         <h3 className={styles.todayHabitCardTitle}>오늘의 습관<span className= {`${styles.actionLink} ${styles.todayActionLink}`}>목록 수정</span></h3>
       </div>
       {habits.length === 0 ? (
-        <div className={templateStyles.msgBox}>
-          <p className={templateStyles.emptyMessage}>아직 습관이 없어요<br/>목록 수정을 눌러 습관을 생성해보세요</p>
-        </div>
+        <EmptyState message="아직 조회한 스토리가 없어요" />
       ) : (
         <div className={`${styles.habitListContainer} ${styles.todayHabitListContainer}`}>
           {habits.map((habit) => (
