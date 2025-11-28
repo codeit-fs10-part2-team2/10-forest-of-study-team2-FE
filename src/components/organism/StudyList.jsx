@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import StudyCard from '../molecule/StudyCard';
+import EmptyState from '../UI/EmptyState';
 import templateStyles from '../../styles/Template.module.css';
 import styles from '../../styles/LandingPage.module.css';
 import users from '../../users.json'
@@ -9,38 +10,39 @@ import LoadMoreButton from '../atom/LoadMoreButton';
 
 //스터디 리스트
 const StudyList = () => {
+  const [displayCount, setDisplayCount] = useState(6);
+
+  // 더보기 클릭 시 6개씩 추가
+  const handleLoadMore = () => {
+    setDisplayCount(prevCount => prevCount + 6);
+  };
+
+  // 표시할 데이터
+  const displayedUsers = users.slice(0, displayCount);
 
   return (
     <section>
       <h2 className={templateStyles.title}>스터디 둘러보기</h2>
 
-      {users.length === 0 ? (  //사용자 데이터가 없을때
-        <div className={templateStyles.msgBox}>
-          <p className={templateStyles.emptyMessage}>아직 둘러 볼 스터디가 없어요</p>
-        </div>
-      ) : (  //사용자 데이터가 있을때
+      {users.length === 0 ? (  
+        <EmptyState message="아직 둘러 볼 스터디가 없어요" />
+      ) : (  
         <>
           <div className={styles.inputBox}>
             <InputSearch />
             <SortButton />
           </div>
-          <div className={styles.cardList}>
-            {users.map((user) => (
-              <StudyCard 
-                key={user.id}
-                nickName={user.nickName}
-                studyName={user.studyName}
-                description={user.description}
-                createdAt={user.createdAt}
-                point={user.point}
-                thumbNail={user.thumbNail}
-                stats={user.stats}
-              />
+          <div className={`${styles.cardList} ${styles.list}`}>
+            {displayedUsers.map((user) => (
+              <StudyCard key={user.id} {...user} />
             ))}
           </div>
-          <div className={styles.buttonBox}>
-            <LoadMoreButton />
-          </div>
+
+          {displayCount < users.length && (
+            <div className={styles.buttonBox}>
+              <LoadMoreButton onClick={handleLoadMore} />
+            </div>
+          )}
         </>
       )}
     </section>

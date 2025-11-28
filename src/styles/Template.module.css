@@ -11,9 +11,32 @@
   padding: 32px 24px; 
 }
 
+/* iPad Mini */
+@media (max-width: 1023px) {
+  .wrapper {
+    width: 90%
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .wrapper {
+    width: 95%;
+    padding: 20px 16px;
+  }
+}
+
 .StudyInsertionWrapper {
   max-width: 696px;
   min-width: 450px;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .StudyInsertionWrapper {
+    min-width: 100%;
+    max-width: 100%;
+  }
 }
 
 .container {
@@ -25,6 +48,15 @@
   border-radius: 10px;
   margin-bottom: 40px;
   min-height: 320px; 
+}
+
+/* Mobile */
+@media (max-width:767px) {
+  .container {
+    padding: 24px;
+    margin-bottom: 24px;
+    min-height: auto;
+  }
 }
 
 .msgBox {
@@ -39,9 +71,24 @@
   font-size: 14px;
 }
 
+/* Mobile */
+@media (max-width: 767px) {
+  .emptyMessage {
+    font-size: 12px;
+  }
+}
+
 .title {
   font-size: 20px;
   font-weight: 800;
   margin-bottom: 20px;
   color: #414141;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .title {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
 }
