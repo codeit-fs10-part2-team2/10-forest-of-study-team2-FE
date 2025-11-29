@@ -8,19 +8,10 @@ body {
   min-width: 480px;
 }
 
-/* ipad mini */
-@media (max-width: 1023px) {
-  .container {
-    max-width: 100%;
-    min-width: 100%;
-  }
-} 
 
-/* mobile */
-@media (max-width: 767px) {
+@media (max-width: 499px) {
   .container {
-    max-width: 100%;
-    min-width: 100%;
+    min-width: 0;
     overflow-x: hidden;
   }
 } 

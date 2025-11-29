@@ -1,4 +1,6 @@
 import React from 'react';
+import icStickerGreen from '/assets/images/icons/ic_sticker_green.svg';
+import icIncomplete from '/assets/images/icons/ic_incomplete.svg';
 import styles from './Sticker.module.css';
 
 const icStickerGreen = '/images/icon/ic_sticker_green.svg';
