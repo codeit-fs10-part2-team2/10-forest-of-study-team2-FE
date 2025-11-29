@@ -2,10 +2,10 @@ import React from 'react';
 import styles from '../../styles/Input.module.css';
 
 //더보기 버튼
-const LoadMoreButton = () => {
+const LoadMoreButton = ({ onClick }) => {
   return (
     <>
-      <button className={`${styles.input} ${styles.LoadMoreButton}`}>더보기</button>
+      <button className={`${styles.input} ${styles.LoadMoreButton}`} onClick={onClick}>더보기</button>
     </>
   );
 };

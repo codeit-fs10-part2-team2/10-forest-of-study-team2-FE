@@ -7,6 +7,9 @@ import icEyeClose from '/public/assets/images/icons/eye-closed.svg';
 import { useState } from 'react';
 import styles from './PasswordModal.module.css';
 
+const icEyeOpen = '/assets/images/icons/eye-open.svg';
+const icEyeClose = '/assets/images/icons/eye-closed.svg';
+
 const PasswordModal = ({ 
     password, 
     onPasswordChange, 
