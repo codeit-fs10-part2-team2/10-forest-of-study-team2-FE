@@ -132,7 +132,7 @@ const ViewStudyDetails = () => {
                           <span className={styles.navBtnText}>오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
                         </Button>
                         <Button className={styles.navBtn}>
-                          <span className={styles.navBtnText}>오늘의 집중 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
+                          <span className={styles.navBtnText}><Link to="/timer">스터디 삭제하기</Link> <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
                         </Button>
                     </div>
                 </div>
