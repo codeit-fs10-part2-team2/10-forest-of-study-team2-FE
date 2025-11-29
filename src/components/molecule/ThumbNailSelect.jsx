@@ -1,7 +1,7 @@
 import React from 'react';
 import ThumbNail, { images } from '../atom/ThumbNail';
 import styles from '../../styles/Input.module.css';
-import selectIcon from '/assets/images/icon/ic_bg_selected.svg'
+import selectIcon from '/public/assets/images/icon/ic_bg_selected.svg'
 
 //스터디만들기에서 배경이미지 선택
 const ThumbNailSelect = () => {
