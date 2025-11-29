@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../pages/ViewStudyDetails/ViewStudyDetails.module.css';
 import InputHabit from './InputHabit';
-import icDelete from '../../assets/images/icons/ic_delete.svg';
+import icDelete from '/public/assets/images/icons/ic_delete.svg';
 
 /**
  * HabitList component that displays the list of habits

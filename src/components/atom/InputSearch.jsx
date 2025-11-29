@@ -5,7 +5,7 @@ import styles from '../../styles/Input.module.css';
 const InputSearch = ({ type = 'text', value, onChange}) => {
   return (
     <div className={styles.container}>
-      <img className={styles.iconSearch} src='/src/images/icon/ic_search.svg' alt="search" />
+      <img className={styles.iconSearch} src='/public/assets/images/icon/ic_search.svg' alt="search" />
       <input 
         className={`${styles.input} ${styles.inputSearch}`}
         type={type}

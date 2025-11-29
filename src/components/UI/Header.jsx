@@ -1,7 +1,7 @@
 import React from 'react';
 import TemplateStyles from '../../styles/Template.module.css'
 import styles from '../../styles/Input.module.css'
-import logo from '../../images/logo/img_logo.svg'
+import logo from '/assets/images/logos/img_logo.svg'
 import { Link } from 'react-router';
 
 //로고, 스터디만들기 헤더 고정 //스터디만들기 링크는 홈페이지에서만 보이게 하고 싶음
