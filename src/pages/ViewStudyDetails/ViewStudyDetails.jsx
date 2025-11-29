@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import EmojiPickerButton from '../../components/UI/EmojiPicker/EmojiPicker';
+
+const arrowRightIcon = '/assets/images/icons/arrow_right.svg';
 import Button from '../../components/UI/Button/Button';
 import HabitTrackerCard from '../../components/organism/HabitTrackerCard';
 import PasswordModal from '../../components/UI/PasswordModal/PasswordModal';
