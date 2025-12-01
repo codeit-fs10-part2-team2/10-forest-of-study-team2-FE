@@ -1,0 +1,132 @@
+.timerWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    gap: 40px;
+}
+
+h3.initialTime {
+    border: 1px solid #0000001A;
+    border-radius: 48px;
+    padding: 5px 10px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #414141;
+    font-family: Pretendard, sans-serif;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.timerDisplay {
+    font-size: 90px;
+    font-weight: 800;
+    color: #414141;
+    font-family: Pretendard, sans-serif;
+    line-height: 1.2;
+    text-align: center;
+}
+
+
+.timerControlButtonWrapper { 
+    display: 'flex';
+    align-items: center;
+    gap: '16px';
+}
+
+.startButton {
+    font-family: 'Pretendard';
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #99C08E;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 32px;
+    min-width: 200px;
+    height: auto;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.startButton:hover {
+  background-color: #7FA024;
+}
+
+.startButton:active {
+  background-color: #6B8A1F;
+}
+
+.playIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.startText {
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: Pretendard, sans-serif;
+  line-height: 1;
+}
+
+.startButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.startButton:disabled:hover {
+  background-color: #99C08E;
+}
+
+.iconButton {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.iconButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.iconButton img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+
+@media (max-width: 480px) {
+  .startButton {
+    min-width: 100px;
+    padding: 10px 16px;
+  }
+
+  .startText {
+    font-size: 14px;
+  }
+
+  .playIcon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .iconButton {
+    width: 32px;
+    height: 32px;
+  }
+}
+

@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import EmojiPickerButton from '../../components/UI/EmojiPicker/EmojiPicker';
+
+const arrowRightIcon = '/assets/images/icons/arrow_right.svg';
 import Button from '../../components/UI/Button/Button';
 import HabitTrackerCard from '../../components/organism/HabitTrackerCard';
 import PasswordModal from '../../components/UI/PasswordModal/PasswordModal';
@@ -7,8 +9,6 @@ import styles from './ViewStudyDetails.module.css';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-// Public folder assets: use path without /public prefix
-const arrowRightIcon = '/assets/images/icons/arrow_right.svg';
 const viewStudyDetailTitle = '연우의 개발공장';
 const studyDescription = 'Slow And Steady Wins The Race! 다들 오늘 하루도 화이팅 :)';
 
@@ -120,7 +120,7 @@ const ViewStudyDetails = () => {
                           <span className={styles.navBtnText}>오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
                         </Button>
                         <Button className={styles.navBtn}>
-                          <span className={styles.navBtnText}>오늘의 집중 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
+                          <span className={styles.navBtnText}><Link to="/timer" className={styles.actionLink}>오늘의 집중</Link> <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
                         </Button>
                     </div>
                 </div>
