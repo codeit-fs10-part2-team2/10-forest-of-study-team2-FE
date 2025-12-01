@@ -9,8 +9,6 @@ import styles from './ViewStudyDetails.module.css';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-// Public folder assets: use path without /public prefix
-const arrowRightIcon = '/assets/images/icons/arrow_right.svg';
 const viewStudyDetailTitle = '연우의 개발공장';
 const studyDescription = 'Slow And Steady Wins The Race! 다들 오늘 하루도 화이팅 :)';
 
