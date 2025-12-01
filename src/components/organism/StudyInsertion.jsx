@@ -12,42 +12,37 @@ const StudyInsertion = () => {
     { label: '닉네임', placeholder: '닉네임을 입력해 주세요', type: 'text'},
     { label: '스터디 이름', placeholder: '스터디 이름을 입력해 주세요', type: 'text'},
     { label: '소개', placeholder: '소개 멘트를 작성해 주세요', type: 'text'},
-  ]
+  ];
 
   //'배경선택' 후(아래) 위치한 password input
   const bottomInputFields = [
     { label: '비밀번호', placeholder: '비밀번호를 입력해 주세요', type: 'password', error: false, errorMessage: ''},
     { label: '비밀번호 확인', placeholder: '비밀번호를 다시 한 번 입력해 주세요', type: 'password', error: false, errorMessage: '비밀번호가 일치하지 않습니다'}
-  ]
+  ];
+
+  const renderInputFields = (fields) => (
+    <div>
+      {fields.map((field, index) => (
+        <InputLabel key={index} {...field} />
+      ))}
+    </div>
+  );
 
   return (
     <section>
       <h2 className={templateStyles.title}>스터디 만들기</h2>
 
-      <div>
-        {topInputFields.map((field, index) => ( 
-          <InputLabel 
-            key={index}
-            label={field.label}
-            type={field.type}
-            placeholder={field.placeholder}
-          />
-        ))}
-      </div>
+      {renderInputFields(topInputFields)}
 
         <ThumbNailSelect />
 
       <div>
-        {bottomInputFields.map((field, index) => ( 
+        {bottomInputFields.map((field, index) => (
           <InputLabel 
             key={index}
-            label={field.label}
-            type={field.type}
-            placeholder={field.placeholder}
-            error={field.error}
-            errorMessage={field.errorMessage}
+            {...field}
             showPassword={false}
-            onTogglePassword={()=>{}} //비밀번호 숨기기/보기
+            onTogglePassword={() => {}}
           />
         ))}
       </div>

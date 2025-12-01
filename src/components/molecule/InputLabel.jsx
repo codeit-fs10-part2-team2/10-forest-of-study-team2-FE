@@ -31,7 +31,7 @@ const InputLabel = ({
         /> 
       ) : type === 'password' ? (
         //input type : 'password'일 때 
-        <div className={`${styles.input} ${styles.inputLabel}`}>
+        <div className={`${styles.input} ${styles.inputLabel} ${styles.passwordWrapper}`}>
           <input 
             className={styles.passwordBox}
             type={showPassword ? 'password' : 'text'} //showPassword(false)가 참이면 숨기기 / 아니면 보기
