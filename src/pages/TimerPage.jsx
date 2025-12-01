@@ -33,7 +33,13 @@ const TimerPage = () => {
   };
 
   return (
-    <>
+    <div  
+      style={{
+      backgroundColor: "white",     // ← 배경 하얗게
+      minHeight: "100vh",           // ← 화면 전체 채움
+   }}
+
+    >
     
     
     <ul style={{ textAlign: "center", padding: "70px" }}>
@@ -86,7 +92,7 @@ const TimerPage = () => {
  
     </ul>
   
-    </>
+    </div>
   );
 };
 
