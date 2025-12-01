@@ -13,14 +13,6 @@ function App() {
 
   return (
     <>
-
-    
-    <TimerPage />
-    
-    
-    </>  
-  /*  
-    <>
       <div className="app container">
         <Header />
         <Routes>
@@ -29,11 +21,10 @@ function App() {
           <Route path='/enrollment/:studyId' element={<StudyInsertionTemplate />}/>
           <Route path='/detail/:studyId' element={<StudyDetailTemplate />}/>
           <Route path='/todayHabit' element={<TodayHabitPage />}/>
-          <Route path='/timer' element={<Timer />}/>
+          <Route path='/timer' element={<TimerPage />}/>
         </Routes>
       </div>
     </>
-    */  
   )
 }
 
