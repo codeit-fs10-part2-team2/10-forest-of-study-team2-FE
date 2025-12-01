@@ -7,10 +7,19 @@ import StudyInsertionPage from './pages/StudyInsertionPage';
 import StudyDetailTemplate from './template/StudyDetailTemplate';
 import StudyInsertionTemplate from './template/StudyInsertionTemplate';
 import TodayHabitPage from './pages/TodayHabitPage';
+import TimerPage from './pages/TimerPage';
 
 function App() {
 
   return (
+    <>
+
+    
+    <TimerPage />
+    
+    
+    </>  
+  /*  
     <>
       <div className="app container">
         <Header />
@@ -23,6 +32,7 @@ function App() {
         </Routes>
       </div>
     </>
+    */  
   )
 }
 
