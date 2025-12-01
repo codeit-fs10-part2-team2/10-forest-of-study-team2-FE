@@ -35,9 +35,9 @@ const TimerPage = () => {
   return (
     <div  
       style={{
-      backgroundColor: "white",     // ← 배경 하얗게
-      minHeight: "100vh",           // ← 화면 전체 채움
-   }}
+      backgroundColor: "white",     
+      minHeight: "100vh",           
+   }}//배경 화면 하얗게 하기
 
     >
     

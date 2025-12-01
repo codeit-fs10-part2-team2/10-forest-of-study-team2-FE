@@ -9,6 +9,12 @@
   cursor: pointer;
 }
 
+@media (max-width: 767px) {
+  .container {
+    min-width: 100%;
+  }
+}
+
 .thumbNail {
   display: flex;
   flex-direction: column;
@@ -20,6 +26,12 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+@media (max-width: 767px) {
+  .thumbNail {
+    padding: 20px;
+  }
 }
 
 .thumbnail0 .nickName {
@@ -111,7 +123,7 @@
   display: flex;
   gap: 8px;
   z-index: 1;
-  margin-top: auto
+  margin-top: auto;
 }
 
 .stat {

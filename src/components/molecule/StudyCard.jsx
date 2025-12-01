@@ -33,7 +33,7 @@ const StudyCard = ({ key, nickName, studyName, description, createdAt, point, th
                 </h3>
                 {point && 
                 <div className={styles.badge}> 
-                  <img className={styles.emoji} src="/images/icon/ic_point.svg" alt="Point" /> 
+                  <img className={styles.emoji} src='/assets/images/icon/ic_point.svg' alt="Point" /> 
                   {point}P 획득 
                 </div>}
               </div>
