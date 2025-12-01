@@ -85,10 +85,59 @@
   color: #414141;
 }
 
-/* Mobile */
-@media (max-width: 767px) {
+/* Mobile Screen Responsive (<= 499px) added by opuswork */
+@media (max-width: 499px) {
+  .container {
+    width: 100%;
+    padding: 24px 16px;
+    overflow-x: hidden;
+  }
+
+  .StudyInsertionWrapper {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .wrapper {
+    width: 100%;
+    padding: 16px;
+  }
+
   .title {
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 16px;
   }
+
+  /* EditForm responsive styles */
+  .container section {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .container section > div {
+    margin-bottom: 16px;
+  }
+
+  .container section > div:last-of-type {
+    margin-bottom: 0;
+  }
+
+  /* Ensure form elements don't overflow */
+  .container section > div > div {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Thumbnail grid responsive - 2 columns on mobile instead of 4 */
+  .container :global([class*="thumbNailSelect"]) {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .container :global([class*="thumbNailSelect"]) > div {
+    height: 100px !important;
+  }
 }
+
+/* Mobile Screen Responsive (<= 499px) added by opuswork */

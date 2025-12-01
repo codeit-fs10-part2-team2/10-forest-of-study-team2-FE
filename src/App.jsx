@@ -7,7 +7,7 @@ import StudyInsertionPage from './pages/StudyInsertionPage';
 import StudyDetailTemplate from './template/StudyDetailTemplate';
 import StudyInsertionTemplate from './template/StudyInsertionTemplate';
 import TodayHabitPage from './pages/TodayHabitPage';
-import Timer from './pages/Timer/Timer';
+import TimerPage from './pages/TimerPage';
 
 function App() {
 
@@ -21,7 +21,7 @@ function App() {
           <Route path='/enrollment/:studyId' element={<StudyInsertionTemplate />}/>
           <Route path='/detail/:studyId' element={<StudyDetailTemplate />}/>
           <Route path='/todayHabit' element={<TodayHabitPage />}/>
-          <Route path='/timer' element={<Timer />}/>
+          <Route path='/timer' element={<TimerPage />}/>
         </Routes>
       </div>
     </>

@@ -1,3 +1,4 @@
+
 .mainContainer {
   max-width: 1200px;
   margin: 0 auto;
@@ -233,7 +234,7 @@
 .navButtons {
   display: flex;
   gap: 10px;
-  margin: 0;
+  margin-top: 20px ;
   align-items: center;
 }
 
@@ -284,13 +285,6 @@
   border: 1px solid #0000001A;
 }
 
-.todayHabitTrackerCard {
-  text-align: center;
-  min-height: 320px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 .cardTitle {
   margin-left: 10px;
@@ -625,19 +619,6 @@
       width: 90%;
     }
 
-    .habitButtonContainer {
-      flex-direction: row;
-      gap: 8px;
-      width: 100%;
-      padding: 0 8px;
-      box-sizing: border-box;
-    }
-
-    .habitButtonContainer button {
-      width: calc(50% - 4px);
-      min-width: 0;
-      flex: 1;
-    }
   }
 
 /* Habit List Modal Styles */
@@ -791,57 +772,4 @@
   color: #4A90E2;
 }
 
-.habitButtonContainer {
-  display: flex;
-  gap: 12px;
-  margin-top: 0;
-  position: relative;
-  z-index: 1;
-  justify-content: center;
-}
-
-.habitButtonContainer button {
-  width: 200px;
-  min-width: 100px;
-  padding: 8px 16px;
-  border-radius: 18px;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: 'EF_jejudoldam', sans-serif;
-  background-color: #E0E0E0;
-  color: #333;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-sizing: border-box;
-  line-height: 1.5;
-  height: auto;
-}
-
-/* Calculate button height: padding-top (8px) + line-height (14px * 1.5 = 21px) + padding-bottom (8px) = 37px */
-.habitButtonContainer {
-  margin-top: px;
-}
-
-.habitButtonContainer button:first-child {
-  background-color: #E0E0E0;
-  color: #333;
-}
-
-.habitButtonContainer button:first-child:hover {
-  background-color: #D0D0D0;
-}
-
-.habitButtonContainer button:last-child {
-  background-color: #4CAF50;
-  color: #fff;
-}
-
-.habitButtonContainer button:last-child:hover {
-  background-color: #45a049;
-}
   
-
-.habitSection {
-  margin-top: 20px;
-}

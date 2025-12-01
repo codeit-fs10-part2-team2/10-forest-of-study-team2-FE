@@ -4,15 +4,16 @@ import EmojiPickerButton from '../../components/UI/EmojiPicker/EmojiPicker';
 const arrowRightIcon = '/assets/images/icons/arrow_right.svg';
 import Button from '../../components/UI/Button/Button';
 import HabitTrackerCard from '../../components/organism/HabitTrackerCard';
-import Modal from '../../components/UI/Model/Modal';
-import HabitList from '../../components/molecule/HabitList';
+import PasswordModal from '../../components/UI/PasswordModal/PasswordModal';
 import styles from './ViewStudyDetails.module.css';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const viewStudyDetailTitle = '연우의 개발공장';
 const studyDescription = 'Slow And Steady Wins The Race! 다들 오늘 하루도 화이팅 :)';
 
 const ViewStudyDetails = () => {
+  const navigate = useNavigate(); 
   const [habits, setHabits] = useState([
     { id: 1, name: '미라클모닝 6시 기상', completed: [0, 2, 3, 5] }, // 월, 수, 목, 토
     { id: 2, name: '아침 챙겨 먹기', completed: [0, 1] }, // 월, 화
@@ -33,9 +34,11 @@ const ViewStudyDetails = () => {
   ]);
   
   const [shouldWrap, setShouldWrap] = useState(false);    // whether to wrap the engagement metrics buttons in mobile screen
-  const [showHabitModal, setShowHabitModal] = useState(false); // whether to show the habit list modal
   const engagementMetricsRef = useRef(null);              // engagement-metrics div - used to check the width of the div in mobile screen
   const metricButtonsRef = useRef([]);                    // metric-btn buttons - used to check the width of the buttons in mobile screen
+  const [showDeleteStudyModal, setShowDeleteStudyModal] = useState(false);
+  const [deletePassword, setDeletePassword] = useState(''); // dummy password state for PasswordModal
+
 
   const toggleHabit = (habitId, dayIndex) => {
     setHabits(habits.map(habit => {
@@ -53,26 +56,7 @@ const ViewStudyDetails = () => {
     }))
   }
 
-  const handleDeleteHabit = (habitId) => {
-    setHabits(habits.filter(habit => habit.id !== habitId));
-  }
 
-  const handleAddHabit = (habitName) => {
-    const newHabit = {
-      id: habits.length > 0 ? Math.max(...habits.map(h => h.id)) + 1 : 1,
-      name: habitName,
-      completed: []
-    };
-    setHabits([...habits, newHabit]);
-  }
-
-  const handleCancelHabit = () => {
-    // Reset form or close modal if needed
-  }
-
-  const handleCompleteEdit = () => {
-    setShowHabitModal(false);
-  }
 
   const handleEmojiSelect = (emoji) => {
     setEmojiMetrics(prevMetrics => {
@@ -93,6 +77,10 @@ const ViewStudyDetails = () => {
   useEffect(() => {
     setShouldWrap(emojiMetrics.length >= 4); // enable wrap if the emojiMetrics has 4 or more items
   }, [emojiMetrics]); // re-run the effect when the emojiMetrics changes(when the emoji is added or removed)
+
+  const handleDeleteStudy = () => {
+    navigate('/');
+  }
 
   return (
     <>
@@ -119,16 +107,16 @@ const ViewStudyDetails = () => {
                     <div className={styles.actionButtons}>
                         <Link to="#" className={styles.actionLink}>공유하기</Link> {/* share button */}
                         <span className={styles.divider}>|</span>
-                        <Link to="#" className={styles.actionLink}>수정하기</Link> {/* edit button */}
+                        <Link to="/enrollment/1" className={styles.actionLink}>수정하기</Link> {/* edit button */}
                         <span className={styles.divider}>|</span>
-                        <Link to="#" className={styles.actionLink}>스터디 삭제하기</Link> {/* delete button */}
+                        <Link to="#" className={styles.actionLink} onClick={(e) => { e.preventDefault(); setShowDeleteStudyModal(true); }}>스터디 삭제하기</Link> {/* delete button */}
                     </div>
                 </div>
 
                 <div className={styles.titleSection}>
                     <h1 className={styles.mainTitle}>{viewStudyDetailTitle}</h1> {/* study title */}
                     <div className={styles.navButtons}>
-                        <Button className={styles.navBtn} onClick={() => setShowHabitModal(true)}>
+                        <Button className={styles.navBtn} onClick={() => navigate('/todayHabit')}>
                           <span className={styles.navBtnText}>오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
                         </Button>
                         <Button className={styles.navBtn}>
@@ -156,28 +144,21 @@ const ViewStudyDetails = () => {
             </div>
         </div>
     </main>
-    {showHabitModal && (
-      <Modal 
-        title="습관 목록"
-        onClose={() => setShowHabitModal(false)}
-        footer={
-          <div className={styles.habitButtonContainer}>
-            <Button onClick={() => setShowHabitModal(false)}>취소</Button>
-            <Button onClick={handleCompleteEdit}>수정 완료</Button>
-          </div>
-        }
-      >
-        <HabitList 
-          habits={habits}
-          onDeleteHabit={handleDeleteHabit}
-          onCancelHabit={handleCancelHabit}
-          onAddHabit={handleAddHabit}
-        />
-      </Modal>
+    {showDeleteStudyModal && (
+      <PasswordModal
+        password={deletePassword}
+        onPasswordChange={(e) => setDeletePassword(e.target.value)}
+        onPasswordSubmit={handleDeleteStudy}
+        buttonText="삭제하기"
+        modalTitleText="스터디 삭제"
+        errorMessageText="권한이 필요합니다."
+        onPasswordExit={() => setShowDeleteStudyModal(false)}
+        onPasswordExitText="나가기"
+      />
     )}
-    </>
+  </>
   )
 }
 
-export default ViewStudyDetails
+export default ViewStudyDetails;
 

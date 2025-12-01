@@ -3,10 +3,13 @@ import InputLabel from '../molecule/InputLabel';
 import ThumbNailSelect from '../molecule/ThumbNailSelect';
 import templateStyles from '../../styles/Template.module.css';
 import styles from '../../styles/Input.module.css';
+import { useNavigate } from 'react-router-dom';
+import backIcon from '/assets/images/icons/btn_cancel_txt.svg';
+import modifyIcon from '/assets/images/icons/btn_modification_txt.svg';
 
 //스터디 만들기 폼
 const EditForm = () => {
-  
+  const navigate = useNavigate();
   //'배경선택' 전(위) 위치한 text input
   const topInputFields = [
     { label: '닉네임', placeholder: '닉네임은 필수 입력 항목입니다.', type: 'text'},
@@ -52,8 +55,9 @@ const EditForm = () => {
         ))}
       </div>
 
-      <div className={styles.buttonBox}>
-        <button className={styles.button}>수정하기</button>
+      <div className={styles.buttonBoxForEditForm}>
+        <button className={styles.button} onClick={() => navigate('/detail/undefined')}><img src={backIcon} alt="back" /></button>
+        <button className={styles.button}><img src={modifyIcon} alt="modify" /></button>
       </div>
     </section>
   );
