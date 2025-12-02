@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../utils/axiosInstance';
+import API_ENDPOINTS from '../../utils/apiEndpoints';
 
 
 const DEFAULT_INTRODUCTION = '새로운 스터디에 오신 것을 환영합니다!';
 
-const useStudyForm = () => {
+const useStudyCreation = () => {
   const navigate = useNavigate();
 
   // 폼 데이터 상태
@@ -60,7 +62,7 @@ const useStudyForm = () => {
   };
 
   //폼 제출
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // 필수 필드 목록
@@ -93,9 +95,21 @@ const useStudyForm = () => {
       return;
     }
 
-    // 성공 시 데이터 전송 및 페이지 이동
-    console.log('전송 데이터:', formData);
-    navigate('/studyList');
+    try {
+      const { passwordConfirm, ...submitData } = formData;
+      
+      const response = await axiosInstance.post(
+        API_ENDPOINTS.STUDIES.CREATE,
+        submitData
+      );
+      
+      console.log('스터디 생성 성공:', response.data);
+      navigate('/');  // 홈으로 이동
+      
+    } catch (error) {
+      console.error('스터디 생성 실패:', error);
+      alert('스터디 생성에 실패했습니다. 다시 시도해주세요.');
+    }
   };
 
   return {
@@ -110,4 +124,4 @@ const useStudyForm = () => {
   };
 };
 
-export default useStudyForm;
+export default useStudyCreation;

@@ -3,7 +3,7 @@ import InputLabel from '../molecule/InputLabel';
 import ThumbNailSelect from '../molecule/ThumbNailSelect';
 import templateStyles from '../../styles/Template.module.css';
 import styles from '../../styles/Input.module.css';
-import useStudyForm from '../../hooks/useStudyForm';
+import useStudyCreation from './useStudyCreation';
 
 //스터디 만들기 폼
 const StudyInsertion = () => {
@@ -16,7 +16,7 @@ const StudyInsertion = () => {
     handleBlur,    
     togglePassword,
     handleSubmit
-  } = useStudyForm();
+  } = useStudyCreation();
   
   //'배경선택' 전(위) 위치한 text input
   const topInputFields = [
