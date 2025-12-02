@@ -1,0 +1,168 @@
+.page
+{
+	width: 100%;
+	margin: 0px auto;
+	padding: 40px 40px;
+	border-radius: 20px;
+	background-color: #FFF;
+}
+
+/* upper section */
+
+.head
+{
+	display: flex;
+	justify-content: space-between;
+
+	color: #414141;
+	font-size: 32px;
+	font-weight: 800;
+}
+
+.goto
+{
+	display: flex;
+	justify-content: space-between;
+
+	color: #818181;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.link
+{
+	padding: 12px 24px;
+
+	border-width: 1px;
+	border-style: solid;
+	border-color: #DDD;
+	border-radius: 15px;
+
+	color: #818181;
+	font-size: 16px;
+	font-weight: 500;
+
+	text-decoration: none;
+}
+
+.info
+{
+	color: #818181;
+	font-size: 18px;
+	font-weight: 400;
+
+	margin-top: 16px;
+}
+
+.data
+{
+	width: fit-content;
+	padding: 12px 24px;
+
+	color: #414141;
+	font-size: 16px;
+	font-weight: 500;
+
+	border-width: 1px;
+	border-style: solid;
+	border-color: #DDD;
+	border-radius: 15px;
+
+	margin-top: 8px;
+}
+
+/* lower section */
+
+.body
+{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+
+	color: #414141;
+	font-size: 24px;
+	font-weight: 800;
+
+	margin-top: 24px;
+}
+
+.clock
+{
+	color: #414141;
+	font-size: 150px;
+	font-weight: 800;
+
+	margin-top: 100px;
+}
+
+.tools
+{
+	gap: 24px;
+	display: flex;
+
+	margin-top: 94.5px;
+}
+
+.pause_btn
+{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	border: none;
+	border-radius: 50%;
+	background-color: #99C08E;
+}
+
+.start_btn
+{
+	color: #FFFFFF;
+	font-size: 28px;
+	font-weight: 800;
+
+	border: none;
+	padding: 8px 78px;
+	border-radius: 50px;
+	background-color: #99C08E;
+}
+
+.reset_btn
+{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	border: none;
+	border-radius: 50%;
+	background-color: #99C08E;
+}
+
+.pause_btn:hover
+{
+	background-color: #578246;
+}
+
+.start_btn:hover
+{
+	background-color: #578246;
+}
+
+.reset_btn:hover
+{
+	background-color: #578246;
+}
+
+.pause_btn:disabled
+{
+	background-color: #818181;
+}
+
+.start_btn:disabled
+{
+	background-color: #818181;
+}
+
+.reset_btn:disabled
+{
+	background-color: #818181;
+}
