@@ -4,7 +4,7 @@
     "createdAt":"2025-09-06", 
     "nickName": "이유디", 
     "studyName": "UX 스터디", 
-    "description": "Slow And Steady Wins The Race!!", 
+    "introduction": "Slow And Steady Wins The Race!!", 
     "thumbNail": 4,
     "point": 310,
     "stats": [
@@ -18,7 +18,7 @@
     "createdAt":"2025-09-06", 
     "nickName": "K.K.", 
     "studyName": "UX 스터디", 
-    "description": "나비보벳따우", 
+    "introduction": "나비보벳따우", 
     "thumbNail": 0,
     "point": 1,
     "stats": [
@@ -32,7 +32,7 @@
     "createdAt":"2025-11-08", 
     "nickName": "연우", 
     "studyName": "개발공장", 
-    "description": "Slow And Steady Wins The Race! 다들 오늘 하루도 화이팅 :)", 
+    "introduction": "Slow And Steady Wins The Race! 다들 오늘 하루도 화이팅 :)", 
     "thumbNail": 1,
     "point": 1,
     "stats": [
@@ -46,7 +46,7 @@
     "createdAt":"2025-09-06", 
     "nickName": "짱구", 
     "studyName": "스터디룸", 
-    "description": "Slow And Steady Wins The Race!!", 
+    "introduction": "Slow And Steady Wins The Race!!", 
     "thumbNail": 2,
     "password" : 1234,
     "point": 310,
@@ -61,7 +61,7 @@
     "createdAt":"2025-09-06", 
     "nickName": "철수", 
     "studyName": "UX 스터디", 
-    "description": "나비보벳따우", 
+    "introduction": "나비보벳따우", 
     "thumbNail": 3,
     "point": 1,
     "stats": [
@@ -75,7 +75,7 @@
     "createdAt":"2025-11-08", 
     "nickName": "홍길동", 
     "studyName": "개발 스터디", 
-    "description": "Slow And Steady Wins The Race! 다들 오늘 하루도 화이팅 :)", 
+    "introduction": "Slow And Steady Wins The Race! 다들 오늘 하루도 화이팅 :)", 
     "thumbNail": 5,
     "point": 1,
     "stats": [
