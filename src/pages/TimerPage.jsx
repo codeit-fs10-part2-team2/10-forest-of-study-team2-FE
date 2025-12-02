@@ -1,10 +1,15 @@
 import { useState, useEffect, useCallback } from "react";
 
-import style from "./TimerPage.module.css";
+import style from "../styles/TimerPage.module.css";
+
+import { Link } from "react-router";
 
 function Timer()
 {
 	const [timer, setTimer] = useState({ id: null, time: 60 * 25 });
+
+	const title = "연우의 개발공장";
+	const point = 310;
 
 	// memory leak!
 	useEffect(() =>
@@ -15,9 +20,8 @@ function Timer()
 
 	const start = useCallback(() =>
 	{
-		setTimer((_) => ({ time: _.time, id: setInterval(() =>
-		// repeat every 1s
-		setTimer((_) => ({ ..._, time: _.time - 1 })), 1000) }));
+		// clearInterval(timer.id);
+		setTimer((_) => ({ time: _.time, id: setInterval(() => setTimer((_) => ({ time: _.time - 1, id: _.id })), 1000) }));
 	},
 	[]);
 
@@ -46,36 +50,39 @@ function Timer()
 	return (
 		<div className={style.page}>
 			<div className={style.head}>
-				연우의 개발공장
+				{title}
 				<div className={style.goto}>
-					<a className={style.link} href="">
+					<Link className={style.link} to="/">
 						오늘의 습관
-					</a>
-					<a className={style.link} href="">
+					</Link>
+					<Link className={style.link} to="/">
 						홈
-					</a>
+					</Link>
 				</div>
 			</div>
 			<div className={style.info}>
 				현재까지 획득한 포인트
 				<div className={style.data}>
-					310P 획득
+					<img src="assets/images/icons/ic_point.svg"/>
+					{point}P 획득
 				</div>
 			</div>
 			<div className={style.body}>
 				오늘의 집중
-				<div className={style.clock} style={{ color: timer.time <= 10 ? "#F50E0E" : timer.time < 0 ? "#818181" : undefined }}>
+				<div className={style.clock} style={{ color: timer.time <= 10 ? "#F50E0E" :
+					                                         timer.time <=  0 ? "#818181" : undefined }}>
 					{format(timer.time)}
 				</div>
 				<div className={style.tools}>
 					<button className={style.pause_btn} onClick={pause} style={{ display: timer.id ? undefined : "none" }}>
-						Pause!
+						<img src="assets/images/icons/ic_pause.svg"/>
 					</button>
 					<button className={style.start_btn} onClick={start} disabled={timer.id != null}>
+						<img src="assets/images/icons/ic_play.svg"/>
 						Start!
 					</button>
 					<button className={style.reset_btn} onClick={reset} style={{ display: timer.id ? undefined : "none" }}>
-						Reset!
+						<img src="assets/images/icons/ic_restart.svg"/>
 					</button>
 				</div>
 			</div>

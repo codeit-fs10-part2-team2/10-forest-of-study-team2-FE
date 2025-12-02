@@ -21,6 +21,7 @@
 
 .goto
 {
+	gap: 16px;
 	display: flex;
 	justify-content: space-between;
 
@@ -56,6 +57,11 @@
 
 .data
 {
+	gap: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
 	width: fit-content;
 	padding: 12px 24px;
 
@@ -105,6 +111,9 @@
 
 .pause_btn
 {
+	width: 64px;
+	height: 64px;
+
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -116,18 +125,28 @@
 
 .start_btn
 {
+	gap: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
 	color: #FFFFFF;
 	font-size: 28px;
 	font-weight: 800;
+	line-height: 100%;
 
 	border: none;
 	padding: 8px 78px;
+	padding-right: 105px;
 	border-radius: 50px;
 	background-color: #99C08E;
 }
 
 .reset_btn
 {
+	width: 64px;
+	height: 64px;
+
 	display: flex;
 	align-items: center;
 	justify-content: center;
