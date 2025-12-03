@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from "../../styles/StudyCard.module.css"
 
 //스터디카드 배경이미지 추출

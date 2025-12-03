@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import StudyCard from '../molecule/StudyCard';
 import EmptyState from '../UI/EmptyState';
 import templateStyles from '../../styles/Template.module.css';
