@@ -1,4 +1,3 @@
-import React from 'react';
 import templateStyles from '../../styles/Template.module.css';
 import styles from '../../pages/ViewStudyDetails/ViewStudyDetails.module.css';
 import todayHabitStyles from '../../styles/TodayHabitModal.module.css';

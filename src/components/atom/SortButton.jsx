@@ -1,12 +1,17 @@
-import React from 'react';
 import styles from '../../styles/Input.module.css';
 
 //정렬 버튼
-const SortButton = () => {
+const SortButton = ({ value = '최근 순', onChange }) => {
 
   return (
     <div className={styles.container} >
-      <select className={`${styles.input} ${styles.sortButton}`}>
+      <select 
+        className={`${styles.input} ${styles.sortButton}`}
+        value={value}
+        onChange={(e) => {
+          onChange(e);
+        }}
+      >
         <option>최근 순</option>
         <option>오래된 순</option>
         <option>많은 포인트 순</option>
