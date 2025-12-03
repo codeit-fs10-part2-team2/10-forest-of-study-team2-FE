@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import EmojiPickerButton from '../../components/UI/EmojiPicker/EmojiPicker';
 
 const arrowRightIcon = '/assets/images/icons/arrow_right.svg';
@@ -8,50 +8,49 @@ import PasswordModal from '../../components/UI/PasswordModal/PasswordModal';
 import styles from './ViewStudyDetails.module.css';
 import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import useStudyView from '../../components/organism/useStudyView';
 
 const ViewStudyDetails = () => {
   const navigate = useNavigate();
   const { studyId } = useParams();
   
-  // State variables for data from backend
-  const [viewStudyDetailTitle, setViewStudyDetailTitle] = useState('');
-  const [studyDescription, setStudyDescription] = useState('');
-  const [habits, setHabits] = useState([]);
-  const [points, setPoints] = useState(0);
-  const [emojiMetrics, setEmojiMetrics] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  console.log('ViewStudyDetails: studyId from params:', studyId);
+  
+  // Use custom hook for study data
+  const {
+    viewStudyDetailTitle,
+    studyDescription,
+    habits,
+    points,
+    emojiMetrics,
+    loading,
+    shouldWrap,
+    showDeleteStudyModal,
+    setShowDeleteStudyModal,
+    deletePassword,
+    setDeletePassword,
+    showEditStudyModal,
+    setShowEditStudyModal,
+    editPassword,
+    setEditPassword,
+    handleEmojiSelect,
+    handleDeleteStudy,
+    handleEditStudy,
+  } = useStudyView(studyId);
 
   const days = ['월', '화', '수', '목', '금', '토', '일']; // days list for habit tracker card
   
-  const [shouldWrap, setShouldWrap] = useState(false);    // whether to wrap the engagement metrics buttons in mobile screen
   const engagementMetricsRef = useRef(null);              // engagement-metrics div - used to check the width of the div in mobile screen
   const metricButtonsRef = useRef([]);                    // metric-btn buttons - used to check the width of the buttons in mobile screen
-  const [showDeleteStudyModal, setShowDeleteStudyModal] = useState(false);
-  const [deletePassword, setDeletePassword] = useState(''); // dummy password state for PasswordModal
 
-  const handleEmojiSelect = (emoji) => {
-    setEmojiMetrics(prevMetrics => {
-      const existingIndex = prevMetrics.findIndex(item => item.emoji === emoji);
-      if (existingIndex > -1) {              // if the emoji already exists, count + 1
-        const updated = [...prevMetrics];   
-        updated[existingIndex] = {       
-          ...updated[existingIndex],            // update the existing emoji
-          count: updated[existingIndex].count + 1, // increment the count
-        };
-        return updated;                 // return the updated metrics
-      }
-      return [...prevMetrics, { emoji, count: 1 }]; // add the new emoji to the metrics
-    }) // return the updated metrics
-  }
-
-  // Enable wrap when button count is 4 or more
-  useEffect(() => {
-    setShouldWrap(emojiMetrics.length >= 4); // enable wrap if the emojiMetrics has 4 or more items
-  }, [emojiMetrics]); // re-run the effect when the emojiMetrics changes(when the emoji is added or removed)
-
-  const handleDeleteStudy = () => {
-    navigate('/');
+  if (loading) {
+    return (
+      <main>
+        <div className={styles.mainContainer}>
+          <div className={styles.loadingText}>로딩 중...</div>
+        </div>
+      </main>
+    );
   }
 
   return (
@@ -79,7 +78,7 @@ const ViewStudyDetails = () => {
                     <div className={styles.actionButtons}>
                         <Link to="#" className={styles.actionLink}>공유하기</Link> {/* share button */}
                         <span className={styles.divider}>|</span>
-                        <Link to={`/enrollment/${studyId}`} className={styles.actionLink}>수정하기</Link> {/* edit button */}
+                        <Link to="#" className={styles.actionLink} onClick={(e) => { e.preventDefault(); setShowEditStudyModal(true); }}>수정하기</Link> {/* edit button */}
                         <span className={styles.divider}>|</span>
                         <Link to="#" className={styles.actionLink} onClick={(e) => { e.preventDefault(); setShowDeleteStudyModal(true); }}>스터디 삭제하기</Link> {/* delete button */}
                     </div>
@@ -116,6 +115,19 @@ const ViewStudyDetails = () => {
             </div>
         </div>
     </main>
+    {showEditStudyModal && (
+      <PasswordModal
+        password={editPassword}
+        onPasswordChange={(e) => setEditPassword(e.target.value)}
+        onPasswordSubmit={handleEditStudy}
+        buttonText=""
+        buttonIcon="/assets/images/icons/btn_modification.svg"
+        modalTitleText="스터디 수정"
+        errorMessageText="권한이 필요합니다."
+        onPasswordExit={() => setShowEditStudyModal(false)}
+        onPasswordExitText="나가기"
+      />
+    )}
     {showDeleteStudyModal && (
       <PasswordModal
         password={deletePassword}

@@ -2,13 +2,9 @@ import { useState } from 'react';
 import styles from '../styles/Template.module.css';
 import RecentStudy from '../components/organism/RecentStudy';
 import StudyList from '../components/organism/StudyList';
-<<<<<<< HEAD
-// import ApiComponent from './ApiComponent';
-=======
 import useGetRequestHandler from '../utils/useGetRequestHandler';
 import API_ENDPOINTS from '../utils/apiEndpoints'
 import users from '../users.json'
->>>>>>> 808b047544f3f5517227574c5fd47280a3db0933
 
 const LandingTemplate = () => {
   // API 연동 (현재는 enabled: false로 목데이터 사용)
@@ -20,12 +16,6 @@ const LandingTemplate = () => {
   // 목데이터 사용
   const studies = apiStudies || users;
 
-<<<<<<< HEAD
-  const recentUsers = users.slice(0, 3);
-  // const apiData = ApiComponent();
-  // console.log(apiData);
-=======
->>>>>>> 808b047544f3f5517227574c5fd47280a3db0933
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
