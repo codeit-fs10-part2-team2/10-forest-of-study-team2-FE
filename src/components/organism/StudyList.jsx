@@ -1,44 +1,51 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import StudyCard from '../molecule/StudyCard';
 import EmptyState from '../UI/EmptyState';
 import templateStyles from '../../styles/Template.module.css';
 import styles from '../../styles/LandingPage.module.css';
-import users from '../../users.json'
 import InputSearch from '../atom/InputSearch';
 import SortButton from '../atom/SortButton';
 import LoadMoreButton from '../atom/LoadMoreButton';
+import useStudyFilter from './useStudyFilter'
 
 //스터디 리스트
-const StudyList = () => {
-  const [displayCount, setDisplayCount] = useState(6);
-
-  // 더보기 클릭 시 6개씩 추가
-  const handleLoadMore = () => {
-    setDisplayCount(prevCount => prevCount + 6);
-  };
-
-  // 표시할 데이터
-  const displayedUsers = users.slice(0, displayCount);
+const StudyList = ({ studies = [] }) => {
+  const {
+    searchKeyword,
+    sortOption,
+    sortedStudies,
+    displayedStudies,
+    displayCount,
+    handleSearchChange,
+    handleSortChange,
+    handleLoadMore
+  } = useStudyFilter(studies);
 
   return (
     <section>
       <h2 className={templateStyles.title}>스터디 둘러보기</h2>
 
-      {users.length === 0 ? (  
-        <EmptyState message="아직 둘러 볼 스터디가 없어요" />
+      {studies.length === 0 ? (
+        <EmptyState message={searchKeyword ? "검색 결과가 없습니다" : "아직 둘러 볼 스터디가 없어요"} />
       ) : (  
         <>
           <div className={styles.inputBox}>
-            <InputSearch />
-            <SortButton />
+            <InputSearch 
+              value={searchKeyword}
+              onChange={handleSearchChange}
+            />
+            <SortButton 
+              value={sortOption}
+              onChange={handleSortChange}
+            />
           </div>
           <div className={`${styles.cardList} ${styles.list}`}>
-            {displayedUsers.map((user) => (
-              <StudyCard key={user.id} {...user} />
+            {displayedStudies.map((study) => (
+              <StudyCard key={study.id} {...study} />
             ))}
           </div>
 
-          {displayCount < users.length && (
+          {displayCount < sortedStudies.length && (
             <div className={styles.buttonBox}>
               <LoadMoreButton onClick={handleLoadMore} />
             </div>
