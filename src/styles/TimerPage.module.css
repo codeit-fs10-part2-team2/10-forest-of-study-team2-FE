@@ -170,18 +170,3 @@
 {
 	background-color: #578246;
 }
-
-.pause_btn:disabled
-{
-	background-color: #818181;
-}
-
-.start_btn:disabled
-{
-	background-color: #818181;
-}
-
-.reset_btn:disabled
-{
-	background-color: #818181;
-}

@@ -6,7 +6,7 @@ import { Link } from "react-router";
 
 function Timer()
 {
-	const [timer, setTimer] = useState({ id: null, time: 60 * 25 });
+	const [timer, setTimer] = useState({ time: 60 * 25, id: null });
 
 	const title = "연우의 개발공장";
 	const point = 310;
@@ -16,28 +16,28 @@ function Timer()
 	{
 		return () => clearInterval(timer.id);
 	},
-	[]);
+	[timer.id]);
 
 	const start = useCallback(() =>
 	{
 		// clearInterval(timer.id);
-		setTimer((_) => ({ time: _.time, id: setInterval(() => setTimer((_) => ({ time: _.time - 1, id: _.id })), 1000) }));
+		setTimer((_) => ({ ..._, time: _.time,  id: setInterval(() => setTimer((_) => ({ ..._, time: _.time - 1, id: _.id })), 1000) }));
 	},
-	[]);
+	[timer.id]);
 
 	const pause = useCallback(() =>
 	{
 		clearInterval(timer.id);
-		setTimer((_) => ({ time: _.time, id: null }));
+		setTimer((_) => ({ ..._, time : _.time, id: null }));
 	},
-	[]);
+	[timer.id]);
 
 	const reset = useCallback(() =>
 	{
 		clearInterval(timer.id);
-		setTimer((_) => ({ time: 60 * 25, id: null }));
+		setTimer((_) => ({ ..._, time: 60 * 25, id: null }));
 	},
-	[]);
+	[timer.id]);
 
 	const format = useCallback((time) =>
 	{
@@ -74,14 +74,14 @@ function Timer()
 					{format(timer.time)}
 				</div>
 				<div className={style.tools}>
-					<button className={style.pause_btn} onClick={pause} style={{ display: timer.id ? undefined : "none" }}>
+					<button className={style.pause_btn} onClick={pause} style={{ display: timer.time != 60 * 25 ? undefined : "none" }}>
 						<img src="assets/images/icons/ic_pause.svg"/>
 					</button>
-					<button className={style.start_btn} onClick={start} disabled={timer.id != null}>
+					<button className={style.start_btn} onClick={start} style={{ background: timer.id ? "#818181" : undefined }}>
 						<img src="assets/images/icons/ic_play.svg"/>
 						Start!
 					</button>
-					<button className={style.reset_btn} onClick={reset} style={{ display: timer.id ? undefined : "none" }}>
+					<button className={style.reset_btn} onClick={reset} style={{ display: timer.time != 60 * 25 ? undefined : "none" }}>
 						<img src="assets/images/icons/ic_restart.svg"/>
 					</button>
 				</div>
