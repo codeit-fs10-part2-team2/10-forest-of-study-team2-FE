@@ -33,7 +33,13 @@ const TimerPage = () => {
   };
 
   return (
-    <>
+    <div  
+      style={{
+      backgroundColor: "white",     
+      minHeight: "100vh",           
+   }}//배경 화면 하얗게 하기
+
+    >
     
     
     <ul style={{ textAlign: "center", padding: "70px" }}>
@@ -86,7 +92,7 @@ const TimerPage = () => {
  
     </ul>
   
-    </>
+    </div>
   );
 };
 

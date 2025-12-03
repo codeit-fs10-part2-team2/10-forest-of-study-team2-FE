@@ -31,12 +31,12 @@
   color: #818181;
 } 
 
-.input:focus {
-  border: 2px solid red; /* 포커스 시 테두리 색상 변경 */
-}
-
 .inputLabel {
   padding: 12px 20px;
+}
+
+.inputLabel:focus {
+  border: 1px solid red;
 }
 
 .inputSearch {
