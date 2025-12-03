@@ -213,24 +213,6 @@
   padding-top: 20px;
 }
 
-.actionLink {
-  color: #666;
-  text-decoration: none;
-  font-size: 14px;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.actionLink:hover {
-  color: #333;
-}
-
-.todayActionLink {
-  position: absolute;
-  top: 2;
-  right: 0;
-}
-
 .divider {
   color: #ccc;
   font-size: 14px;
@@ -258,6 +240,7 @@
 }
 
 .navBtnText {
+  text-decoration: none;
   display: flex;
   align-items: center;
   gap: 6px;

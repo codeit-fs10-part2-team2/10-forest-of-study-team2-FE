@@ -20,7 +20,7 @@ function App() {
           <Route path='/enrollment' element={<StudyInsertionPage />}/>
           <Route path='/enrollment/:studyId' element={<StudyInsertionTemplate />}/>
           <Route path='/detail/:studyId' element={<StudyDetailTemplate />}/>
-          <Route path='/todayHabit' element={<TodayHabitPage />}/>
+          <Route path='/todayHabit/:studyId' element={<TodayHabitPage />}/>
           <Route path='/timer' element={<TimerPage />}/>
         </Routes>
       </div>

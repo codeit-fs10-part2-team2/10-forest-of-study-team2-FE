@@ -87,7 +87,7 @@ const ViewStudyDetails = () => {
                 <div className={styles.titleSection}>
                     <h1 className={styles.mainTitle}>{viewStudyDetailTitle}</h1> {/* study title */}
                     <div className={styles.navButtons}>
-                        <Button className={styles.navBtn} onClick={() => navigate('/todayHabit')}>
+                        <Button className={styles.navBtn} onClick={() => navigate(`/todayHabit/${studyId}`)}>
                           <span className={styles.navBtnText}>오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
                         </Button>
                         <Button className={styles.navBtn}>
