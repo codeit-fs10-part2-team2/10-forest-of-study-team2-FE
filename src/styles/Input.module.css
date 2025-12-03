@@ -76,8 +76,11 @@
 .thumbNailSelect {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap : 16px;
+  gap: 16px;
   margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .thumbNailSelect > div {
@@ -85,9 +88,19 @@
   border-radius: 10px;
   width: 100%;
   aspect-ratio: 1 / 1;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-/* Mobile - 2열 4행으로 변경 */
+/* Tablet - 4 columns, 2 rows (same as desktop) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .thumbNailSelect {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+}
+
+/* Mobile - 2 columns, 4 rows */
 @media (max-width: 767px) {
   .thumbNailSelect {
     grid-template-columns: repeat(2, 1fr);
@@ -129,6 +142,18 @@
 
 .selectBox {
   position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.selectBox > div {
+  width: 100% !important;
+  height: 100% !important;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /*>>>만들기/수정하기 버튼*/

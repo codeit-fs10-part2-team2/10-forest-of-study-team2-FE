@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 const backIcon = '/assets/images/icons/btn_cancel_txt.svg';
 const modifyIcon = '/assets/images/icons/btn_modification_txt.svg';
-import arrowRightIcon from '/public/assets/images/icons/arrow_right.svg';
+import arrowRightIcon from '/assets/images/icons/arrow_right.svg';
 import day from 'dayjs';
 
 const viewStudyDetailTitle = '연우의 개발공장';

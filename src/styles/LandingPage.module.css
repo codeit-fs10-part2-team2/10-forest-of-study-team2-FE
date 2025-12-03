@@ -58,27 +58,6 @@
   }
 }
 
-.list {
-  grid-template-columns: repeat(3, minmax(240px, 1fr));
-  
-}
-
-/* iPad Mini */
-@media (max-width: 1023px) {
-  .list {
-    grid-template-columns: repeat(2, minmax(200px, 1fr));
-    gap: 20px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 767px) {
-  .list {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-}
-
 .inputBox {
   display: flex;
   overflow: hidden;
@@ -128,6 +107,27 @@
   }
 }
 
+.list {
+  grid-template-columns: repeat(3, minmax(240px, 1fr));
+  
+}
+
+/* iPad Mini */
+@media (max-width: 1023px) {
+  .list {
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+    gap: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
 .recentList {
   display: flex;
   overflow-x: auto;
@@ -162,27 +162,6 @@
   .recentList > * {
     width: calc(100% - 16px);
     min-width: 100%;
-  }
-}
-
-.list {
-  grid-template-columns: repeat(3, minmax(240px, 1fr));
-  
-}
-
-/* iPad Mini */
-@media (max-width: 1023px) {
-  .list {
-    grid-template-columns: repeat(2, minmax(200px, 1fr));
-    gap: 20px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 767px) {
-  .list {
-    grid-template-columns: 1fr;
-    gap: 16px;
   }
 }
 

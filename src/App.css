@@ -4,8 +4,8 @@ body {
 
 .container {
   margin: 0 auto;
-  max-width: 1200px;
-  min-width: 480px;
+  max-width: 100wv;
+  min-width: 100wv;
 }
 
 

@@ -20,6 +20,7 @@
 
 .todayActionLink {
   margin-left: auto;
+  text-decoration: none;
 }
 
 /* Habit Button Container - Modal Footer */

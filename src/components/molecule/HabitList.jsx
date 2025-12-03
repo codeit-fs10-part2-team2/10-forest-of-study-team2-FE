@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../../pages/ViewStudyDetails/ViewStudyDetails.module.css';
 import InputHabit from './InputHabit';
-import icDelete from '/public/assets/images/icons/ic_delete.svg';
+import icDelete from '/assets/images/icons/ic_delete.svg';
 
 /**
  * HabitList component that displays the list of habits
@@ -9,13 +9,22 @@ import icDelete from '/public/assets/images/icons/ic_delete.svg';
    InputHabit component is included
  */
 const HabitList = ({ habits = [], onDeleteHabit, onCancelHabit, onAddHabit }) => {
+  const [selectedHabitId, setSelectedHabitId] = useState(null);
+
+  const handleHabitClick = (habitId) => {
+    setSelectedHabitId(habitId);
+  };
+
   return (
     <div className={styles.inputHabit}>
       <div className={styles.habitListContainer}>
         {/* Display existing habits */}
         {habits.map(habit => (
           <div key={habit.id} className={styles.habitItemWrapper}>
-            <div className={styles.habitListItem}>
+            <div 
+              className={`${styles.habitListItem} ${selectedHabitId === habit.id ? styles.habitListItemActive : ''}`}
+              onClick={() => handleHabitClick(habit.id)}
+            >
               <span className={styles.habitName}>{habit.name}</span>
             </div>
             <div className={styles.deleteIconContainer}>
@@ -23,7 +32,10 @@ const HabitList = ({ habits = [], onDeleteHabit, onCancelHabit, onAddHabit }) =>
                 src={icDelete}
                 alt="delete"
                 className={styles.deleteIcon}
-                onClick={() => onDeleteHabit && onDeleteHabit(habit.id)} />
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDeleteHabit && onDeleteHabit(habit.id);
+                }} />
             </div>
           </div>
         ))}

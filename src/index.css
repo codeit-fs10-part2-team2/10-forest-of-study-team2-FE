@@ -1,6 +1,14 @@
 #root {
   min-height: 100vh;
   padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  #root {
+    padding: 0;
+  }
 }
 
 

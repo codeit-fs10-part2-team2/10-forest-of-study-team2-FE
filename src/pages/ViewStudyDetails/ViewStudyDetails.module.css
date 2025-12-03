@@ -216,11 +216,21 @@
   transition: color 0.2s;
 }
 
+.actionLink a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .actionLink:hover {
   color: #333;
 }
 
+.actionLink:hover a {
+  color: inherit;
+}
+
 .todayActionLink {
+  text-decoration: none;
   position: absolute;
   top: 2;
   right: 0;
@@ -670,6 +680,10 @@
 
 .habitListItem:hover {
   background-color: #E8E8E8;
+}
+
+.habitListItemActive {
+  background-color: #99C08E !important;
 }
 
 .habitName {
