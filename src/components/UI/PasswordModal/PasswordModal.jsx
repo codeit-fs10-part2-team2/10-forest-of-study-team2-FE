@@ -13,6 +13,7 @@ const PasswordModal = ({
     onPasswordChange, 
     onPasswordSubmit, 
     buttonText = '수정하러 가기', 
+    buttonIcon,
     modalTitleText = '',
     modalTitleClassName = 'passwordModalTitle',
     modalTitleId = 'passwordModalTitle',
@@ -28,10 +29,29 @@ const PasswordModal = ({
     passwordInputType = 'password',
 }) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [showPasswordError, setShowPasswordError] = useState(false);
     const actualPasswordInputType = isPasswordVisible ? 'text' : passwordInputType;
+    
     const handlePasswordExit = () => {
+        setShowPasswordError(false);
         onPasswordExit && onPasswordExit(); // onPasswordExit가 있으면 실행
     };
+    
+    const handlePasswordChange = (e) => {
+        setShowPasswordError(false); // 비밀번호 입력 시 에러 상태 초기화
+        onPasswordChange && onPasswordChange(e);
+    };
+    
+    const handlePasswordSubmit = () => {
+        if (!password || password.trim() === '') {
+            setShowPasswordError(true);
+            return;
+        }
+        setShowPasswordError(false);
+        onPasswordSubmit && onPasswordSubmit();
+    };
+    
+    const displayErrorMessage = showPasswordError ? '비밀번호가 필요합니다.' : errorMessageText;
     return (
     <>
         <div className={styles.passwordModalContainer}>
@@ -49,8 +69,8 @@ const PasswordModal = ({
                 </div>
                 <div className={styles.passwordModalErrorMessage}>
                     <Label 
-                        labelText={errorMessageText} 
-                        labelClassName={`${styles.passwordModalErrorMessageText} ${errorMessageClassName}`} 
+                        labelText={displayErrorMessage} 
+                        labelClassName={`${styles.passwordModalErrorMessageText} ${showPasswordError ? styles.passwordModalErrorMessageTextError : ''} ${errorMessageClassName}`} 
                         labelId={errorMessageId}>
                     </Label>
                 </div>
@@ -60,10 +80,10 @@ const PasswordModal = ({
                         <InputText 
                             id={passwordInputId} 
                             value={password} 
-                            onChange={onPasswordChange} 
+                            onChange={handlePasswordChange} 
                             placeholder={passwordInputPlaceholder} 
                             type={actualPasswordInputType} 
-                            className={`${styles.passwordInput} ${passwordInputClassName}`} 
+                            className={`${styles.passwordInput} ${showPasswordError ? styles.passwordInputError : ''} ${passwordInputClassName}`} 
                         required/>
                         <img 
                             src={isPasswordVisible ? icEyeOpen : icEyeClose} 
@@ -80,7 +100,10 @@ const PasswordModal = ({
                 <div className={styles.passwordModalButtonContainer}>
                     <Button 
                         className={styles.passwordSubmitBtn} 
-                        onClick={onPasswordSubmit}>{buttonText}
+                        onClick={handlePasswordSubmit}>
+                        {buttonIcon && <img src={buttonIcon} alt="" className={buttonText ? styles.buttonIconWithText : styles.buttonIcon} />}
+                        {/* added prop to display button text for modification and deletion */}
+                        {buttonText && buttonText}
                     </Button>
                 </div>
             </div>
