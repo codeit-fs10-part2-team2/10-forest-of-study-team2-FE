@@ -18,8 +18,18 @@
   transform: translateX(-50%);
 }
 
+/* Today Action Link: edit habits list */
 .todayActionLink {
+  text-decoration: none;
   margin-left: auto;
+}
+
+.todayActionLink a {
+  text-decoration: none;
+}
+
+.todayActionLink a:hover {
+  text-decoration: none;
 }
 
 /* Habit Button Container - Modal Footer */

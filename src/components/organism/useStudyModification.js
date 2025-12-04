@@ -35,17 +35,20 @@ const useStudyModification = (studyId) => {
       const fetchStudyData = async () => {
         try {
           const response = await axiosInstance.get(API_ENDPOINTS.STUDIES.GET_BY_ID(studyId));
-          const studyData = response.data;
+          const responseData = response.data;
+          // Handle different API response formats
+          // API response is in {success: true, data: {...}} format
+          const studyData = responseData.data || responseData;
           setFormData({
-            nickName: studyData.nickName || '',
-            studyName: studyData.studyName || '',
-            introduction: studyData.introduction || DEFAULT_INTRODUCTION,
-            thumbNail: studyData.thumbNail || 'thumbnail0',
+            nickName: studyData.nickname || '',
+            studyName: studyData.study_name || '',
+            introduction: studyData.study_introduction || DEFAULT_INTRODUCTION,
+            thumbNail: studyData.background !== undefined ? `thumbnail${studyData.background}` : 'thumbnail0',
             password: '',
             passwordConfirm: ''
           });
         } catch (error) {
-          console.error('스터디 데이터 불러오기 실패:', error);
+          console.error('useStudyModification: study data loading failed:', error);
         }
       };
       fetchStudyData();
