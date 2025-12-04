@@ -13,6 +13,8 @@ function App() {
 
   return (
     <>
+
+    
       <div className="app container">
         <Header />
         <Routes>
@@ -24,6 +26,7 @@ function App() {
           <Route path='/timer' element={<TimerPage />}/>
         </Routes>
       </div>
+      
     </>
   )
 }
