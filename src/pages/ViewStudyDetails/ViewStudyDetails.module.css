@@ -176,11 +176,6 @@
   border-radius: 20px;
   font-size: 16px;
   font-weight: 500;
-  cursor: pointer;
-}
-
-.pointsBtn:hover {
-  background-color: #45a049;
 }
 
 .leafIcon {
@@ -223,6 +218,7 @@
   gap: 10px;
   margin-top: 20px ;
   align-items: center;
+  text-decoration: none;
 }
 
 .navBtn {
@@ -245,6 +241,11 @@
   align-items: center;
   gap: 6px;
   justify-content: center;
+}
+
+.actionLink {
+  text-decoration: none;
+  color: inherit;
 }
 
 .navBtn:hover {
@@ -600,6 +601,14 @@
 
     .habitAddButton {
       width: 90%;
+    }
+
+    .pointsBtn {
+      display: inline-flex;
+      width: fit-content;
+      max-width: fit-content;
+      flex-shrink: 0;
+      align-self: flex-start;
     }
 
   }

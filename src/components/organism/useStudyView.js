@@ -81,6 +81,14 @@ const useStudyView = (studyId) => {
       } catch (error) {
         console.error('useStudyView: study data loading failed:', error);
         console.error('useStudyView: error details:', error.response?.data || error.message);
+        console.error('useStudyView: error status:', error.response?.status);
+        console.error('useStudyView: error config:', error.config);
+        
+        // Check if it's a network/CORS error
+        if (error.code === 'ERR_NETWORK' || !error.response) {
+          console.error('useStudyView: Network or CORS error detected. Check backend CORS settings and network connectivity.');
+        }
+        
         // Set default values on error
         setViewStudyDetailTitle('Study name is not available');
         setStudyDescription('');

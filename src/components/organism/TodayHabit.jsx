@@ -177,9 +177,9 @@ const TodayHabit = () => {
       <div className={styles.introSection}></div>
       <div className={styles.pointsSection}>
         <span className={styles.pointsLabel}>현재시간</span>
-        <Button className={styles.pointsBtn}>
+        <div className={styles.pointsBtn}>
           <span className={styles.pointsText}>{currentTime}</span>
-        </Button>
+        </div>
       </div>
     </section>
     <section style={{ marginTop: '20px' }}>
