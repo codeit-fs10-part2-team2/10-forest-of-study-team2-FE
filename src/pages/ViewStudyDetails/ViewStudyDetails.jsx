@@ -6,6 +6,7 @@ import Button from '../../components/UI/Button/Button';
 import HabitTrackerCard from '../../components/organism/HabitTrackerCard';
 import PasswordModal from '../../components/UI/PasswordModal/PasswordModal';
 import styles from './ViewStudyDetails.module.css';
+import todayHabitStyles from '../../styles/TodayHabitModal.module.css';
 import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import useStudyView from '../../components/organism/useStudyView';
@@ -76,11 +77,11 @@ const ViewStudyDetails = () => {
                         <EmojiPickerButton onEmojiSelect={handleEmojiSelect} /> {/* emoji picker button - used to select the emoji and add the emoji to the metrics */}
                     </div>
                     <div className={styles.actionButtons}>
-                        <Link to="#" className={styles.actionLink}>공유하기</Link> {/* share button */}
+                        <Link to="#" className={todayHabitStyles.todayActionLink}>공유하기</Link> {/* share button */}
                         <span className={styles.divider}>|</span>
-                        <Link to="#" className={styles.actionLink} onClick={(e) => { e.preventDefault(); setShowEditStudyModal(true); }}>수정하기</Link> {/* edit button */}
+                        <Link to="#" className={todayHabitStyles.todayActionLink} onClick={(e) => { e.preventDefault(); setShowEditStudyModal(true); }}>수정하기</Link> {/* edit button */}
                         <span className={styles.divider}>|</span>
-                        <Link to="#" className={styles.actionLink} onClick={(e) => { e.preventDefault(); setShowDeleteStudyModal(true); }}>스터디 삭제하기</Link> {/* delete button */}
+                        <Link to="#" className={todayHabitStyles.todayActionLink} onClick={(e) => { e.preventDefault(); setShowDeleteStudyModal(true); }}>스터디 삭제하기</Link> {/* delete button */}
                     </div>
                 </div>
 
