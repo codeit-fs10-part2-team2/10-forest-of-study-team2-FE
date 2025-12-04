@@ -30,7 +30,7 @@ const InputHabit = ({ onAddHabit }) => {
     if (isAdding) {
         return (
             <div className={styles.habitInputForm}>
-                <div>
+                <div className={styles.habitInputWrapper}>
                     <InputText 
                         value={habitName} 
                         onChange={(e) => setHabitName(e.target.value)} 

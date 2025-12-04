@@ -1,4 +1,3 @@
-import React from 'react';
 import TemplateStyles from '../../styles/Template.module.css'
 import styles from '../../styles/Input.module.css'
 import logo from '/assets/images/logos/img_logo.svg'

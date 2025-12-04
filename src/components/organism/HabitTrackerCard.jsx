@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../../pages/ViewStudyDetails/ViewStudyDetails.module.css';
 import Sticker from '../UI/Sticker/Sticker';
 
-const HabitTrackerCard = ({ habits = [], days = [], onToggleHabit }) => {
+const HabitTrackerCard = ({ habits = [], days = [] }) => {
     return (
         <>
         <div className={styles.habitTrackerCard}>
@@ -23,7 +23,6 @@ const HabitTrackerCard = ({ habits = [], days = [], onToggleHabit }) => {
                         <div
                             key={dayIndex} 
                             className={styles.habitCell}
-                            onClick={() => onToggleHabit && onToggleHabit(habit.id, dayIndex)} // call the toggleHabit function with the habit id and day index
                         >
                             <Sticker 
                             completed={habit.completed.includes(dayIndex)} // set the completion status
