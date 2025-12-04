@@ -67,6 +67,16 @@ const useHabit = (studyId) => {
       } catch (error) {
         console.error('useHabit: habits data loading failed:', error);
         console.error('useHabit: error details:', error.response?.data || error.message);
+        console.error('useHabit: error status:', error.response?.status);
+        console.error('useHabit: error config:', error.config);
+        
+        // Check if it's a network/CORS error
+        if (error.code === 'ERR_NETWORK' || !error.response) {
+          console.error('useHabit: Network or CORS error detected. Check backend CORS settings and network connectivity.');
+        } else if (error.response?.status === 403) {
+          console.error('useHabit: 403 Forbidden - This might be a CORS issue. Check backend CORS settings.');
+        }
+        
         setHabits([]);
       } finally {
         setLoading(false);
