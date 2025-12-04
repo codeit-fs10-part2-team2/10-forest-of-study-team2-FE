@@ -2,9 +2,8 @@ import InputLabel from '../molecule/InputLabel';
 import ThumbNailSelect from '../molecule/ThumbNailSelect';
 import templateStyles from '../../styles/Template.module.css';
 import styles from '../../styles/Input.module.css';
-import useStudyCreation from './useStudyCreation';
+import useStudyCreation from '../../hooks/useStudyCreation';
 
-//스터디 만들기 폼
 const StudyInsertion = () => {
   const {
     formData,
@@ -17,7 +16,6 @@ const StudyInsertion = () => {
     handleSubmit
   } = useStudyCreation();
   
-  //'배경선택' 전(위) 위치한 text input
   const topInputFields = [
     { 
       label: '닉네임',
@@ -62,13 +60,11 @@ const StudyInsertion = () => {
           ))}
         </div>
         
-        {/* 배경선택 */}
         <ThumbNailSelect 
           selectedThumbNail={formData.thumbNail}
           onSelectThumbNail={(thumbNail) => handleChange('thumbNail', thumbNail)}
         />
 
-        {/* 비밀번호 input */}
         <div>
           <InputLabel
             label="비밀번호"
@@ -78,7 +74,13 @@ const StudyInsertion = () => {
             onChange={(e) => handleChange('password', e.target.value)}
             onBlur={() => handleBlur('password')}
             error={touched.password && errors.password}
-            errorMessage="비밀번호를 입력해주세요"
+            errorMessage={
+              !formData.password.trim() 
+                ? "비밀번호를 입력해주세요"
+                : formData.password.length < 8 || !/\d/.test(formData.password)
+                ? "비밀번호는 최소 8자리 이상이며, 숫자를 포함해야 합니다"
+                : "비밀번호를 입력해주세요"
+            }
             showPassword={showPassword.password}
             onTogglePassword={() => togglePassword('password')}
           />
@@ -91,7 +93,15 @@ const StudyInsertion = () => {
             onChange={(e) => handleChange('passwordConfirm', e.target.value)}
             onBlur={() => handleBlur('passwordConfirm')}
             error={touched.passwordConfirm && errors.passwordConfirm}
-            errorMessage="비밀번호가 일치하지 않습니다"
+            errorMessage={
+              !formData.passwordConfirm.trim()
+                ? "비밀번호를 입력해주세요"
+                : formData.passwordConfirm.length < 8 || !/\d/.test(formData.passwordConfirm)
+                ? "비밀번호는 최소 8자리 이상이며, 숫자를 포함해야 합니다"
+                : formData.password !== formData.passwordConfirm
+                ? "비밀번호가 일치하지 않습니다"
+                : "비밀번호를 입력해주세요"
+            }
             showPassword={showPassword.passwordConfirm}
             onTogglePassword={() => togglePassword('passwordConfirm')}
           />

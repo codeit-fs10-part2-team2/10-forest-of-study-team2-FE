@@ -22,14 +22,27 @@
 .todayActionLink {
   text-decoration: none;
   margin-left: auto;
+  color: inherit;
+}
+
+.todayActionLink,
+.todayActionLink:visited,
+.todayActionLink:active,
+.todayActionLink:hover {
+  color: inherit;
+  text-decoration: none;
 }
 
 .todayActionLink a {
   text-decoration: none;
+  color: inherit;
 }
 
-.todayActionLink a:hover {
+.todayActionLink a:hover,
+.todayActionLink a:visited,
+.todayActionLink a:active {
   text-decoration: none;
+  color: inherit;
 }
 
 /* Habit Button Container - Modal Footer */

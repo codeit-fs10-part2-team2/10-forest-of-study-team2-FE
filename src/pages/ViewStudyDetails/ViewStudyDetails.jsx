@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import EmojiPickerButton from '../../components/UI/EmojiPicker/EmojiPicker';
 
 const arrowRightIcon = '/assets/images/icons/arrow_right.svg';
@@ -9,18 +9,15 @@ import styles from './ViewStudyDetails.module.css';
 import todayHabitStyles from '../../styles/TodayHabitModal.module.css';
 import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import useStudyView from '../../components/organism/useStudyView';
+import useStudyView from '../../hooks/useStudyView';
 
 const ViewStudyDetails = () => {
   const navigate = useNavigate();
   const { studyId } = useParams();
   
-  console.log('ViewStudyDetails: studyId from params:', studyId);
-  
-  // Use custom hook for study data
   const {
     viewStudyDetailTitle,
-    studyDescription,
+    studyIntroduction,
     habits,
     points,
     emojiMetrics,
@@ -35,14 +32,51 @@ const ViewStudyDetails = () => {
     editPassword,
     setEditPassword,
     handleEmojiSelect,
+    handleEmojiClick,
     handleDeleteStudy,
     handleEditStudy,
   } = useStudyView(studyId);
-
-  const days = ['월', '화', '수', '목', '금', '토', '일']; // days list for habit tracker card
   
-  const engagementMetricsRef = useRef(null);              // engagement-metrics div - used to check the width of the div in mobile screen
-  const metricButtonsRef = useRef([]);                    // metric-btn buttons - used to check the width of the buttons in mobile screen
+  const topEmojis = emojiMetrics.slice(0, 3);
+  const remainingEmojis = emojiMetrics.slice(3);
+  const hasMoreEmojis = emojiMetrics.length > 3;
+
+  const days = ['월', '화', '수', '목', '금', '토', '일'];
+  
+  const engagementMetricsRef = useRef(null);
+  const metricButtonsRef = useRef([]);
+  const moreEmojisButtonRef = useRef(null);
+  const [showMoreEmojisDropdown, setShowMoreEmojisDropdown] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+  
+  useEffect(() => {
+    if (showMoreEmojisDropdown && moreEmojisButtonRef.current) {
+      const rect = moreEmojisButtonRef.current.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + 4,
+        left: rect.left
+      });
+    }
+  }, [showMoreEmojisDropdown]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        moreEmojisButtonRef.current &&
+        !moreEmojisButtonRef.current.contains(event.target) &&
+        !event.target.closest(`.${styles.moreEmojisDropdown}`)
+      ) {
+        setShowMoreEmojisDropdown(false);
+      }
+    };
+    
+    if (showMoreEmojisDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
+  }, [showMoreEmojisDropdown]);
 
   if (loading) {
     return (
@@ -64,29 +98,62 @@ const ViewStudyDetails = () => {
                       ref={engagementMetricsRef}
                       className={`${styles.engagementMetrics} ${shouldWrap ? styles.wrapEnabled : ''}`}
                     >
-                        {emojiMetrics.map((item, index) => (
+                        {topEmojis.map((item, index) => (
                           <Button 
-                            key={index} 
+                            key={item.emojiId || index} 
                             ref={(el) => metricButtonsRef.current[index] = el}
                             className={styles.metricBtn}
+                            onClick={() => handleEmojiClick(item.emojiId)}
                           >
                             <span className={styles.icon}>{item.emoji}</span> 
-                            <span>{item.count}</span> {/* emoji count */}
+                            <span>{item.count}</span>
                           </Button>
                         ))}
-                        <EmojiPickerButton onEmojiSelect={handleEmojiSelect} /> {/* emoji picker button - used to select the emoji and add the emoji to the metrics */}
+                        {hasMoreEmojis && (
+                          <div style={{ position: 'relative' }} ref={moreEmojisButtonRef}>
+                            <Button 
+                              className={styles.metricBtn}
+                              onClick={() => setShowMoreEmojisDropdown(!showMoreEmojisDropdown)}
+                            >
+                              <span>...</span>
+                            </Button>
+                            {showMoreEmojisDropdown && (
+                              <div 
+                                className={styles.moreEmojisDropdown}
+                                style={{
+                                  top: `${dropdownPosition.top}px`,
+                                  left: `${dropdownPosition.left}px`
+                                }}
+                              >
+                                {remainingEmojis.map((item, index) => (
+                                  <Button
+                                    key={item.emojiId || index}
+                                    className={styles.metricBtn}
+                                    onClick={() => {
+                                      handleEmojiClick(item.emojiId);
+                                    }}
+                                  >
+                                    <span className={styles.icon}>{item.emoji}</span>
+                                    <span>{item.count}</span>
+                                  </Button>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        <EmojiPickerButton onEmojiSelect={handleEmojiSelect} />
                     </div>
                     <div className={styles.actionButtons}>
-                        <Link to="#" className={todayHabitStyles.todayActionLink}>공유하기</Link> {/* share button */}
+                        <Link to="#" className={todayHabitStyles.todayActionLink} onClick={(e) => e.preventDefault()}>공유하기</Link>
                         <span className={styles.divider}>|</span>
-                        <Link to="#" className={todayHabitStyles.todayActionLink} onClick={(e) => { e.preventDefault(); setShowEditStudyModal(true); }}>수정하기</Link> {/* edit button */}
+                        <Link to="#" className={todayHabitStyles.todayActionLink} onClick={(e) => { e.preventDefault(); setShowEditStudyModal(true); }}>수정하기</Link>
                         <span className={styles.divider}>|</span>
-                        <Link to="#" className={todayHabitStyles.todayActionLink} onClick={(e) => { e.preventDefault(); setShowDeleteStudyModal(true); }}>스터디 삭제하기</Link> {/* delete button */}
+                        <Link to="#" className={todayHabitStyles.todayActionLink} onClick={(e) => { e.preventDefault(); setShowDeleteStudyModal(true); }}>스터디 삭제하기</Link>
                     </div>
                 </div>
 
                 <div className={styles.titleSection}>
-                    <h1 className={styles.mainTitle}>{viewStudyDetailTitle}</h1> {/* study title */}
+                    <h1 className={styles.mainTitle}>{viewStudyDetailTitle}</h1>
                     <div className={styles.navButtons}>
                         <Button className={styles.navBtn} onClick={() => navigate(`/todayHabit/${studyId}`)}>
                           <span className={styles.navBtnText}>오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
@@ -99,20 +166,20 @@ const ViewStudyDetails = () => {
                 <div className={styles.contentSection}>
                     <div className={styles.introSection}>
                         <h2 className={styles.introTitle}>소개</h2>
-                        <p className={styles.introText}>{studyDescription}</p>
+                        <p className={styles.introText}>{studyIntroduction || '소개 내용이 없습니다.'}</p>
                     </div>
                     <div className={styles.pointsSection}>
-                        <span className={styles.pointsLabel}>현재까지 획득한 포인트</span> {/* points label */}
-                        <Button className={styles.pointsBtn}> {/* points button */}
+                        <span className={styles.pointsLabel}>현재까지 획득한 포인트</span>
+                        <Button className={styles.pointsBtn}>
                             <span className={styles.leafIcon}>🌱</span>
-                            <span className={styles.pointsText}>{points}P 획득</span> {/* points button */}
+                            <span className={styles.pointsText}>{points}P 획득</span>
                         </Button>
                     </div>
                 </div>
             </div>
 
             <div className={styles.mainContent} data-main-content>
-              <HabitTrackerCard habits={habits} days={days} />
+              <HabitTrackerCard habits={habits} days={days} studyId={studyId} />
             </div>
         </div>
     </main>

@@ -1,6 +1,5 @@
 import styles from '../../styles/Input.module.css';
 
-//정렬 버튼
 const SortButton = ({ value = '최근 순', onChange }) => {
 
   return (

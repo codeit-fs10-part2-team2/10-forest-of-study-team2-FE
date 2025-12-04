@@ -6,9 +6,8 @@ import styles from '../../styles/Input.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import backIcon from '/assets/images/icons/btn_cancel_txt.svg';
 import modifyIcon from '/assets/images/icons/btn_modification_txt.svg';
-import useStudyModification from './useStudyModification';
+import useStudyModification from '../../hooks/useStudyModification';
 
-//스터디 수정 폼
 const EditForm = () => {
   const navigate = useNavigate();
   const { studyId } = useParams();
@@ -24,7 +23,6 @@ const EditForm = () => {
     handleSubmit
   } = useStudyModification(studyId);
 
-  //'배경선택' 전(위) 위치한 text input
   const topInputFields = [
     { 
       label: '닉네임',
@@ -69,13 +67,6 @@ const EditForm = () => {
           ))}
         </div>
         
-        {/* 배경선택 */}
-        <ThumbNailSelect 
-          selectedThumbNail={formData.thumbNail}
-          onSelectThumbNail={(thumbNail) => handleChange('thumbNail', thumbNail)}
-        />
-
-        {/* 비밀번호 input */}
         <div>
           <InputLabel
             label="비밀번호"

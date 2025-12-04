@@ -9,15 +9,13 @@ function Timer() {
 	const [time, setTime] = useState(60 * 25);
 
 	useEffect(() => {
-		// Set up the interval
 		const intervalId = setInterval(() => {
 			setTime(prevCount => prevCount - 1);
-		}, 1000); // Update every 1 second
+		}, 1000);
 
-		// Clean up the interval when the component unmounts
 		return () => { clearInterval(intervalId); };
 	},
-	[]); // dependency list
+	[]);
 
 	return (
 		<div className={style.page}>
@@ -55,20 +53,15 @@ function Timer() {
 				</div>
 				<div className={style.watch_num}>
 					{(() => {
-						let m = (time - (time % 60)) / 60; // 분
-						let s = time % 60; // 초
+						let m = (time - (time % 60)) / 60;
+						let s = time % 60;
 
 						return `${m}:${s}`;
 					})()}
 				</div>
 
 				<div className={style.btn_sum}>
-					{/* pause */}
-					<div className={style.pause} onClick={() => { }}><Pause/></div>
-					{/* start */}
 					<div onClick={() => { }}>b</div>
-					{/* return */}
-					<div onClick={() => { clearInterval(useState) }}>c</div>
 				</div>
 			</div>
 		</div>

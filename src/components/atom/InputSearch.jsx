@@ -1,7 +1,6 @@
 import styles from '../../styles/Input.module.css';
 
-//검색 input
-const InputSearch = ({ type = 'text', value, onChange}) => {
+const InputSearch = ({ type = 'text', value, onChange, onKeyDown}) => {
   return (
     <div className={styles.container}>
       <img className={styles.iconSearch} src='/assets/images/icon/ic_search.svg' alt="search" />
@@ -11,6 +10,7 @@ const InputSearch = ({ type = 'text', value, onChange}) => {
         placeholder="검색"
         value={value}
         onChange={onChange}
+        onKeyDown={onKeyDown}
       />
     </div>
   );
