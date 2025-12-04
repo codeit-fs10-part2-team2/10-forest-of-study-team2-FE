@@ -5,7 +5,7 @@ import API_ENDPOINTS from '../utils/apiEndpoints';
 
 const LandingPage = () => {
   const { data, loading, error } = useGetRequestHandler(API_ENDPOINTS.STUDIES.GET_ALL, {
-    enabled: false, // API 호출 비활성화
+    enabled: true,
     onSuccess: (data) => {
       console.log('Studies fetched successfully:', data);
     },

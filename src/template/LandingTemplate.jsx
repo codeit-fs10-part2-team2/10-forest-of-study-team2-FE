@@ -1,18 +1,17 @@
 import styles from '../styles/Template.module.css';
 import RecentStudy from '../components/organism/RecentStudy';
 import StudyList from '../components/organism/StudyList';
-import users from '../users.json'
 
-const LandingTemplate = ({ studies }) => {
-  const studiesData = studies || users;
+const LandingTemplate = ({ users }) => {
+  const studies = users?.data || [];
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <RecentStudy studies={studiesData.slice(0, 3)} />
+        <RecentStudy studies={studies.slice(0, 3)} />
       </div>
       <div className={styles.container}>
-        <StudyList studies={studiesData} />
+        <StudyList studies={studies} />
       </div>
     </div>
   );

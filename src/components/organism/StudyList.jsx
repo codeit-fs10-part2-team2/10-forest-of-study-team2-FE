@@ -44,11 +44,9 @@ const StudyList = ({ studies = [] }) => {
             ))}
           </div>
 
-          {displayCount < sortedStudies.length && (
             <div className={styles.buttonBox}>
               <LoadMoreButton onClick={handleLoadMore} />
             </div>
-          )}
         </>
       )}
     </section>

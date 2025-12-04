@@ -10,7 +10,7 @@ const Header = () => {
     <Link to='/'>
       <img src={logo} alt="로고" width="135" />
     </Link>
-    <Link to='/enrollment' className={styles.button}>스터디 만들기</Link>
+    <Link to='/enrollment' className={`${styles.button} ${styles.buttonCreateForm}`}>스터디 만들기</Link>
   </header>
   );
 };
