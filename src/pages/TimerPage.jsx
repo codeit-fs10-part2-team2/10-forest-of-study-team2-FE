@@ -6,7 +6,7 @@ import { Link } from "react-router";
 
 function Timer()
 {
-	const [timer, setTimer] = useState({ time: 60 * 25, id: null });
+	const [timer, setTimer] = useState({ time: 60 * 25, id: null, start: null, delta: 0 });
 
 	const title = "연우의 개발공장";
 	const point = 310;
@@ -14,28 +14,54 @@ function Timer()
 	// memory leak!
 	useEffect(() =>
 	{
-		return () => clearInterval(timer.id);
+		return () =>
+		{
+			clearTimeout(timer.id);
+			clearInterval(timer.id);
+		};
 	},
 	[timer.id]);
 
 	const start = useCallback(() =>
 	{
-		// clearInterval(timer.id);
-		setTimer((_) => ({ ..._, time: _.time,  id: setInterval(() => setTimer((_) => ({ ..._, time: _.time - 1, id: _.id })), 1000) }));
+		const t = performance.now();
+	
+		setTimer((_) =>
+		({
+			..._, start: t, id: setTimeout(() =>
+			{
+				setTimer((_) =>
+				({
+					..._, time: _.time - 1, id: setInterval(() =>
+					{
+						setTimer((_) =>
+						({
+							..._, time: _.time - 1
+						}));
+					},
+					1000 /* 1s */)
+				}));
+			},
+			1000 - _.delta)
+		}));
 	},
-	[timer.id]);
+	[timer.id, timer.delta]);
 
 	const pause = useCallback(() =>
 	{
+		const t = (performance.now() - timer.start) % 1000;
+
+		clearTimeout(timer.id);
 		clearInterval(timer.id);
-		setTimer((_) => ({ ..._, time : _.time, id: null }));
+		setTimer((_) => ({ ..._, time : _.time, id: null, start: null, delta: t }));
 	},
-	[timer.id]);
+	[timer.id, timer.start]);
 
 	const reset = useCallback(() =>
 	{
+		clearTimeout(timer.id);
 		clearInterval(timer.id);
-		setTimer((_) => ({ ..._, time: 60 * 25, id: null }));
+		setTimer((_) => ({ ..._, time: 60 * 25, id: null, start: null, delta: 0 }));
 	},
 	[timer.id]);
 
