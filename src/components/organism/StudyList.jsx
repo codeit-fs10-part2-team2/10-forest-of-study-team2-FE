@@ -50,15 +50,12 @@ const StudyList = ({
           {hasMore && (
             <div className={styles.buttonBox}>
               <LoadMoreButton onClick={onLoadMore} />
-<<<<<<< HEAD
-=======
             </div>
           )}
 
           {loading && studies.length > 0 && (
             <div className={styles.buttonBox}>
               <LoadingSpinner size={30} />
->>>>>>> taetae
             </div>
           )}
 
@@ -66,6 +63,7 @@ const StudyList = ({
             <div className={styles.buttonBox}>
               <p>로딩 중...</p>
             </div>
+          )}
         </>
       )}
     </section>
