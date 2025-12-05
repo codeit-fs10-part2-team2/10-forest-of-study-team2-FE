@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo, useCallback, memo } from 'react';
 import EmojiPickerButton from '../../components/UI/EmojiPicker/EmojiPicker';
 
 const arrowRightIcon = '/assets/images/icons/arrow_right.svg';
@@ -10,10 +10,12 @@ import todayHabitStyles from '../../styles/TodayHabitModal.module.css';
 import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import useStudyView from '../../hooks/useStudyView';
+import useSkeleton from '../../hooks/useSkeleton';
 
-const ViewStudyDetails = () => {
+const ViewStudyDetails = memo(() => {
   const navigate = useNavigate();
   const { studyId } = useParams();
+  const { ViewStudyDetailsSkeleton } = useSkeleton();
   
   const {
     viewStudyDetailTitle,
@@ -37,11 +39,11 @@ const ViewStudyDetails = () => {
     handleEditStudy,
   } = useStudyView(studyId);
   
-  const topEmojis = emojiMetrics.slice(0, 3);
-  const remainingEmojis = emojiMetrics.slice(3);
-  const hasMoreEmojis = emojiMetrics.length > 3;
+  const topEmojis = useMemo(() => emojiMetrics.slice(0, 3), [emojiMetrics]);
+  const remainingEmojis = useMemo(() => emojiMetrics.slice(3), [emojiMetrics]);
+  const hasMoreEmojis = useMemo(() => emojiMetrics.length > 3, [emojiMetrics]);
 
-  const days = ['월', '화', '수', '목', '금', '토', '일'];
+  const days = useMemo(() => ['월', '화', '수', '목', '금', '토', '일'], []);
   
   const engagementMetricsRef = useRef(null);
   const metricButtonsRef = useRef([]);
@@ -49,7 +51,7 @@ const ViewStudyDetails = () => {
   const [showMoreEmojisDropdown, setShowMoreEmojisDropdown] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
   
-  useEffect(() => {
+  const updateDropdownPosition = useCallback(() => {
     if (showMoreEmojisDropdown && moreEmojisButtonRef.current) {
       const rect = moreEmojisButtonRef.current.getBoundingClientRect();
       setDropdownPosition({
@@ -60,7 +62,10 @@ const ViewStudyDetails = () => {
   }, [showMoreEmojisDropdown]);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    updateDropdownPosition();
+  }, [updateDropdownPosition]);
+
+  const handleClickOutside = useCallback((event) => {
       if (
         moreEmojisButtonRef.current &&
         !moreEmojisButtonRef.current.contains(event.target) &&
@@ -68,28 +73,19 @@ const ViewStudyDetails = () => {
       ) {
         setShowMoreEmojisDropdown(false);
       }
-    };
+  }, []);
     
+  useEffect(() => {
     if (showMoreEmojisDropdown) {
       document.addEventListener('mousedown', handleClickOutside);
       return () => {
         document.removeEventListener('mousedown', handleClickOutside);
       };
     }
-  }, [showMoreEmojisDropdown]);
+  }, [showMoreEmojisDropdown, handleClickOutside]);
 
   if (loading) {
-<<<<<<< HEAD
-    return <div className={styles.loadingText}>로딩 중...</div>;
-=======
-    return (
-      <main>
-        <div className={styles.mainContainer}>
-          <div className={styles.loadingText}>로딩 중...</div>
-        </div>
-      </main>
-    );
->>>>>>> parent of 050a9e4 (feat: error handling)
+    return ViewStudyDetailsSkeleton;
   }
 
   return (
@@ -160,10 +156,10 @@ const ViewStudyDetails = () => {
                     <h1 className={styles.mainTitle}>{viewStudyDetailTitle}</h1>
                     <div className={styles.navButtons}>
                         <Button className={styles.navBtn} onClick={() => navigate(`/todayHabit/${studyId}`)}>
-                          <span className={styles.navBtnText}>오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
+                          <span className={styles.navBtnText}>오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} loading="lazy" /></span>
                         </Button>
                         <Button className={styles.navBtn}>
-                          <span className={styles.navBtnText}><Link to="/timer" className={styles.actionLink}>오늘의 집중</Link> <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
+                          <span className={styles.navBtnText}><Link to={`/timer/${studyId}`} className={styles.actionLink}>오늘의 집중</Link> <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} loading="lazy" /></span>
                         </Button>
                     </div>
                 </div>
@@ -213,8 +209,10 @@ const ViewStudyDetails = () => {
       />
     )}
   </>
-  )
-}
+  );
+});
+
+ViewStudyDetails.displayName = 'ViewStudyDetails';
 
 export default ViewStudyDetails;
 

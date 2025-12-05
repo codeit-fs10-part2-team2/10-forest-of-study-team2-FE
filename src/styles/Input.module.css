@@ -88,40 +88,6 @@
   aspect-ratio: 1 / 1;
 }
 
-/* Mobile - 2열 4행으로 변경 */
-@media (max-width: 767px) {
-  .thumbNailSelect {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-}
-
-.eyesButton {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  background: none;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.passwordBox {
-  width: 100%;
-  border: none;
-  outline: none;
-}
-
-.passwordWrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-/* 비밀번호 wrapper의 포커스 스타일 (div에 적용) */
 .passwordWrapper:focus-within {
   border-color: red;
 }
@@ -136,33 +102,44 @@
   position: relative;
 }
 
-/*>>>만들기/수정하기 버튼*/
-.buttonBox {
-  display: flex;
-  flex-direction: column;
-  margin: 40px auto 0;
-  overflow: hidden;
+.button {
+  background-color: #99C08E;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
 }
 
-.button {
-  padding: 14px 16px;
-  border-radius: 12px;
-  border: none;
-  background-color: #99C08E;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-  text-align: center;
-  line-height: 30px;
+.button:hover {
+  background-color: #7FA872;
 }
 
 .buttonCreateForm {
-  width: 232px;
+  background-color: #99C08E;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
 }
 
-/* pad mini */
+.buttonCreateForm:hover {
+  background-color: #7FA872;
+}
+
 @media (max-width: 1023px) {
   .buttonCreateForm {
     width: 160px;
@@ -171,62 +148,8 @@
   }
 }
 
-/* Mobile */
-@media (max-width: 767px) {
-  .buttonCreateForm {
-    width: 106px;
-    font-size: 14px;
-    padding: 10px 12px;
-  }
-}
 
 
-.button:hover {
-  background-color: #41643a;
-}
-
-.button:active {
-  transform: scale(0.99);
-}
-/*만들기/수정하기 버튼<<<*/
-
-
-/*수정하기 폼 버튼-취소/수정 added by opuswork */
-.buttonBoxForEditForm {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 12px;
-  margin: 40px auto 0;
-  width: 100%;
-}
-
-.buttonBoxForEditForm .button {
-  flex: 1;
-  width: 100%;
-}
-
-.buttonBoxForEditForm .button:first-child {
-  font-family: 'EF_jejudoldam', sans-serif;
-  background-color: #DDDDDD;
-}
-
-.buttonBoxForEditForm .button:first-child:hover {
-  font-family: 'EF_jejudoldam', sans-serif;
-  background-color: #CCCCCC;
-}
-
-
-.buttonBoxForEditForm .button:last-child {
-  font-family: 'EF_jejudoldam', sans-serif;
-  background-color: #99C08E;
-}
-
-.buttonBoxForEditForm .button:last-child:hover {
-  font-family: 'EF_jejudoldam', sans-serif;
-  background-color: #CCCCCC;
-}
-/*수정하기 폼 버튼-취소/수정 added by opuswork */
 
 
 .errorMessage {

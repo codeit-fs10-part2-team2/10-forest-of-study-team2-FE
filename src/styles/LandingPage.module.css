@@ -5,15 +5,6 @@
   overflow: hidden;
 }
 
-/* iPad Mini */
-@media (max-width: 1023px) {
-  .cardList {
-    grid-template-columns: repeat(2, minmax(160px, 1fr));
-    gap: 20px;
-  }
-}
-
-/* Mobile */
 @media (max-width: 767px) {
   .cardList {
     grid-template-columns: 1fr;
@@ -34,19 +25,6 @@
   min-width: 240px;
 }
 
-/* iPad mini */
-@media (max-width: 1023px) {
-  .recentList {
-    gap: 20px;
-  }
-  
-  .recentList > * {
-    width: calc((100% - 20px) / 2);
-    min-width: 200px;
-  }
-}
-
-/* Mobile */
 @media (max-width: 767px) {
   .recentList {
     gap: 16px;
@@ -62,15 +40,6 @@
   grid-template-columns: repeat(3, minmax(240px, 1fr));
 }
 
-/* iPad Mini */
-@media (max-width: 1023px) {
-  .list {
-    grid-template-columns: repeat(2, minmax(200px, 1fr));
-    gap: 20px;
-  }
-}
-
-/* Mobile */
 @media (max-width: 767px) {
   .list {
     grid-template-columns: 1fr;
@@ -88,23 +57,13 @@
   gap: 10px;
 }
 
-/* iPad Mini */
-@media (max-width: 1023px) {
-  .inputBox {
-    gap: 12px;
-  }
-}
-
 .buttonBox {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-top: 60px;
-  overflow: hidden;
+  margin-top: 40px;
 }
 
-/* Mobile */
 @media (max-width: 767px) {
   .buttonBox {
     margin-top: 40px;

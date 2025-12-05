@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import styles from '../styles/Template.module.css';
 import RecentStudy from '../components/organism/RecentStudy';
 import StudyList from '../components/organism/StudyList';
 
-const LandingTemplate = ({ 
+const LandingTemplate = memo(({ 
   studies = [],
   recentStudies = [],
   searchKeyword = '',
@@ -34,6 +35,8 @@ const LandingTemplate = ({
       </div>
     </div>
   );
-};
+});
+
+LandingTemplate.displayName = 'LandingTemplate';
 
 export default LandingTemplate;
