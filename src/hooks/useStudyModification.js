@@ -14,13 +14,6 @@ const useStudyModification = (studyId) => {
     studyName: '',
     introduction: DEFAULT_INTRODUCTION,
     thumbNail: 'thumbnail0',
-    password: '',
-    passwordConfirm: ''
-  });
-
-  const [showPassword, setShowPassword] = useState({
-    password: false,
-    passwordConfirm: false
   });
 
   const [errors, setErrors] = useState({});
@@ -38,8 +31,6 @@ const useStudyModification = (studyId) => {
             studyName: studyData.study_name || '',
             introduction: studyData.study_introduction || DEFAULT_INTRODUCTION,
             thumbNail: studyData.background !== undefined ? `thumbnail${studyData.background}` : 'thumbnail0',
-            password: '',
-            passwordConfirm: ''
           });
         } catch (error) {
         }
@@ -55,29 +46,20 @@ const useStudyModification = (studyId) => {
   const handleBlur = (field) => {
     setTouched(prev => ({ ...prev, [field]: true }));
 
-    const value = formData[field].trim();
+    const value = formData[field]?.trim?.() ?? '';
 
     if (!value) {
       setErrors(prev => ({ ...prev, [field]: true }));
       return;
     }
 
-    if (field === 'passwordConfirm' && value !== formData.password) {
-      setErrors(prev => ({ ...prev, passwordConfirm: true }));
-      return;
-    }
-
     setErrors(prev => ({ ...prev, [field]: false }));
-  };
-
-  const togglePassword = (field) => {
-    setShowPassword(prev => ({ ...prev, [field]: !prev[field] }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const requiredFields = ['nickName', 'studyName', 'password', 'passwordConfirm'];
+    const requiredFields = ['nickName', 'studyName'];
 
     let hasError = false;
     const newErrors = {};
@@ -91,11 +73,6 @@ const useStudyModification = (studyId) => {
         hasError = true;
       }
     });
-
-    if (formData.password !== formData.passwordConfirm) {
-      newErrors.passwordConfirm = true;
-      hasError = true;
-    }
 
     setTouched(newTouched);
     setErrors(newErrors);
@@ -112,7 +89,6 @@ const useStudyModification = (studyId) => {
         nickname: formData.nickName,
         study_name: formData.studyName,
         study_introduction: formData.introduction || '',
-        password: formData.password,
         background: background
       };
       
@@ -130,12 +106,10 @@ const useStudyModification = (studyId) => {
 
   return {
     formData,
-    showPassword,
     errors,
     touched,
     handleChange,
     handleBlur,
-    togglePassword,
     handleSubmit
   };
 };

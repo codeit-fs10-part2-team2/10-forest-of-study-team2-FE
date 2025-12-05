@@ -14,12 +14,10 @@ const EditForm = () => {
 
   const {
     formData,
-    showPassword,
     errors,
     touched,      
     handleChange,
     handleBlur,    
-    togglePassword,
     handleSubmit
   } = useStudyModification(studyId);
 
@@ -66,32 +64,11 @@ const EditForm = () => {
             />
           ))}
         </div>
-        
-        <div>
-          <InputLabel
-            label="비밀번호"
-            type="password"
-            placeholder="비밀번호를 입력해 주세요"
-            value={formData.password}
-            onChange={(e) => handleChange('password', e.target.value)}
-            onBlur={() => handleBlur('password')}
-            error={touched.password && errors.password}
-            errorMessage="비밀번호를 입력해주세요"
-            showPassword={showPassword.password}
-            onTogglePassword={() => togglePassword('password')}
-          />
 
-          <InputLabel
-            label="비밀번호 확인"
-            type="password"
-            placeholder="비밀번호를 다시 한 번 입력해 주세요"
-            value={formData.passwordConfirm}
-            onChange={(e) => handleChange('passwordConfirm', e.target.value)}
-            onBlur={() => handleBlur('passwordConfirm')}
-            error={touched.passwordConfirm && errors.passwordConfirm}
-            errorMessage="비밀번호가 일치하지 않습니다"
-            showPassword={showPassword.passwordConfirm}
-            onTogglePassword={() => togglePassword('passwordConfirm')}
+        <div style={{ marginTop: '16px' }}>
+          <ThumbNailSelect 
+            selectedThumbNail={formData.thumbNail}
+            onSelectThumbNail={(thumbNail) => handleChange('thumbNail', thumbNail)}
           />
         </div>
 
