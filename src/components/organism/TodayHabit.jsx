@@ -4,6 +4,12 @@ import todayHabitStyles from '../../styles/TodayHabitModal.module.css';
 import Button from '../UI/Button/Button';
 import Modal from '../../components/UI/Model/Modal';
 import HabitList from '../../components/molecule/HabitList';
+<<<<<<< HEAD
+=======
+import LoadingSpinner from '../UI/LoadingSpinner/LoadingSpinner';
+import PasswordModal from '../UI/PasswordModal/PasswordModal';
+import useToast from '../../hooks/useToast';
+>>>>>>> taetae
 import { Link, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useTodayHabit from '../../hooks/useTodayHabit';
@@ -19,6 +25,10 @@ import { useNavigate } from 'react-router-dom';
 const TodayHabit = () => {
   const navigate = useNavigate();
   const { studyId } = useParams();
+<<<<<<< HEAD
+=======
+  const { showSuccess, showError } = useToast();
+>>>>>>> taetae
   const { loading: todayHabitLoading, todayFulfillments, refreshTodayFulfillments } = useTodayHabit(studyId);
   const { loading: studyLoading, viewStudyDetailTitle, habits: allHabits, refreshHabits: refreshAllHabits } = useHabitByStudyId(studyId);
   const [saving, setSaving] = useState(false);
@@ -57,6 +67,11 @@ const TodayHabit = () => {
   }, [allHabits, todayFulfillments]);
 
   const [showHabitModal, setShowHabitModal] = useState(false);
+<<<<<<< HEAD
+=======
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [password, setPassword] = useState('');
+>>>>>>> taetae
   const [habits, setHabits] = useState([]);
   const [originalHabits, setOriginalHabits] = useState([]);
   const [completedHabits, setCompletedHabits] = useState(new Set());
@@ -85,7 +100,11 @@ const TodayHabit = () => {
       });
       
       if (validHabits.length === 0) {
+<<<<<<< HEAD
         alert('최소 하나의 습관이 필요합니다.');
+=======
+        showError('에러가 발생해 실패했습니다.');
+>>>>>>> taetae
         setSaving(false);
         return;
       }
@@ -129,7 +148,11 @@ const TodayHabit = () => {
       });
 
       if (hasInvalidData) {
+<<<<<<< HEAD
         alert('습관 데이터에 문제가 있습니다. 다시 확인해주세요.');
+=======
+        showError('에러가 발생해 실패했습니다.');
+>>>>>>> taetae
         setSaving(false);
         return;
       }
@@ -169,6 +192,7 @@ const TodayHabit = () => {
       }
       
       setShowHabitModal(false);
+<<<<<<< HEAD
     } catch (error) {
       if (error.response?.status === 500) {
         const errorMessage = error.response?.data?.message || error.response?.data?.error || '서버 오류가 발생했습니다.';
@@ -176,6 +200,11 @@ const TodayHabit = () => {
       } else {
         alert('습관 수정에 실패했습니다. 다시 시도해주세요.');
       }
+=======
+      showSuccess('목록 수정에 성공했습니다.');
+    } catch (error) {
+      showError('에러가 발생해 실패했습니다.');
+>>>>>>> taetae
     } finally {
       setSaving(false);
     }
@@ -284,7 +313,11 @@ const TodayHabit = () => {
     } catch (error) {
       setCompletedHabits(previousCompletedHabits);
       setDisplayHabits(previousDisplayHabits);
+<<<<<<< HEAD
       alert('습관 완료 처리 중 오류가 발생했습니다.');
+=======
+      showError('에러가 발생해 실패했습니다.');
+>>>>>>> taetae
     }
   }
 
@@ -303,6 +336,13 @@ const TodayHabit = () => {
   }
 
   const handleOpenModal = () => {
+<<<<<<< HEAD
+=======
+    setShowPasswordModal(true);
+  }
+
+  const handlePasswordSubmit = () => {
+>>>>>>> taetae
     if (displayHabits && displayHabits.length > 0) {
       const habitsWithPk = displayHabits.map(habit => ({
         habit_pk: habit.habit_pk || habit.id,
@@ -315,13 +355,22 @@ const TodayHabit = () => {
       setHabits([]);
       setOriginalHabits([]);
     }
+<<<<<<< HEAD
+=======
+    setShowPasswordModal(false);
+    setPassword('');
+>>>>>>> taetae
     setShowHabitModal(true);
   }
 
   if (loading) {
     return (
       <div>
+<<<<<<< HEAD
         <div className={styles.loadingText}>로딩 중...</div>
+=======
+        <LoadingSpinner />
+>>>>>>> taetae
       </div>
     );
   }
@@ -330,7 +379,11 @@ const TodayHabit = () => {
   <>
   <div>
     <section className={styles.titleSection}>
+<<<<<<< HEAD
       <h1 className={styles.mainTitle}>{viewStudyDetailTitle || '로딩 중...'}</h1>
+=======
+      <h1 className={styles.mainTitle}>{viewStudyDetailTitle || ''}</h1>
+>>>>>>> taetae
       <div className={styles.navButtons}>
         <Button className={styles.navBtn} onClick={() => navigate(`/Timer`)}>
           <span className={styles.navBtnText}>오늘의 집중 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
@@ -384,6 +437,22 @@ const TodayHabit = () => {
     </section>
   </div>
 
+    {showPasswordModal && (
+      <PasswordModal
+        password={password}
+        onPasswordChange={(e) => setPassword(e.target.value)}
+        onPasswordSubmit={handlePasswordSubmit}
+        buttonText="수정하기"
+        modalTitleText="목록 수정"
+        errorMessageText="권한이 필요합니다."
+        onPasswordExit={() => {
+          setShowPasswordModal(false);
+          setPassword('');
+        }}
+        onPasswordExitText="나가기"
+        studyId={studyId}
+      />
+    )}
     {showHabitModal && (
       <Modal 
         title="습관 목록"

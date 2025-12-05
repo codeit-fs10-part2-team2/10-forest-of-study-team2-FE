@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import { useParams } from 'react-router-dom';
 import styles from './ViewStudyDetails/ViewStudyDetails.module.css';
 import Button from '../components/UI/Button/Button';
 import { Link } from 'react-router-dom';
 import arrowRightIcon from '/public/assets/images/icons/arrow_right.svg';
 
 const TimerPage = () => {
+  const { studyId } = useParams();
   const INITIAL_TIME = 25 * 60;
   const [time, setTime] = useState(INITIAL_TIME);
   const [isRunning, setIsRunning] = useState(false);
@@ -49,7 +50,7 @@ const TimerPage = () => {
         <h2 style={{ margin: 0, fontSize: "28px" }}>{studyName}</h2>
         <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
           <Button className={styles.navBtn}>
-            <Link to="/todayHabit" style={{ textDecoration: 'none' }}>
+            <Link to={`/todayHabit/${studyId}`} style={{ textDecoration: 'none' }}>
               <span className={styles.navBtnText}>오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
             </Link>
           </Button>

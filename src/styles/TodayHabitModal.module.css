@@ -1,21 +1,8 @@
-/* TodayHabit Component Styles */
-
 .todayHabitCardHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.todayHabitCardTitle {
-  font-size: 20px;
-  font-weight: 600;
-  color: #333;
-  margin: 0;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-bottom: 16px;
 }
 
 /* Today Action Link: edit habits list */
@@ -45,53 +32,27 @@
   color: inherit;
 }
 
-/* Habit Button Container - Modal Footer */
 .habitButtonContainer {
   display: flex;
-  gap: 12px;
-  margin-top: 0;
-  position: relative;
-  z-index: 1;
   justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .habitButtonContainer button {
-  width: 200px;
-  min-width: 100px;
-  padding: 8px 16px;
-  border-radius: 18px;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: 'EF_jejudoldam', sans-serif;
-  background-color: #E0E0E0;
-  color: #333;
-  border: none;
+  min-width: 120px;
+  height: 48px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
-  box-sizing: border-box;
-  line-height: 1.5;
-  height: auto;
 }
 
-.habitButtonContainer button:first-child {
-  background-color: #E0E0E0;
-  color: #333;
-}
-
-.habitButtonContainer button:first-child:hover {
-  background-color: #D0D0D0;
-}
-
-.habitButtonContainer button:last-child {
-  background-color: #4CAF50;
-  color: #fff;
-}
-
-.habitButtonContainer button:last-child:hover {
-  background-color: #45a049;
-}
-
-/* Mobile Responsive */
 @media (max-width: 768px) {
   .habitButtonContainer {
     flex-direction: row;

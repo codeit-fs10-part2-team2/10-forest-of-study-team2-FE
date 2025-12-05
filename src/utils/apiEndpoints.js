@@ -8,6 +8,7 @@ const API_ENDPOINTS = {
     UPDATE: (id) => `/api/studies/${id}`,
     DELETE: (id) => `/api/studies/${id}`,
     UPDATE_CONCENTRATION_TIME: (id) => `/api/studies/${id}/concentration-time`,
+    VERIFY_PASSWORD: (id) => `/api/studies/${id}/verify-password`,
     BATCH: '/api/studies/batch',
   },
   
