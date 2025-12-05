@@ -6,44 +6,14 @@ import { getRecentStudyQueue } from '../utils/recentStudyQueue';
 import axiosInstance from '../utils/axiosInstance';
 
 const LandingPage = () => {
-  const [searchKeyword, setSearchKeyword] = useState('');
-  const [debouncedSearchKeyword, setDebouncedSearchKeyword] = useState('');
-  const [sortOption, setSortOption] = useState('최근 순');
-  const [page, setPage] = useState(1);
-  const [accumulatedStudies, setAccumulatedStudies] = useState([]);
-  const [recentStudies, setRecentStudies] = useState([]);
-  const [recentStudiesLoading, setRecentStudiesLoading] = useState(false);
-  const shouldClearSearchRef = useRef(false);
-  const limit = 6;
-  const prevSearchRef = useRef('');
-  const prevSortRef = useRef('최근 순');
-
-  const getSortValue = (option) => {
-    const sortMap = {
-      '최근 순': 'recent',
-      '오래된 순': 'oldest',
-      '많은 포인트 순': 'points_desc',
-      '적은 포인트 순': 'points_asc'
-    };
-    return sortMap[option] || 'recent';
-  };
-
-  const buildApiUrl = useMemo(() => {
-    const params = new URLSearchParams();
-    params.append('page', page.toString());
-    params.append('limit', limit.toString());
-    params.append('sort', getSortValue(sortOption));
-    
-    if (debouncedSearchKeyword.trim()) {
-      params.append('search', debouncedSearchKeyword.trim());
-    }
-
-    return `${API_ENDPOINTS.STUDIES.GET_ALL}?${params.toString()}`;
-  }, [page, sortOption, debouncedSearchKeyword]);
-
-  const { data, loading, error, refetch } = useGetRequestHandler(buildApiUrl, {
+  const { data, loading, error } = useGetRequestHandler(API_ENDPOINTS.STUDIES.GET_ALL, {
     enabled: true,
-    dependencies: [page, sortOption, debouncedSearchKeyword],
+    onSuccess: (data) => {
+      console.log('Studies fetched successfully:', data);
+    },
+    onError: (error) => {
+      console.error('Failed to fetch studies:', error);
+    },
   });
 
   const transformStudies = (apiData) => {

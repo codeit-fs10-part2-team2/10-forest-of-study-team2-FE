@@ -56,7 +56,6 @@ const StudyList = ({
             <div className={styles.buttonBox}>
               <p>로딩 중...</p>
             </div>
-          )}
         </>
       )}
     </section>
