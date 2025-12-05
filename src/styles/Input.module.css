@@ -7,6 +7,7 @@
 
 .introInput {
   height: 100px;
+  font-size: 14px;
 }
 
 .label {
@@ -98,10 +99,14 @@
 .eyesButton {
   position: absolute;
   right: 20px;
-  bottom: 12px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
   background: none;
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .passwordBox {

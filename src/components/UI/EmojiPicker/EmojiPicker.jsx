@@ -11,24 +11,23 @@ const EmojiPickerButton = ({ onEmojiSelect }) => {
 
   const handleAddEmoji = () => {
     if (!showEmojiPicker && addButtonRef.current) {
-      const rect = addButtonRef.current.getBoundingClientRect();                      // get the bounding client rect of the add button
+      const rect = addButtonRef.current.getBoundingClientRect();
       
-      const mainContent = document.querySelector('[data-main-content]');                    // get the main-content element
-      const mainContentRect = mainContent ? mainContent.getBoundingClientRect() : null;            // get the bounding client rect of the main-content
-      const leftPosition = mainContentRect ? mainContentRect.left + window.scrollX + 16 : rect.left + window.scrollX;       // get the left position of the main-content
-      const topPosition = rect.bottom + window.scrollY + 8;                             // get the top position of the add button
-      setEmojiPickerPosition({ top: topPosition, left: leftPosition, right: 'auto' }); // set the position of the emoji picker
+      const mainContent = document.querySelector('[data-main-content]');
+      const mainContentRect = mainContent ? mainContent.getBoundingClientRect() : null;
+      const leftPosition = mainContentRect ? mainContentRect.left + window.scrollX + 16 : rect.left + window.scrollX;
+      const topPosition = rect.bottom + window.scrollY + 8;
+      setEmojiPickerPosition({ top: topPosition, left: leftPosition, right: 'auto' });
     }
-    setShowEmojiPicker(!showEmojiPicker);                 // toggle the showEmojiPicker state
+    setShowEmojiPicker(!showEmojiPicker);
   }
 
   const handleEmojiClick = (emojiData) => {
-    const emoji = emojiData.emoji;                  // get the emoji from the emoji data
-    onEmojiSelect(emoji);                           // call the onEmojiSelect function with the emoji
-    setShowEmojiPicker(false);                      // close the emoji picker
+    const emoji = emojiData.emoji;
+    onEmojiSelect(emoji);
+    setShowEmojiPicker(false);
   }
 
-  // closing the emoji picker when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -37,17 +36,17 @@ const EmojiPickerButton = ({ onEmojiSelect }) => {
         addButtonRef.current &&
         !addButtonRef.current.contains(event.target)
       ) {
-        setShowEmojiPicker(false);                  // set the showEmojiPicker state to false
+        setShowEmojiPicker(false);
       }
     }
 
     if (showEmojiPicker) {
-      document.addEventListener('mousedown', handleClickOutside); // add the event listener to the document
+      document.addEventListener('mousedown', handleClickOutside);
       return () => {
-        document.removeEventListener('mousedown', handleClickOutside); // remove the event listener from the document
+        document.removeEventListener('mousedown', handleClickOutside);
       }
     }
-  }, [showEmojiPicker]); // re-run the effect when the showEmojiPicker changes
+  }, [showEmojiPicker]);
 
   return (
     <div className={styles.emojiPickerContainer}>

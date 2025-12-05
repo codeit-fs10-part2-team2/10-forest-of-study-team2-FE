@@ -34,11 +34,11 @@ const PasswordModal = ({
     
     const handlePasswordExit = () => {
         setShowPasswordError(false);
-        onPasswordExit && onPasswordExit(); // onPasswordExit가 있으면 실행
+        onPasswordExit && onPasswordExit();
     };
     
     const handlePasswordChange = (e) => {
-        setShowPasswordError(false); // 비밀번호 입력 시 에러 상태 초기화
+        setShowPasswordError(false);
         onPasswordChange && onPasswordChange(e);
     };
     
@@ -102,14 +102,13 @@ const PasswordModal = ({
                         className={styles.passwordSubmitBtn} 
                         onClick={handlePasswordSubmit}>
                         {buttonIcon && <img src={buttonIcon} alt="" className={buttonText ? styles.buttonIconWithText : styles.buttonIcon} />}
-                        {/* added prop to display button text for modification and deletion */}
-                        {buttonText && buttonText}
+                        {buttonText}
                     </Button>
                 </div>
             </div>
         </div>
     </>
-  );
+    );
 };
 
 export default PasswordModal;

@@ -2,16 +2,35 @@ import styles from '../styles/Template.module.css';
 import RecentStudy from '../components/organism/RecentStudy';
 import StudyList from '../components/organism/StudyList';
 
-const LandingTemplate = ({ users }) => {
-  const studies = users?.data || [];
-
+const LandingTemplate = ({ 
+  studies = [],
+  recentStudies = [],
+  searchKeyword = '',
+  sortOption = '최근 순',
+  onSearchChange,
+  onSearchKeyDown,
+  onSortChange,
+  onLoadMore,
+  hasMore = false,
+  loading = false
+}) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <RecentStudy studies={studies.slice(0, 3)} />
+        <RecentStudy studies={recentStudies} />
       </div>
       <div className={styles.container}>
-        <StudyList studies={studies} />
+        <StudyList 
+          studies={studies}
+          searchKeyword={searchKeyword}
+          sortOption={sortOption}
+          onSearchChange={onSearchChange}
+          onSearchKeyDown={onSearchKeyDown}
+          onSortChange={onSortChange}
+          onLoadMore={onLoadMore}
+          hasMore={hasMore}
+          loading={loading}
+        />
       </div>
     </div>
   );
