@@ -54,13 +54,13 @@ const useTimerPage = (studyId) => {
     }
   };
 
-  const addPoints = async (minutes) => {
+  const addPoints = async (minutes, contentOverride) => {
     if (!studyId) {
       return false;
     }
 
     const points = minutes * 2;
-    const content = `${minutes}분의 집중 완료!`;
+    const content = contentOverride || `${minutes}분의 집중 완료!`;
 
     try {
       await axiosInstance.post(API_ENDPOINTS.POINTS.CREATE(studyId), {

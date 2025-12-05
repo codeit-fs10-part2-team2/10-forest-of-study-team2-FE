@@ -91,7 +91,7 @@ const TodayHabit = () => {
       });
       
       if (validHabits.length === 0) {
-        showError('에러가 발생해 실패했습니다.');
+        showError('목록 수정에 실패했습니다.');
         setSaving(false);
         return;
       }
@@ -135,7 +135,24 @@ const TodayHabit = () => {
       });
 
       if (hasInvalidData) {
-        showError('에러가 발생해 실패했습니다.');
+        showError('목록 수정에 실패했습니다.');
+        setSaving(false);
+        return;
+      }
+
+      const habitPkSet = new Set();
+      const hasDuplicatePk = requestBody.some(habit => {
+        if (habit.habit_pk !== undefined) {
+          if (habitPkSet.has(habit.habit_pk)) {
+            return true;
+          }
+          habitPkSet.add(habit.habit_pk);
+        }
+        return false;
+      });
+
+      if (hasDuplicatePk) {
+        showError('목록 수정에 실패했습니다.');
         setSaving(false);
         return;
       }
@@ -177,7 +194,14 @@ const TodayHabit = () => {
       setShowHabitModal(false);
       showSuccess('목록 수정에 성공했습니다.');
     } catch (error) {
-      showError('에러가 발생해 실패했습니다.');
+      console.error('습관 수정 에러:', error);
+      console.error('요청 데이터:', requestBody);
+      console.error('습관 개수:', validHabits.length);
+      if (error.response) {
+        console.error('응답 상태:', error.response.status);
+        console.error('응답 데이터:', error.response.data);
+      }
+      showError('목록 수정에 실패했습니다.');
     } finally {
       setSaving(false);
     }

@@ -2,6 +2,7 @@
 {
 	width: 100%;
 	margin: 0px auto;
+	margin-top: 40px;
 	padding: 40px 40px;
 	border-radius: 20px;
 	background-color: #FFF;
@@ -19,11 +20,25 @@
 	font-weight: 800;
 }
 
+.titleArea {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #414141;
+}
+
 .goto
 {
 	gap: 16px;
 	display: flex;
-	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
 
 	color: #818181;
 	font-size: 16px;
@@ -55,6 +70,12 @@
 	margin-top: 16px;
 }
 
+.pointsBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 .data
 {
 	gap: 4px;
@@ -77,6 +98,11 @@
 	margin-top: 8px;
 }
 
+.pointsLabel {
+  font-size: 14px;
+  color: #818181;
+}
+
 /* lower section */
 
 .body
@@ -92,13 +118,58 @@
 	margin-top: 24px;
 }
 
+.bodyHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+}
+
+.timeEditArea {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timeEditBtn,
+.timeSaveBtn,
+.timeCancelBtn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.timeInput {
+  width: 110px;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  background-color: #fff;
+}
+
+.timeInput:focus {
+  border-color: #99C08E;
+  box-shadow: 0 0 0 2px rgba(153, 192, 142, 0.2);
+}
+
+.timeInput:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
 .clock
 {
 	color: #414141;
-	font-size: 150px;
+	font-size: 120px;
 	font-weight: 800;
 
-	margin-top: 100px;
+	margin-top: 60px;
 }
 
 .tools
@@ -106,7 +177,7 @@
 	gap: 24px;
 	display: flex;
 
-	margin-top: 94.5px;
+	margin-top: 60px;
 }
 
 .pause_btn
