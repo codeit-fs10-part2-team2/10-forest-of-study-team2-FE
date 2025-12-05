@@ -79,6 +79,9 @@ const ViewStudyDetails = () => {
   }, [showMoreEmojisDropdown]);
 
   if (loading) {
+<<<<<<< HEAD
+    return <div className={styles.loadingText}>로딩 중...</div>;
+=======
     return (
       <main>
         <div className={styles.mainContainer}>
@@ -86,6 +89,7 @@ const ViewStudyDetails = () => {
         </div>
       </main>
     );
+>>>>>>> parent of 050a9e4 (feat: error handling)
   }
 
   return (
