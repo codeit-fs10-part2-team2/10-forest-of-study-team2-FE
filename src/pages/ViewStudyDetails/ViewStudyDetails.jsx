@@ -10,6 +10,7 @@ import todayHabitStyles from '../../styles/TodayHabitModal.module.css';
 import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import useStudyView from '../../hooks/useStudyView';
+import LoadingSpinner from '../../components/UI/LoadingSpinner/LoadingSpinner';
 
 const ViewStudyDetails = memo(() => {
   const navigate = useNavigate();
@@ -192,6 +193,7 @@ const ViewStudyDetails = memo(() => {
         errorMessageText="권한이 필요합니다."
         onPasswordExit={() => setShowEditStudyModal(false)}
         onPasswordExitText="나가기"
+        studyId={studyId}
       />
     )}
     {showDeleteStudyModal && (
@@ -204,6 +206,7 @@ const ViewStudyDetails = memo(() => {
         errorMessageText="권한이 필요합니다."
         onPasswordExit={() => setShowDeleteStudyModal(false)}
         onPasswordExitText="나가기"
+        studyId={studyId}
       />
     )}
   </>

@@ -1,5 +1,6 @@
 import StudyCard from '../molecule/StudyCard';
 import EmptyState from '../UI/EmptyState';
+import LoadingSpinner from '../UI/LoadingSpinner/LoadingSpinner';
 import templateStyles from '../../styles/Template.module.css';
 import styles from '../../styles/LandingPage.module.css';
 import InputSearch from '../atom/InputSearch';
@@ -49,6 +50,12 @@ const StudyList = ({
           {hasMore && (
             <div className={styles.buttonBox}>
               <LoadMoreButton onClick={onLoadMore} />
+            </div>
+          )}
+
+          {loading && studies.length > 0 && (
+            <div className={styles.buttonBox}>
+              <LoadingSpinner size={30} />
             </div>
           )}
 

@@ -4,6 +4,7 @@ import useGetRequestHandler from '../hooks/useGetRequestHandler';
 import API_ENDPOINTS from '../utils/apiEndpoints';
 import { getRecentStudyQueue } from '../utils/recentStudyQueue';
 import axiosInstance from '../utils/axiosInstance';
+import LoadingSpinner from '../components/UI/LoadingSpinner/LoadingSpinner';
 
 const LandingPage = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -175,7 +176,7 @@ const LandingPage = () => {
   };
 
   if (loading && !data) {
-    return null;
+    return <LoadingSpinner />;
   }
 
   if (error) {
