@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import API_ENDPOINTS from '../utils/apiEndpoints';
+import useToast from './useToast';
 
 
 const useStudyCreation = () => {
   const navigate = useNavigate();
+  const { showSuccess, showError } = useToast();
 
   const [formData, setFormData] = useState({
     nickName: '',
@@ -121,10 +123,11 @@ const useStudyCreation = () => {
         submitData
       );
       
+      showSuccess('스터디 생성에 성공했습니다.');
       navigate('/');
       
     } catch (error) {
-      alert('스터디 생성에 실패했습니다. 다시 시도해주세요.');
+      showError('스터디 생성에 실패했습니다.');
     }
   };
 

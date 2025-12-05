@@ -10,7 +10,11 @@ import todayHabitStyles from '../../styles/TodayHabitModal.module.css';
 import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import useStudyView from '../../hooks/useStudyView';
+<<<<<<< HEAD
 import useSkeleton from '../../hooks/useSkeleton';
+=======
+import LoadingSpinner from '../../components/UI/LoadingSpinner/LoadingSpinner';
+>>>>>>> 4c9ca16be551b02b3354e3b53b90c10f40e9f18b
 
 const ViewStudyDetails = memo(() => {
   const navigate = useNavigate();
@@ -85,7 +89,11 @@ const ViewStudyDetails = memo(() => {
   }, [showMoreEmojisDropdown, handleClickOutside]);
 
   if (loading) {
+<<<<<<< HEAD
     return ViewStudyDetailsSkeleton;
+=======
+    return <div className={styles.loadingText}>로딩 중...</div>;
+>>>>>>> 4c9ca16be551b02b3354e3b53b90c10f40e9f18b
   }
 
   return (
@@ -194,6 +202,7 @@ const ViewStudyDetails = memo(() => {
         errorMessageText="권한이 필요합니다."
         onPasswordExit={() => setShowEditStudyModal(false)}
         onPasswordExitText="나가기"
+        studyId={studyId}
       />
     )}
     {showDeleteStudyModal && (
@@ -206,6 +215,7 @@ const ViewStudyDetails = memo(() => {
         errorMessageText="권한이 필요합니다."
         onPasswordExit={() => setShowDeleteStudyModal(false)}
         onPasswordExitText="나가기"
+        studyId={studyId}
       />
     )}
   </>
