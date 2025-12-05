@@ -221,7 +221,6 @@ const useStudyView = (studyId) => {
 
   const handleDeleteStudy = async () => {
     if (!studyId) {
-<<<<<<< HEAD
       alert('스터디 ID가 없습니다.');
       return;
     }
@@ -234,8 +233,6 @@ const useStudyView = (studyId) => {
     if (studyPassword && deletePassword !== studyPassword) {
       alert('비밀번호가 일치하지 않습니다.');
       setDeletePassword('');
-=======
->>>>>>> taetae
       return;
     }
 
@@ -249,32 +246,21 @@ const useStudyView = (studyId) => {
         }
       );
       
-<<<<<<< HEAD
       alert('스터디가 삭제되었습니다.');
-=======
->>>>>>> taetae
       setShowDeleteStudyModal(false);
       setDeletePassword('');
       navigate('/');
     } catch (error) {
-<<<<<<< HEAD
       if (error.response?.status === 401 || error.response?.status === 403) {
         alert('비밀번호가 일치하지 않습니다.');
         setDeletePassword('');
       } else {
         alert('스터디 삭제에 실패했습니다. 다시 시도해주세요.');
       }
-=======
->>>>>>> taetae
     }
   };
 
   const handleEditStudy = () => {
-<<<<<<< HEAD
-=======
-    setShowEditStudyModal(false);
-    setEditPassword('');
->>>>>>> taetae
     navigate(`/enrollment/${studyId}`);
   };
 
