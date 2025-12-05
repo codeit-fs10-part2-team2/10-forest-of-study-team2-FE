@@ -201,3 +201,32 @@
 .buttonBox .button {
   min-width: 180px;
 }
+
+.buttonBoxForEditForm {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.buttonBoxForEditForm .button {
+  flex: 1;
+  width: 100%;
+  min-width: 140px;
+}
+
+.buttonBoxForEditForm .button:first-child {
+  background-color: #DDDDDD;
+}
+
+.buttonBoxForEditForm .button:first-child:hover {
+  background-color: #CCCCCC;
+}
+
+.buttonBoxForEditForm .button:last-child {
+  background-color: #99C08E;
+}
+
+.buttonBoxForEditForm .button:last-child:hover {
+  background-color: #7FA872;
+}
