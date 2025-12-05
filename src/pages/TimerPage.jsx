@@ -1,133 +1,119 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useParams } from 'react-router-dom';
-import styles from './ViewStudyDetails/ViewStudyDetails.module.css';
-import Button from '../components/UI/Button/Button';
-import { Link } from 'react-router-dom';
-import arrowRightIcon from '/public/assets/images/icons/arrow_right.svg';
+import { useState, useEffect, useCallback } from "react";
 
-const TimerPage = () => {
-  const { studyId } = useParams();
-  const INITIAL_TIME = 25 * 60;
-  const [time, setTime] = useState(INITIAL_TIME);
-  const [isRunning, setIsRunning] = useState(false);
-  const timerRef = useRef(null);
-  const [studyName, setStudyName] = useState("연우의 개발공장");
+import style from "../styles/TimerPage.module.css";
 
-  useEffect(() => {
-    if (isRunning) {
-      timerRef.current = setInterval(() => {
-        setTime(prev => {
-          if (prev <= 1) {
-            clearInterval(timerRef.current);
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    } else {
-      clearInterval(timerRef.current);
-    }
+import { Link } from "react-router";
 
-    return () => clearInterval(timerRef.current);
-  }, [isRunning]);
+function Timer()
+{
+	const [timer, setTimer] = useState({ time: 60 * 25, id: null, start: null, delta: 0 });
 
-  const formatTime = (seconds) => {
-    const m = Math.floor(seconds / 60).toString().padStart(2, "0");
-    const s = (seconds % 60).toString().padStart(2, "0");
-    return `${m}:${s}`;
-  };
+	const title = "연우의 개발공장";
+	const point = 310;
 
-  return (
-    <div  
-      style={{
-      backgroundColor: "white",     
-      minHeight: "100vh",           
-   }}
+	// memory leak!
+	useEffect(() =>
+	{
+		return () =>
+		{
+			clearTimeout(timer.id);
+			clearInterval(timer.id);
+		};
+	},
+	[timer.id]);
 
-    >
-    <div style={{ padding: "20px", marginTop: "20px" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>  
-        <h2 style={{ margin: 0, fontSize: "28px" }}>{studyName}</h2>
-        <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
-          <Button className={styles.navBtn}>
-            <Link to={`/todayHabit/${studyId}`} style={{ textDecoration: 'none' }}>
-              <span className={styles.navBtnText}>오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
-            </Link>
-          </Button>
-          <Button className={styles.navBtn}>
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              <span className={styles.navBtnText}>홈 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
-            </Link>
-          </Button>
-        </div>
-      </div>
-      <div className={styles.pointsSection}>
-        <span className={styles.pointsLabel}>현재까지 획득한 포인트</span>
-        <Button className={styles.pointsBtn}>
-          <span className={styles.leafIcon}>🌱</span>
-          <span className={styles.pointsText}>310P 획득</span>
-        </Button>
-      </div>
-    </div>
+	const start = useCallback(() =>
+	{
+		const t = performance.now();
+	
+		setTimer((_) =>
+		({
+			..._, start: t, id: setTimeout(() =>
+			{
+				setTimer((_) =>
+				({
+					..._, time: _.time - 1, id: setInterval(() =>
+					{
+						setTimer((_) =>
+						({
+							..._, time: _.time - 1
+						}));
+					},
+					1000 /* 1s */)
+				}));
+			},
+			1000 - _.delta)
+		}));
+	},
+	[timer.id, timer.delta]);
 
-    
-    <ul style={{ textAlign: "center", padding: "10px" }}>
-      <h2>오늘의 집중</h2>
-      <br></br>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Button className={styles.pointsBtn}>
-          <span className={styles.leafIcon}><img src="/assets/images/icons/ic_timer.svg" alt="timer" /> </span>
-          <span className={styles.pointsText}>25:00</span>
-        </Button>
-      </div>
-      <br></br>
-      <h1 style={{ fontSize: "80px", marginBottom: "20px", color: "red", fontWeight: "bold" }}>
-        {formatTime(time)}
-      </h1>
+	const pause = useCallback(() =>
+	{
+		const t = (performance.now() - timer.start) % 1000;
 
-      <div style={{ display: "flex", justifyContent: "center",  gap: "20px" }}>
-      {isRunning && (
-          <img
-            src="../../assets/images/icons/btn_pause.png"
-            alt="pause"
-        
-            style={{ cursor: "pointer" }}
-            onClick={() => setIsRunning(false)}
-          />
-        )}
+		clearTimeout(timer.id);
+		clearInterval(timer.id);
+		setTimer((_) => ({ ..._, time : _.time, id: null, start: null, delta: t }));
+	},
+	[timer.id, timer.start]);
 
-        {!isRunning && (
-          <img
-            src="../../assets/images/icons/btn_start.png"
-            alt="reset"
-        
-            style={{ cursor: "pointer" }}
-            onClick={() => setIsRunning(true)}
-          />
-        )}
+	const reset = useCallback(() =>
+	{
+		clearTimeout(timer.id);
+		clearInterval(timer.id);
+		setTimer((_) => ({ ..._, time: 60 * 25, id: null, start: null, delta: 0 }));
+	},
+	[timer.id]);
 
-        {isRunning && (
-          <img
-            src="../../assets/images/icons/btn_reset.png"
-            alt="stop"
-        
-            style={{ cursor: "pointer" }}
-            onClick={() => { setIsRunning(false);
-                             setTime(INITIAL_TIME);}
+	const format = useCallback((time) =>
+	{
+		const [mm, ss] = [(time - (time % 60)) / 60, (time % 60)]; // TODO: YY, DD
 
-            }
-          />
-        )}
+		return `${mm.toString().padStart(2, "0")}:${ss.toString().padStart(2, "0")}`;
+	},
+	[]);
 
+	return (
+		<div className={style.page}>
+			<div className={style.head}>
+				{title}
+				<div className={style.goto}>
+					<Link className={style.link} to="/">
+						오늘의 습관
+					</Link>
+					<Link className={style.link} to="/">
+						홈
+					</Link>
+				</div>
+			</div>
+			<div className={style.info}>
+				현재까지 획득한 포인트
+				<div className={style.data}>
+					<img src="assets/images/icons/ic_point.svg"/>
+					{point}P 획득
+				</div>
+			</div>
+			<div className={style.body}>
+				오늘의 집중
+				<div className={style.clock} style={{ color: timer.time <= 10 ? "#F50E0E" :
+					                                         timer.time <=  0 ? "#818181" : undefined }}>
+					{format(timer.time)}
+				</div>
+				<div className={style.tools}>
+					<button className={style.pause_btn} onClick={pause} style={{ display: timer.time != 60 * 25 ? undefined : "none" }}>
+						<img src="assets/images/icons/ic_pause.svg"/>
+					</button>
+					<button className={style.start_btn} onClick={start} style={{ background: timer.id ? "#818181" : undefined }}>
+						<img src="assets/images/icons/ic_play.svg"/>
+						Start!
+					</button>
+					<button className={style.reset_btn} onClick={reset} style={{ display: timer.time != 60 * 25 ? undefined : "none" }}>
+						<img src="assets/images/icons/ic_restart.svg"/>
+					</button>
+				</div>
+			</div>
+		</div>
+	);
+}
 
-      </div>
-
-
- 
-    </ul>
-  
-    </div>
-  );
-};
-
-export default TimerPage;
+export default Timer;
