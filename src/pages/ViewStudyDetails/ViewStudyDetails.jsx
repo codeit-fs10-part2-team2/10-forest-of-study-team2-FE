@@ -6,15 +6,15 @@ import Button from '../../components/UI/Button/Button';
 import HabitTrackerCard from '../../components/organism/HabitTrackerCard';
 import PasswordModal from '../../components/UI/PasswordModal/PasswordModal';
 import styles from './ViewStudyDetails.module.css';
-import { Link } from 'react-router-dom';
+import todayHabitStyles from '../../styles/TodayHabitModal.module.css';
+import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import useStudyView from '../../hooks/useStudyView';
-import useSkeleton from '../../hooks/useSkeleton';
+import LoadingSpinner from '../../components/UI/LoadingSpinner/LoadingSpinner';
 
 const ViewStudyDetails = memo(() => {
   const navigate = useNavigate();
   const { studyId } = useParams();
-  const { ViewStudyDetailsSkeleton } = useSkeleton();
   
   const {
     viewStudyDetailTitle,
@@ -84,7 +84,13 @@ const ViewStudyDetails = memo(() => {
   }, [showMoreEmojisDropdown, handleClickOutside]);
 
   if (loading) {
-    return ViewStudyDetailsSkeleton;
+    return (
+      <main>
+        <div className={styles.mainContainer}>
+          <LoadingSpinner />
+        </div>
+      </main>
+    );
   }
 
   return (
@@ -97,29 +103,62 @@ const ViewStudyDetails = memo(() => {
                       ref={engagementMetricsRef}
                       className={`${styles.engagementMetrics} ${shouldWrap ? styles.wrapEnabled : ''}`}
                     >
-                        {emojiMetrics.map((item, index) => (
+                        {topEmojis.map((item, index) => (
                           <Button 
-                            key={index} 
+                            key={item.emojiId || index} 
                             ref={(el) => metricButtonsRef.current[index] = el}
                             className={styles.metricBtn}
+                            onClick={() => handleEmojiClick(item.emojiId)}
                           >
                             <span className={styles.icon}>{item.emoji}</span> 
-                            <span>{item.count}</span> {/* emoji count */}
+                            <span>{item.count}</span>
                           </Button>
                         ))}
-                        <EmojiPickerButton onEmojiSelect={handleEmojiSelect} /> {/* emoji picker button - used to select the emoji and add the emoji to the metrics */}
+                        {hasMoreEmojis && (
+                          <div style={{ position: 'relative' }} ref={moreEmojisButtonRef}>
+                            <Button 
+                              className={styles.metricBtn}
+                              onClick={() => setShowMoreEmojisDropdown(!showMoreEmojisDropdown)}
+                            >
+                              <span>...</span>
+                            </Button>
+                            {showMoreEmojisDropdown && (
+                              <div 
+                                className={styles.moreEmojisDropdown}
+                                style={{
+                                  top: `${dropdownPosition.top}px`,
+                                  left: `${dropdownPosition.left}px`
+                                }}
+                              >
+                                {remainingEmojis.map((item, index) => (
+                                  <Button
+                                    key={item.emojiId || index}
+                                    className={styles.metricBtn}
+                                    onClick={() => {
+                                      handleEmojiClick(item.emojiId);
+                                    }}
+                                  >
+                                    <span className={styles.icon}>{item.emoji}</span>
+                                    <span>{item.count}</span>
+                                  </Button>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        <EmojiPickerButton onEmojiSelect={handleEmojiSelect} />
                     </div>
                     <div className={styles.actionButtons}>
-                        <Link to="#" className={styles.actionLink}>공유하기</Link> {/* share button */}
+                        <Link to="#" className={todayHabitStyles.todayActionLink} onClick={(e) => e.preventDefault()}>공유하기</Link>
                         <span className={styles.divider}>|</span>
-                        <Link to="/enrollment/1" className={styles.actionLink}>수정하기</Link> {/* edit button */}
+                        <Link to="#" className={todayHabitStyles.todayActionLink} onClick={(e) => { e.preventDefault(); setShowEditStudyModal(true); }}>수정하기</Link>
                         <span className={styles.divider}>|</span>
-                        <Link to="#" className={styles.actionLink} onClick={(e) => { e.preventDefault(); setShowDeleteStudyModal(true); }}>스터디 삭제하기</Link> {/* delete button */}
+                        <Link to="#" className={todayHabitStyles.todayActionLink} onClick={(e) => { e.preventDefault(); setShowDeleteStudyModal(true); }}>스터디 삭제하기</Link>
                     </div>
                 </div>
 
                 <div className={styles.titleSection}>
-                    <h1 className={styles.mainTitle}>{viewStudyDetailTitle}</h1> {/* study title */}
+                    <h1 className={styles.mainTitle}>{viewStudyDetailTitle}</h1>
                     <div className={styles.navButtons}>
                         <Button className={styles.navBtn} onClick={() => navigate(`/todayHabit/${studyId}`)}>
                           <span className={styles.navBtnText}>오늘의 습관 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} loading="lazy" /></span>
@@ -132,23 +171,37 @@ const ViewStudyDetails = memo(() => {
                 <div className={styles.contentSection}>
                     <div className={styles.introSection}>
                         <h2 className={styles.introTitle}>소개</h2>
-                        <p className={styles.introText}>{studyDescription}</p>
+                        <p className={styles.introText}>{studyIntroduction || '소개 내용이 없습니다.'}</p>
                     </div>
                     <div className={styles.pointsSection}>
-                        <span className={styles.pointsLabel}>현재까지 획득한 포인트</span> {/* points label */}
-                        <Button className={styles.pointsBtn}> {/* points button */}
+                        <span className={styles.pointsLabel}>현재까지 획득한 포인트</span>
+                        <Button className={styles.pointsBtn}>
                             <span className={styles.leafIcon}>🌱</span>
-                            <span className={styles.pointsText}>{points}P 획득</span> {/* points button */}
+                            <span className={styles.pointsText}>{points}P 획득</span>
                         </Button>
                     </div>
                 </div>
             </div>
 
             <div className={styles.mainContent} data-main-content>
-              <HabitTrackerCard habits={habits} days={days} onToggleHabit={toggleHabit} />
+              <HabitTrackerCard habits={habits} days={days} studyId={studyId} />
             </div>
         </div>
     </main>
+    {showEditStudyModal && (
+      <PasswordModal
+        password={editPassword}
+        onPasswordChange={(e) => setEditPassword(e.target.value)}
+        onPasswordSubmit={handleEditStudy}
+        buttonText=""
+        buttonIcon="/assets/images/icons/btn_modification.svg"
+        modalTitleText="스터디 수정"
+        errorMessageText="권한이 필요합니다."
+        onPasswordExit={() => setShowEditStudyModal(false)}
+        onPasswordExitText="나가기"
+        studyId={studyId}
+      />
+    )}
     {showDeleteStudyModal && (
       <PasswordModal
         password={deletePassword}
@@ -159,6 +212,7 @@ const ViewStudyDetails = memo(() => {
         errorMessageText="권한이 필요합니다."
         onPasswordExit={() => setShowDeleteStudyModal(false)}
         onPasswordExitText="나가기"
+        studyId={studyId}
       />
     )}
   </>

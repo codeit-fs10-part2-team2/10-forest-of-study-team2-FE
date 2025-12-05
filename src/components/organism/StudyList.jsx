@@ -1,46 +1,61 @@
-import React, { useState } from 'react';
 import StudyCard from '../molecule/StudyCard';
 import EmptyState from '../UI/EmptyState';
+import LoadingSpinner from '../UI/LoadingSpinner/LoadingSpinner';
 import templateStyles from '../../styles/Template.module.css';
 import styles from '../../styles/LandingPage.module.css';
-import users from '../../users.json'
 import InputSearch from '../atom/InputSearch';
 import SortButton from '../atom/SortButton';
 import LoadMoreButton from '../atom/LoadMoreButton';
 
-//스터디 리스트
-const StudyList = () => {
-  const [displayCount, setDisplayCount] = useState(6);
-
-  // 더보기 클릭 시 6개씩 추가
-  const handleLoadMore = () => {
-    setDisplayCount(prevCount => prevCount + 6);
-  };
-
-  // 표시할 데이터
-  const displayedUsers = users.slice(0, displayCount);
+const StudyList = ({ 
+  studies = [],
+  searchKeyword = '',
+  sortOption = '최근 순',
+  onSearchChange,
+  onSearchKeyDown,
+  onSortChange,
+  onLoadMore,
+  hasMore = false,
+  loading = false
+}) => {
+  const hasNoResults = studies.length === 0 && !loading;
+  const hasSearchKeyword = searchKeyword.trim().length > 0;
 
   return (
     <section>
       <h2 className={templateStyles.title}>스터디 둘러보기</h2>
 
-      {users.length === 0 ? (  
-        <EmptyState message="아직 둘러 볼 스터디가 없어요" />
+      <div className={styles.inputBox}>
+        <InputSearch 
+          value={searchKeyword}
+          onChange={onSearchChange}
+          onKeyDown={onSearchKeyDown}
+        />
+        <SortButton 
+          value={sortOption}
+          onChange={onSortChange}
+        />
+      </div>
+
+      {hasNoResults ? (
+        <EmptyState message={hasSearchKeyword ? "검색 결과가 없습니다" : "아직 둘러 볼 스터디가 없어요"} />
       ) : (  
         <>
-          <div className={styles.inputBox}>
-            <InputSearch />
-            <SortButton />
-          </div>
           <div className={`${styles.cardList} ${styles.list}`}>
-            {displayedUsers.map((user) => (
-              <StudyCard key={user.id} {...user} />
+            {studies.map((study) => (
+              <StudyCard key={study.id} {...study} />
             ))}
           </div>
 
-          {displayCount < users.length && (
+          {hasMore && (
             <div className={styles.buttonBox}>
-              <LoadMoreButton onClick={handleLoadMore} />
+              <LoadMoreButton onClick={onLoadMore} />
+            </div>
+          )}
+
+          {loading && studies.length > 0 && (
+            <div className={styles.buttonBox}>
+              <LoadingSpinner size={30} />
             </div>
           )}
         </>

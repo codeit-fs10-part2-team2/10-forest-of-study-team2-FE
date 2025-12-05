@@ -2,7 +2,6 @@ import { memo } from 'react';
 import styles from '../styles/Template.module.css';
 import RecentStudy from '../components/organism/RecentStudy';
 import StudyList from '../components/organism/StudyList';
-import ApiComponent from './ApiComponent';
 
 const LandingTemplate = memo(({ 
   studies = [],
@@ -19,10 +18,20 @@ const LandingTemplate = memo(({
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <RecentStudy users={recentUsers}/>
+        <RecentStudy studies={recentStudies} />
       </div>
       <div className={styles.container}>
-        <StudyList />
+        <StudyList 
+          studies={studies}
+          searchKeyword={searchKeyword}
+          sortOption={sortOption}
+          onSearchChange={onSearchChange}
+          onSearchKeyDown={onSearchKeyDown}
+          onSortChange={onSortChange}
+          onLoadMore={onLoadMore}
+          hasMore={hasMore}
+          loading={loading}
+        />
       </div>
     </div>
   );

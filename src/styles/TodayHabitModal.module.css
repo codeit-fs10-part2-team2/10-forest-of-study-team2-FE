@@ -6,6 +6,7 @@
 }
 
 .todayActionLink {
+  text-decoration: none;
   margin-left: auto;
   color: inherit;
 }
@@ -28,6 +29,27 @@
 .todayActionLink a:active {
   text-decoration: none;
   color: inherit;
+}
+
+.habitButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.habitButtonContainer button {
+  min-width: 120px;
+  height: 48px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 @media (max-width: 768px) {

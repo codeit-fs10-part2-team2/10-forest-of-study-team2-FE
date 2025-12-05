@@ -7,6 +7,7 @@
 
 .introInput {
   height: 100px;
+  font-size: 14px;
 }
 
 .label {
@@ -31,12 +32,12 @@
   color: #818181;
 } 
 
-.input:focus {
-  border: 2px solid red; /* 포커스 시 테두리 색상 변경 */
-}
-
 .inputLabel {
   padding: 12px 20px;
+}
+
+.inputLabel:focus {
+  border: 1px solid red;
 }
 
 .inputSearch {
@@ -87,8 +88,52 @@
   aspect-ratio: 1 / 1;
 }
 
+.passwordWrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 12px 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+}
+
 .passwordWrapper:focus-within {
   border-color: red;
+}
+
+.passwordBox {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+}
+
+.passwordBox::placeholder {
+  font-weight: 400;
+  color: #818181;
+}
+
+.eyesButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-left: 8px;
+}
+
+.eyesButton img {
+  width: 20px;
+  height: 20px;
 }
 
 .selectIcon {
@@ -156,4 +201,25 @@
   color: red;
   margin-top: 8px;
   font-weight: 400;
+}
+
+.buttonBoxForEditForm {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.buttonBoxForEditForm button {
+  min-width: 120px;
+  height: 48px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }

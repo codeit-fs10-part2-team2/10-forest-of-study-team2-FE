@@ -10,4 +10,3 @@ const LoadingSpinner = ({ size = 50, color = '#95BE2B' }) => {
 };
 
 export default LoadingSpinner;
-

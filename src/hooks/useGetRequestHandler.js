@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import axiosInstance from './axiosInstance';
+import axiosInstance from '../utils/axiosInstance';
 
 const useGetRequestHandler = (url, options = {}) => {
   const {
