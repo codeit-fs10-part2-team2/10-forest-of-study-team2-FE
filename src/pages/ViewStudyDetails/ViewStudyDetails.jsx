@@ -10,12 +10,10 @@ import todayHabitStyles from '../../styles/TodayHabitModal.module.css';
 import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import useStudyView from '../../hooks/useStudyView';
-import useSkeleton from '../../hooks/useSkeleton';
 
 const ViewStudyDetails = memo(() => {
   const navigate = useNavigate();
   const { studyId } = useParams();
-  const { ViewStudyDetailsSkeleton } = useSkeleton();
   
   const {
     viewStudyDetailTitle,
@@ -85,7 +83,7 @@ const ViewStudyDetails = memo(() => {
   }, [showMoreEmojisDropdown, handleClickOutside]);
 
   if (loading) {
-    return ViewStudyDetailsSkeleton;
+    return <div className={styles.loadingText}>로딩 중...</div>;
   }
 
   return (
