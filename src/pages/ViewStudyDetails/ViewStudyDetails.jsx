@@ -84,13 +84,7 @@ const ViewStudyDetails = memo(() => {
   }, [showMoreEmojisDropdown, handleClickOutside]);
 
   if (loading) {
-    return (
-      <main>
-        <div className={styles.mainContainer}>
-          <LoadingSpinner />
-        </div>
-      </main>
-    );
+    return <div className={styles.loadingText}>로딩 중...</div>;
   }
 
   return (

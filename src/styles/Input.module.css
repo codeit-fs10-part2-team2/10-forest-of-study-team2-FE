@@ -88,61 +88,8 @@
   aspect-ratio: 1 / 1;
 }
 
-.passwordWrapper {
-  display: flex;
-  align-items: center;
-  position: relative;
-  padding: 12px 20px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  background-color: #fff;
-}
-
-.eyesButton {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  background: none;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.passwordBox {
-  flex: 1;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 14px;
-  padding: 0;
-  margin: 0;
-}
-
-.passwordBox::placeholder {
-  font-weight: 400;
-  color: #818181;
-}
-
-.eyesButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  margin-left: 8px;
-}
-
-.eyesButton img {
-  width: 20px;
-  height: 20px;
+.passwordWrapper:focus-within {
+  border-color: red;
 }
 
 .selectIcon {
@@ -156,41 +103,19 @@
 }
 
 .button {
-  padding: 14px 16px;
-  border-radius: 12px;
-  border: none;
   background-color: #99C08E;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
+  border: none;
+  color: white;
+  padding: 12px 24px;
   text-align: center;
-  line-height: 30px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
 }
-
-.buttonCreateForm {
-  width: 232px;
-}
-
-/* pad mini */
-@media (max-width: 1023px) {
-  .buttonCreateForm {
-    width: 160px;
-    font-size: 16px;
-    padding: 12px 14px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 767px) {
-  .buttonCreateForm {
-    width: 106px;
-    font-size: 14px;
-    padding: 10px 12px;
-  }
-}
-
 
 .button:hover {
   background-color: #7FA872;
@@ -225,58 +150,6 @@
 
 
 
-
-
-.errorMessage {
-  font-size: 14px;
-  color: red;
-  margin-top: 8px;
-  font-weight: 400;
-}
-
-.buttonBox {
-  display: flex;
-  justify-content: center;
-  margin-top: 24px;
-}
-
-.buttonBox .button {
-  min-width: 180px;
-}
-
-.buttonBoxForEditForm {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 32px;
-}
-
-.buttonBoxForEditForm .button {
-  flex: 1;
-  width: 100%;
-}
-
-.buttonBoxForEditForm .button:first-child {
-  font-family: 'EF_jejudoldam', sans-serif;
-  background-color: #DDDDDD;
-}
-
-.buttonBoxForEditForm .button:first-child:hover {
-  font-family: 'EF_jejudoldam', sans-serif;
-  background-color: #CCCCCC;
-}
-
-
-.buttonBoxForEditForm .button:last-child {
-  font-family: 'EF_jejudoldam', sans-serif;
-  background-color: #99C08E;
-}
-
-.buttonBoxForEditForm .button:last-child:hover {
-  font-family: 'EF_jejudoldam', sans-serif;
-  background-color: #CCCCCC;
-}
-/*수정하기 폼 버튼-취소/수정 added by opuswork */
 
 
 .errorMessage {
