@@ -1,7 +1,5 @@
-import React from 'react';
 import styles from '../../styles/Input.module.css';
 
-//더보기 버튼
 const LoadMoreButton = ({ onClick }) => {
   return (
     <>

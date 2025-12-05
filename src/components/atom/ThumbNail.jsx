@@ -1,7 +1,5 @@
-import React from 'react';
 import styles from "../../styles/StudyCard.module.css"
 
-//스터디카드 배경이미지 추출
 export const images = {
   0: "/assets/images/frame/frame00.png",
   1: "/assets/images/frame/frame01.png",

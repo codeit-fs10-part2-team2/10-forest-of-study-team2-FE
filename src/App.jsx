@@ -13,6 +13,8 @@ function App() {
 
   return (
     <>
+
+    
       <div className="app container">
         <Header />
         <Routes>
@@ -20,10 +22,11 @@ function App() {
           <Route path='/enrollment' element={<StudyInsertionPage />}/>
           <Route path='/enrollment/:studyId' element={<StudyInsertionTemplate />}/>
           <Route path='/detail/:studyId' element={<StudyDetailTemplate />}/>
-          <Route path='/todayHabit' element={<TodayHabitPage />}/>
-          <Route path='/timer' element={<TimerPage />}/>
+          <Route path='/todayHabit/:studyId' element={<TodayHabitPage />}/>
+          <Route path='/timer/:studyId' element={<TimerPage />}/>
         </Routes>
       </div>
+      
     </>
   )
 }

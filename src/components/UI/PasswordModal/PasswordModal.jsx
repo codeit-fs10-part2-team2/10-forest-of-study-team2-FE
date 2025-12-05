@@ -6,6 +6,9 @@ import icEyeOpen from '/public/assets/images/icons/eye-open.svg';
 import icEyeClose from '/public/assets/images/icons/eye-closed.svg';
 import { useState } from 'react';
 import styles from './PasswordModal.module.css';
+import axiosInstance from '../../../utils/axiosInstance';
+import API_ENDPOINTS from '../../../utils/apiEndpoints';
+import useToast from '../../../hooks/useToast';
 
 
 const PasswordModal = ({ 
@@ -13,6 +16,7 @@ const PasswordModal = ({
     onPasswordChange, 
     onPasswordSubmit, 
     buttonText = '수정하러 가기', 
+    buttonIcon,
     modalTitleText = '',
     modalTitleClassName = 'passwordModalTitle',
     modalTitleId = 'passwordModalTitle',
@@ -26,12 +30,58 @@ const PasswordModal = ({
     passwordInputId = 'password',
     passwordInputPlaceholder = '비밀번호를 입력해주세요',
     passwordInputType = 'password',
+    studyId,
 }) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [showPasswordError, setShowPasswordError] = useState(false);
+    const [isVerifying, setIsVerifying] = useState(false);
+    const { showSuccess, showError } = useToast();
     const actualPasswordInputType = isPasswordVisible ? 'text' : passwordInputType;
+    
     const handlePasswordExit = () => {
-        onPasswordExit && onPasswordExit(); // onPasswordExit가 있으면 실행
+        setShowPasswordError(false);
+        onPasswordExit && onPasswordExit();
     };
+    
+    const handlePasswordChange = (e) => {
+        setShowPasswordError(false);
+        onPasswordChange && onPasswordChange(e);
+    };
+    
+    const handlePasswordSubmit = async () => {
+        if (!password || password.trim() === '') {
+            setShowPasswordError(true);
+            return;
+        }
+        
+        if (studyId) {
+            try {
+                setIsVerifying(true);
+                setShowPasswordError(false);
+                
+                const response = await axiosInstance.post(
+                    API_ENDPOINTS.STUDIES.VERIFY_PASSWORD(studyId),
+                    { password }
+                );
+                
+                if (response.data && response.data.success === true) {
+                    showSuccess('인증되었습니다.');
+                    onPasswordSubmit && onPasswordSubmit();
+                } else {
+                    showError('에러가 발생해 실패했습니다.');
+                }
+            } catch (error) {
+                showError('에러가 발생해 실패했습니다.');
+            } finally {
+                setIsVerifying(false);
+            }
+        } else {
+            setShowPasswordError(false);
+            onPasswordSubmit && onPasswordSubmit();
+        }
+    };
+    
+    const displayErrorMessage = showPasswordError ? '비밀번호가 필요합니다.' : errorMessageText;
     return (
     <>
         <div className={styles.passwordModalContainer}>
@@ -49,8 +99,8 @@ const PasswordModal = ({
                 </div>
                 <div className={styles.passwordModalErrorMessage}>
                     <Label 
-                        labelText={errorMessageText} 
-                        labelClassName={`${styles.passwordModalErrorMessageText} ${errorMessageClassName}`} 
+                        labelText={displayErrorMessage} 
+                        labelClassName={`${styles.passwordModalErrorMessageText} ${showPasswordError ? styles.passwordModalErrorMessageTextError : ''} ${errorMessageClassName}`} 
                         labelId={errorMessageId}>
                     </Label>
                 </div>
@@ -60,10 +110,10 @@ const PasswordModal = ({
                         <InputText 
                             id={passwordInputId} 
                             value={password} 
-                            onChange={onPasswordChange} 
+                            onChange={handlePasswordChange} 
                             placeholder={passwordInputPlaceholder} 
                             type={actualPasswordInputType} 
-                            className={`${styles.passwordInput} ${passwordInputClassName}`} 
+                            className={`${styles.passwordInput} ${showPasswordError ? styles.passwordInputError : ''} ${passwordInputClassName}`} 
                         required/>
                         <img 
                             src={isPasswordVisible ? icEyeOpen : icEyeClose} 
@@ -80,13 +130,16 @@ const PasswordModal = ({
                 <div className={styles.passwordModalButtonContainer}>
                     <Button 
                         className={styles.passwordSubmitBtn} 
-                        onClick={onPasswordSubmit}>{buttonText}
+                        onClick={handlePasswordSubmit}
+                        disabled={isVerifying}>
+                        {buttonIcon && <img src={buttonIcon} alt="" className={buttonText ? styles.buttonIconWithText : styles.buttonIcon} />}
+                        {isVerifying ? '확인 중...' : buttonText}
                     </Button>
                 </div>
             </div>
         </div>
     </>
-  );
+    );
 };
 
 export default PasswordModal;

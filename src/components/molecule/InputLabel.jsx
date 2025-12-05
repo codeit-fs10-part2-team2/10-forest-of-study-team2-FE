@@ -1,6 +1,6 @@
 import styles from '../../styles/Input.module.css';
-import eyes from '/public/assets/images/icon/eyes1.svg'
-import showEyes from '/public/assets/images/icon/eyes2.svg'
+import eyes from '/assets/images/icon/eyes1.svg'
+import showEyes from '/assets/images/icon/eyes2.svg'
 
 
 const InputLabel = ({
@@ -9,12 +9,12 @@ const InputLabel = ({
   placeholder,
   value,
   onChange,
+  onBlur,
   error,
   errorMessage,
   showPassword,
   onTogglePassword
 }) => {
-  
   const introInput = label === "소개";
   
   return (
@@ -22,7 +22,6 @@ const InputLabel = ({
       <label className={styles.label}>{label}</label>
       
       {introInput ? (
-        //input label : '소개'일 때 
         <textarea 
           className={`${styles.input} ${styles.inputLabel} ${styles.introInput}`}
           placeholder={placeholder}
@@ -30,35 +29,35 @@ const InputLabel = ({
           onChange={onChange}
         /> 
       ) : type === 'password' ? (
-        //input type : 'password'일 때 
-        <div className={`${styles.input} ${styles.inputLabel} ${styles.passwordWrapper}`}>
+        <div className={`${styles.input} ${styles.inputLabel} ${styles.passwordWrapper} ${error ? styles.inputError : ''}`}>
           <input 
             className={styles.passwordBox}
-            type={showPassword ? 'password' : 'text'} //showPassword(false)가 참이면 숨기기 / 아니면 보기
+            type={showPassword ? 'text' : 'password'}
             placeholder={placeholder}
             value={value}
             onChange={onChange}
+            onBlur={onBlur}
           />
           <button type='button' onClick={onTogglePassword} className={styles.eyesButton}>
             <img
-              src={showPassword ? eyes : showEyes}
-              alt={showPassword ? '비밀번호 숨기기' : '비밀번호 보기'}
+              src={showPassword ? showEyes : eyes}
+              alt={showPassword ? '비밀번호 보기' : '비밀번호 숨기기'}
             />
           </button>
         </div>
       ) : (
-        //일반 input
         <input 
-          className={`${styles.input} ${styles.inputLabel}`}
+          className={`${styles.input} ${styles.inputLabel} ${error ? styles.inputError : ''}`}
           type={type}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          onBlur={onBlur}
         />
       )}
 
       {error && (
-        <p>*{errorMessage}</p>
+        <p className={styles.errorMessage}>*{errorMessage}</p>
       )}
     </div>
   );

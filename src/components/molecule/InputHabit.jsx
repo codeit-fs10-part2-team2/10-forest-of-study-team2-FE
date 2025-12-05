@@ -10,7 +10,7 @@ const InputHabit = ({ onAddHabit }) => {
         setIsAdding(true);
     };
 
-    const handleAdd = () => {   // add habit
+    const handleAdd = () => {
         if (habitName.trim() && onAddHabit) {
             onAddHabit(habitName);
             setHabitName('');
@@ -18,7 +18,6 @@ const InputHabit = ({ onAddHabit }) => {
         }
     };
 
-    // add habit button click
     const handleAddButtonClick = () => {
         if (isAdding) {
             handleAdd();
@@ -30,11 +29,21 @@ const InputHabit = ({ onAddHabit }) => {
     if (isAdding) {
         return (
             <div className={styles.habitInputForm}>
-                <div>
+                <div className={styles.habitInputWrapper}>
                     <InputText 
                         value={habitName} 
                         onChange={(e) => setHabitName(e.target.value)} 
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                handleAdd();
+                            } else if (e.key === 'Escape') {
+                                setIsAdding(false);
+                                setHabitName('');
+                            }
+                        }}
                         placeholder="습관 이름을 입력해 주세요"
+                        autoFocus
                     />
                 </div>
                 <div className={styles.habitAddButton} onClick={handleAddButtonClick}>

@@ -7,6 +7,7 @@
 
 .introInput {
   height: 100px;
+  font-size: 14px;
 }
 
 .label {
@@ -31,12 +32,12 @@
   color: #818181;
 } 
 
-.input:focus {
-  border: 2px solid red; /* 포커스 시 테두리 색상 변경 */
-}
-
 .inputLabel {
   padding: 12px 20px;
+}
+
+.inputLabel:focus {
+  border: 1px solid red;
 }
 
 .inputSearch {
@@ -87,38 +88,66 @@
   aspect-ratio: 1 / 1;
 }
 
-/* Mobile - 2열 4행으로 변경 */
-@media (max-width: 767px) {
-  .thumbNailSelect {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
+.passwordWrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 12px 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
 }
 
+<<<<<<< HEAD
 .eyesButton {
   position: absolute;
   right: 20px;
-  bottom: 12px;
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
   background: none;
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+=======
+.passwordWrapper:focus-within {
+  border-color: red;
+>>>>>>> taetae
 }
 
 .passwordBox {
-  width: 100%;
+  flex: 1;
   border: none;
   outline: none;
+  background: transparent;
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
 }
 
-.passwordWrapper {
-  position: relative;
+.passwordBox::placeholder {
+  font-weight: 400;
+  color: #818181;
+}
+
+.eyesButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-left: 8px;
 }
 
-/* 비밀번호 wrapper의 포커스 스타일 (div에 적용) */
-.passwordWrapper:focus-within {
-  border-color: red;
+.eyesButton img {
+  width: 20px;
+  height: 20px;
 }
 
 .selectIcon {
@@ -131,46 +160,108 @@
   position: relative;
 }
 
-/*>>>만들기/수정하기 버튼*/
-.buttonBox {
-  display: flex;
-  flex-direction: column;
-  margin: 40px auto 0;
-  overflow: hidden;
-}
-
 .button {
-  padding: 12px 16px;
+<<<<<<< HEAD
+  padding: 14px 16px;
   border-radius: 12px;
   border: none;
   background-color: #99C08E;
   color: #fff;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
   cursor: pointer;
   text-decoration: none;
+  text-align: center;
+  line-height: 30px;
+=======
+  background-color: #99C08E;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+>>>>>>> taetae
 }
+
+.buttonCreateForm {
+  width: 232px;
+}
+
+/* pad mini */
+@media (max-width: 1023px) {
+  .buttonCreateForm {
+    width: 160px;
+    font-size: 16px;
+    padding: 12px 14px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .buttonCreateForm {
+    width: 106px;
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+}
+
 
 .button:hover {
-  background-color: #41643a;
+  background-color: #7FA872;
 }
 
-.button:active {
-  transform: scale(0.99);
+.buttonCreateForm {
+  background-color: #99C08E;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
 }
-/*만들기/수정하기 버튼<<<*/
+
+.buttonCreateForm:hover {
+  background-color: #7FA872;
+}
+
+@media (max-width: 1023px) {
+  .buttonCreateForm {
+    width: 160px;
+    font-size: 16px;
+    padding: 12px 14px;
+  }
+}
 
 
-/*수정하기 폼 버튼-취소/수정 added by opuswork */
+
+
+
+.errorMessage {
+  font-size: 14px;
+  color: red;
+  margin-top: 8px;
+  font-weight: 400;
+}
+
 .buttonBoxForEditForm {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 12px;
-  margin: 40px auto 0;
-  width: 100%;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
 }
 
+<<<<<<< HEAD
 .buttonBoxForEditForm .button {
   flex: 1;
   width: 100%;
@@ -197,3 +288,25 @@
   background-color: #CCCCCC;
 }
 /*수정하기 폼 버튼-취소/수정 added by opuswork */
+
+
+.errorMessage {
+  font-size: 14px;
+  color: red;
+  margin-top: 8px;
+  font-weight: 400;
+=======
+.buttonBoxForEditForm button {
+  min-width: 120px;
+  height: 48px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+>>>>>>> taetae
+}

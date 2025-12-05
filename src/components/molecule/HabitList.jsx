@@ -3,32 +3,67 @@ import styles from '../../pages/ViewStudyDetails/ViewStudyDetails.module.css';
 import InputHabit from './InputHabit';
 import icDelete from '/public/assets/images/icons/ic_delete.svg';
 
-/**
- * HabitList component that displays the list of habits
-   updated by Taeyoung Seon, 11/27/2025
-   InputHabit component is included
- */
-const HabitList = ({ habits = [], onDeleteHabit, onCancelHabit, onAddHabit }) => {
+const HabitList = ({ habits = [], onDeleteHabit, onCancelHabit, onAddHabit, onUpdateHabit }) => {
+  const [editingHabits, setEditingHabits] = React.useState({});
+
+  const handleNameChange = (habitId, newName) => {
+    if (onUpdateHabit) {
+      onUpdateHabit(habitId, newName);
+    }
+  };
+
+  const handleEditStart = (habitId) => {
+    setEditingHabits(prev => ({ ...prev, [habitId]: true }));
+  };
+
+  const handleEditEnd = (habitId) => {
+    setEditingHabits(prev => ({ ...prev, [habitId]: false }));
+  };
+
   return (
     <div className={styles.inputHabit}>
       <div className={styles.habitListContainer}>
-        {/* Display existing habits */}
         {habits.map(habit => (
-          <div key={habit.id} className={styles.habitItemWrapper}>
+          <div key={habit.id || habit.habit_pk} className={styles.habitItemWrapper}>
             <div className={styles.habitListItem}>
-              <span className={styles.habitName}>{habit.name}</span>
+              {editingHabits[habit.id || habit.habit_pk] ? (
+                <input
+                  type="text"
+                  className={styles.habitNameInput}
+                  defaultValue={habit.name}
+                  onBlur={(e) => {
+                    handleNameChange(habit.id || habit.habit_pk, e.target.value);
+                    handleEditEnd(habit.id || habit.habit_pk);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      handleNameChange(habit.id || habit.habit_pk, e.target.value);
+                      handleEditEnd(habit.id || habit.habit_pk);
+                    } else if (e.key === 'Escape') {
+                      handleEditEnd(habit.id || habit.habit_pk);
+                    }
+                  }}
+                  autoFocus
+                />
+              ) : (
+                <span 
+                  className={styles.habitName}
+                  onClick={() => handleEditStart(habit.id || habit.habit_pk)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {habit.name}
+                </span>
+              )}
             </div>
             <div className={styles.deleteIconContainer}>
               <img
                 src={icDelete}
                 alt="delete"
                 className={styles.deleteIcon}
-                onClick={() => onDeleteHabit && onDeleteHabit(habit.id)} />
+                onClick={() => onDeleteHabit && onDeleteHabit(habit.id || habit.habit_pk)} />
             </div>
           </div>
         ))}
-        
-        {/* Input form for adding new habit at the bottom */}
         <InputHabit onAddHabit={onAddHabit} />
       </div>
     </div>
