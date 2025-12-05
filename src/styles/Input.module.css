@@ -92,6 +92,39 @@
   border-color: red;
 }
 
+.passwordWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.passwordBox {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding: 12px 0;
+  background: transparent;
+}
+
+.passwordBox::placeholder {
+  color: #818181;
+}
+
+.eyesButton {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
 .selectIcon {
   position: absolute;
   bottom: calc(50% - 16px);
@@ -157,4 +190,14 @@
   color: red;
   margin-top: 8px;
   font-weight: 400;
+}
+
+.buttonBox {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.buttonBox .button {
+  min-width: 180px;
 }
