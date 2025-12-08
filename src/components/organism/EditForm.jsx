@@ -4,9 +4,8 @@ import ThumbNailSelect from '../molecule/ThumbNailSelect';
 import templateStyles from '../../styles/Template.module.css';
 import styles from '../../styles/Input.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import backIcon from '/assets/images/icons/btn_cancel_txt.svg';
-import modifyIcon from '/assets/images/icons/btn_modification_txt.svg';
 import useStudyModification from '../../hooks/useStudyModification';
+import Button from '../UI/Button/Button';
 
 const EditForm = () => {
   const navigate = useNavigate();
@@ -73,16 +72,16 @@ const EditForm = () => {
         </div>
 
         <div className={styles.buttonBoxForEditForm}>
-          <button 
+          <Button 
             type="button" 
             className={styles.button} 
             onClick={() => navigate(`/detail/${studyId}`)}
           >
-            <img src={backIcon} alt="back" />
-          </button>
-          <button type="submit" className={styles.button}>
-            <img src={modifyIcon} alt="modify" />
-          </button>
+            취소  
+          </Button>
+          <Button type="submit" className={styles.button}>
+            수정완료
+          </Button>
         </div>
       </form>
     </section>
