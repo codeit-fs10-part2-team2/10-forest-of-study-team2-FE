@@ -4,6 +4,7 @@ import ThumbNailSelect from '../molecule/ThumbNailSelect';
 import templateStyles from '../../styles/Template.module.css';
 import styles from '../../styles/Input.module.css';
 import useStudyCreation from '../../hooks/useStudyCreation';
+import Button from '../UI/Button/Button';
 
 const StudyInsertion = () => {
   const {
@@ -115,10 +116,10 @@ const StudyInsertion = () => {
           />
         </div>
 
-        <div className={styles.buttonBox}>
-          <button type="submit" className={styles.button}>
+        <div className={styles.buttonBoxForEditForm}>
+          <Button type="submit" className={styles.button}>
             만들기
-          </button>
+          </Button>
         </div>
       </form>
     </section>
