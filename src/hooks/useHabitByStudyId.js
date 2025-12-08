@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 import API_ENDPOINTS from '../utils/apiEndpoints';
 
@@ -59,7 +59,7 @@ const useHabitByStudyId = (studyId) => {
     fetchStudyData();
   }, [studyId]);
 
-  const refreshHabits = async () => {
+  const refreshHabits = useCallback(async () => {
     if (!studyId) return [];
     
     try {
@@ -91,7 +91,7 @@ const useHabitByStudyId = (studyId) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [studyId]);
 
   return {
     loading,

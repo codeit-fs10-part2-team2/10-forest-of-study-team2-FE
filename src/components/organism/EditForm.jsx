@@ -6,6 +6,7 @@ import styles from '../../styles/Input.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import useStudyModification from '../../hooks/useStudyModification';
 import Button from '../UI/Button/Button';
+import LoadingSpinner from '../UI/LoadingSpinner/LoadingSpinner';
 
 const EditForm = () => {
   const navigate = useNavigate();
@@ -14,7 +15,8 @@ const EditForm = () => {
   const {
     formData,
     errors,
-    touched,      
+    touched,
+    isSubmitting,
     handleChange,
     handleBlur,    
     handleSubmit
@@ -26,20 +28,27 @@ const EditForm = () => {
       placeholder: '닉네임을 수정해 주세요',
       type: 'text',
       field: 'nickName',
-      errorMessage: '닉네임을 수정해주세요'
+      errorMessage: formData.nickName.trim() && formData.nickName.trim().length < 3
+        ? '닉네임은 3글자 이상 입력해주세요'
+        : '닉네임을 수정해주세요'
     },
     { 
       label: '스터디 이름', 
       placeholder: '스터디 이름을 수정해 주세요', 
       type: 'text',
       field: 'studyName',
-      errorMessage: '스터디 이름을 수정해주세요'
+      errorMessage: formData.studyName.trim() && formData.studyName.trim().length < 5
+        ? '스터디 이름은 5글자 이상 입력해주세요'
+        : '스터디 이름을 수정해주세요'
     },
     { 
       label: '소개', 
       placeholder: '소개 멘트를 수정해 주세요', 
       type: 'text',
-      field: 'introduction'
+      field: 'introduction',
+      errorMessage: formData.introduction.trim() && formData.introduction.trim().length < 10
+        ? '소개는 10글자 이상 입력해주세요'
+        : '소개를 수정해주세요'
     },
   ]
 
@@ -76,11 +85,18 @@ const EditForm = () => {
             type="button" 
             className={styles.button} 
             onClick={() => navigate(`/detail/${studyId}`)}
+            disabled={isSubmitting}
           >
             취소  
           </Button>
-          <Button type="submit" className={styles.button}>
-            수정완료
+          <Button type="submit" className={styles.button} disabled={isSubmitting}>
+            {isSubmitting ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <LoadingSpinner size={16} color="#fff" />
+              </div>
+            ) : (
+              '수정완료'
+            )}
           </Button>
         </div>
       </form>

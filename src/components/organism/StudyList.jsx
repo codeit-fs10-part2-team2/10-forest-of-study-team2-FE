@@ -47,7 +47,7 @@ const StudyList = ({
             ))}
           </div>
 
-          {hasMore && (
+          {hasMore && !loading && (
             <div className={styles.buttonBox}>
               <LoadMoreButton onClick={onLoadMore} />
             </div>
@@ -56,12 +56,6 @@ const StudyList = ({
           {loading && studies.length > 0 && (
             <div className={styles.buttonBox}>
               <LoadingSpinner size={30} />
-            </div>
-          )}
-
-          {loading && studies.length > 0 && (
-            <div className={styles.buttonBox}>
-              <p>로딩 중...</p>
             </div>
           )}
         </>

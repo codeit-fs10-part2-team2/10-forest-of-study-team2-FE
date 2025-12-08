@@ -142,6 +142,8 @@ const LandingPage = () => {
 
   useEffect(() => {
     fetchRecentStudies();
+    // Landing page로 돌아올 때 session storage의 studyId 삭제
+    sessionStorage.removeItem('current_study_id');
   }, []);
 
   useEffect(() => {

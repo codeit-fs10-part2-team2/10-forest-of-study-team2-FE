@@ -14,13 +14,19 @@ const InputHabit = ({ onAddHabit }) => {
         if (habitName.trim() && onAddHabit) {
             onAddHabit(habitName);
             setHabitName('');
-            setIsAdding(false);
+            // Enter 키로 추가할 때는 입력 모드 유지 (새 입력칸 계속 표시)
+            // setIsAdding(false); 제거하여 입력 모드 유지
         }
     };
 
     const handleAddButtonClick = () => {
         if (isAdding) {
-            handleAdd();
+            // 입력 중이면 현재 입력을 저장하고 새 입력칸 유지
+            if (habitName.trim() && onAddHabit) {
+                onAddHabit(habitName);
+                setHabitName('');
+                // isAdding은 true로 유지하여 새 입력칸 계속 표시
+            }
         } else {
             setIsAdding(true);
         }

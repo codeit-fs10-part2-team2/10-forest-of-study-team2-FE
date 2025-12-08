@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import API_ENDPOINTS from '../utils/apiEndpoints';
@@ -26,33 +26,36 @@ const useStudyUpdate = ( studyId ) => {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
 
-  const handleChange = (field, value) => {
+  const handleChange = useCallback((field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-  };
+  }, []);
 
-  const handleBlur = (field) => {
+  const handleBlur = useCallback((field) => {
     setTouched(prev => ({ ...prev, [field]: true }));
 
-    const value = formData[field].trim();
+    setFormData(prev => {
+      const value = prev[field]?.trim?.() || '';
 
-    if (!value) {
-      setErrors(prev => ({ ...prev, [field]: true }));
-      return;
-    }
+      if (!value) {
+        setErrors(prevErrors => ({ ...prevErrors, [field]: true }));
+        return prev;
+      }
 
-    if (field === 'passwordConfirm' && value !== formData.password) {
-      setErrors(prev => ({ ...prev, passwordConfirm: true }));
-      return;
-    }
+      if (field === 'passwordConfirm' && value !== prev.password) {
+        setErrors(prevErrors => ({ ...prevErrors, passwordConfirm: true }));
+        return prev;
+      }
 
-    setErrors(prev => ({ ...prev, [field]: false }));
-  };
+      setErrors(prevErrors => ({ ...prevErrors, [field]: false }));
+      return prev;
+    });
+  }, []);
 
-  const togglePassword = (field) => {
+  const togglePassword = useCallback((field) => {
     setShowPassword(prev => ({ ...prev, [field]: !prev[field] }));
-  };
+  }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
 
     const requiredFields = ['nickName', 'studyName', 'password', 'passwordConfirm'];
@@ -98,7 +101,7 @@ const useStudyUpdate = ( studyId ) => {
       console.error('useStudyUpdate: error details:', error.response?.data || error.message);
       alert('useStudyUpdate: study update failed. Please try again.');
     }
-  };
+  }, [formData, studyId, navigate]);
 
   return {
     formData,

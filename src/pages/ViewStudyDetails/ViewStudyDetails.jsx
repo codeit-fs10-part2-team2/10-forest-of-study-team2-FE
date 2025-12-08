@@ -16,7 +16,6 @@ import LoadingSpinner from '../../components/UI/LoadingSpinner/LoadingSpinner';
 const ViewStudyDetails = memo(() => {
   const navigate = useNavigate();
   const { studyId } = useParams();
-  const { ViewStudyDetailsSkeleton } = useSkeleton();
   
   const {
     viewStudyDetailTitle,

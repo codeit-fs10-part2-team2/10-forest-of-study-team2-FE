@@ -55,14 +55,21 @@
 
 .iconSearch {
   position: absolute;
-  top: 9px;
+  top: 50%;
   left: 15px;
-  margin: 2px;
+  transform: translateY(-50%);
   width: 14px;
+  height: 14px;
 }
 
 .sortButton {
   color: #818181;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23818181' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  padding-right: 35px;
 }
 
 .LoadMoreButton {
@@ -233,6 +240,7 @@
 .buttonBoxForEditForm {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 16px;
   margin-top: 32px;
 }
