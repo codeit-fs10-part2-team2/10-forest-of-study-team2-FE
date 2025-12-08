@@ -200,6 +200,26 @@
   min-width: 180px;
 }
 
+
+
+
+.errorMessage {
+  font-size: 14px;
+  color: red;
+  margin-top: 8px;
+  font-weight: 400;
+}
+
+.buttonBox {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.buttonBox .button {
+  min-width: 180px;
+}
+
 .buttonBoxForEditForm {
   display: flex;
   justify-content: center;
