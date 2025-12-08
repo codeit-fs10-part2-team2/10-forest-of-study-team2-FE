@@ -64,7 +64,6 @@ const PasswordModal = ({
                     { password }
                 );
                 
-                // 응답 데이터 확인
                 const responseData = response.data;
                 const isSuccess = responseData?.success === true || 
                                 (response.status >= 200 && response.status < 300 && responseData?.success !== false);
@@ -73,25 +72,17 @@ const PasswordModal = ({
                     showSuccess('인증되었습니다.');
                     onPasswordSubmit && onPasswordSubmit();
                 } else {
-                    // success가 false이거나 명시적으로 실패한 경우
                     setShowPasswordError(true);
                     showError('비밀번호가 일치하지 않습니다.');
                 }
             } catch (error) {
-                // HTTP 에러 상태 코드 확인
                 const status = error.response?.status;
                 const errorData = error.response?.data;
                 
-                if (status === 401 || status === 403) {
-                    // 인증 실패 (비밀번호 불일치)
-                    setShowPasswordError(true);
-                    showError('비밀번호가 일치하지 않습니다.');
-                } else if (errorData?.success === false) {
-                    // 응답은 받았지만 success가 false
+                if (status === 401 || status === 403 || errorData?.success === false) {
                     setShowPasswordError(true);
                     showError('비밀번호가 일치하지 않습니다.');
                 } else {
-                    // 기타 에러
                     setShowPasswordError(true);
                     showError('에러가 발생해 실패했습니다.');
                 }

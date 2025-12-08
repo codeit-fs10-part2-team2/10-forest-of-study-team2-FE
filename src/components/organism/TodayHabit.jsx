@@ -7,17 +7,17 @@ import HabitList from '../../components/molecule/HabitList';
 import LoadingSpinner from '../UI/LoadingSpinner/LoadingSpinner';
 import PasswordModal from '../UI/PasswordModal/PasswordModal';
 import useToast from '../../hooks/useToast';
-import { Link, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import useTodayHabit from '../../hooks/useTodayHabit';
 import useHabitByStudyId from '../../hooks/useHabitByStudyId';
 import axiosInstance from '../../utils/axiosInstance';
 import API_ENDPOINTS from '../../utils/apiEndpoints';
+import day from 'dayjs';
+
 const backIcon = '/assets/images/icons/btn_cancel_txt.svg';
 const modifyIcon = '/assets/images/icons/btn_modification_txt.svg';
-import arrowRightIcon from '/public/assets/images/icons/arrow_right.svg';
-import day from 'dayjs';
-import { useNavigate } from 'react-router-dom';
+const arrowRightIcon = '/public/assets/images/icons/arrow_right.svg';
 
 const TodayHabit = () => {
   const navigate = useNavigate();
@@ -26,9 +26,24 @@ const TodayHabit = () => {
   const { loading: todayHabitLoading, todayFulfillments, refreshTodayFulfillments } = useTodayHabit(studyId);
   const { loading: studyLoading, viewStudyDetailTitle, habits: allHabits, refreshHabits: refreshAllHabits } = useHabitByStudyId(studyId);
   const [saving, setSaving] = useState(false);
-  const currentTime = day().locale('ko').format('YYYY-MM-DD A h:mm');
   const [displayHabits, setDisplayHabits] = useState([]);
+  const [showHabitModal, setShowHabitModal] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [password, setPassword] = useState('');
+  const [habits, setHabits] = useState([]);
+  const [originalHabits, setOriginalHabits] = useState([]);
+  const [completedHabits, setCompletedHabits] = useState(new Set());
+  
   const loading = todayHabitLoading || studyLoading;
+  const currentTime = useMemo(() => day().locale('ko').format('YYYY-MM-DD A h:mm'), []);
+  
+  const transformHabitsToPk = useCallback((habits) => {
+    return habits.map(habit => ({
+      habit_pk: habit.habit_pk || habit.id,
+      id: habit.habit_pk || habit.id,
+      name: habit.name || habit.habit_name || ''
+    }));
+  }, []);
   
   useEffect(() => {
     if (!allHabits || allHabits.length === 0) {
@@ -60,27 +75,16 @@ const TodayHabit = () => {
     setCompletedHabits(completedHabitPks);
   }, [allHabits, todayFulfillments]);
 
-  const [showHabitModal, setShowHabitModal] = useState(false);
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
-  const [password, setPassword] = useState('');
-  const [habits, setHabits] = useState([]);
-  const [originalHabits, setOriginalHabits] = useState([]);
-  const [completedHabits, setCompletedHabits] = useState(new Set());
-
   useEffect(() => {
     if (displayHabits && displayHabits.length > 0) {
-      const habitsWithPk = displayHabits.map(habit => ({
-        habit_pk: habit.habit_pk || habit.id,
-        id: habit.habit_pk || habit.id,
-        name: habit.name || habit.habit_name || ''
-      }));
+      const habitsWithPk = transformHabitsToPk(displayHabits);
       setHabits(habitsWithPk);
       setOriginalHabits(habitsWithPk);
-    } else if (displayHabits && displayHabits.length === 0) {
+    } else {
       setHabits([]);
       setOriginalHabits([]);
     }
-  }, [displayHabits]);
+  }, [displayHabits, transformHabitsToPk]);
 
   const handleCompleteEdit = async () => {
     setSaving(true);
@@ -195,28 +199,19 @@ const TodayHabit = () => {
       setShowHabitModal(false);
       showSuccess('목록 수정에 성공했습니다.');
     } catch (error) {
-      console.error('습관 수정 에러:', error);
-      console.error('요청 데이터:', requestBody);
-      console.error('습관 개수:', validHabits.length);
-      if (error.response) {
-        console.error('응답 상태:', error.response.status);
-        console.error('응답 데이터:', error.response.data);
-      }
       showError('목록 수정에 실패했습니다.');
     } finally {
       setSaving(false);
     }
   }
 
-  const handleDeleteHabit = (habitId) => {
-    setHabits(habits.filter(habit => (habit.id || habit.habit_pk) !== habitId)); 
-  }
+  const handleDeleteHabit = useCallback((habitId) => {
+    setHabits(prev => prev.filter(habit => (habit.id || habit.habit_pk) !== habitId));
+  }, []);
 
-  const handleUpdateHabit = (habitId, newName) => {
-    if (!newName || !newName.trim()) {
-      return;
-    }
-    setHabits(habits.map(habit => {
+  const handleUpdateHabit = useCallback((habitId, newName) => {
+    if (!newName?.trim()) return;
+    setHabits(prev => prev.map(habit => {
       const currentId = String(habit.id || habit.habit_pk);
       const targetId = String(habitId);
       if (currentId === targetId) {
@@ -229,29 +224,22 @@ const TodayHabit = () => {
       }
       return habit;
     }));
-  }
+  }, []);
 
-  const handleAddHabit = (habitName) => {
-    if (!habitName || !habitName.trim()) {
-      return;
-    }
+  const handleAddHabit = useCallback((habitName) => {
+    if (!habitName?.trim()) return;
     const newHabit = { 
       name: habitName.trim(),
       id: `temp-${Date.now()}`
     };
-    setHabits([...habits, newHabit]);
-  }
+    setHabits(prev => [...prev, newHabit]);
+  }, []);
 
-  const handleHabitClick = async (habitId) => {
-    if (!studyId || !habitId) {
-      return;
-    }
+  const handleHabitClick = useCallback(async (habitId) => {
+    if (!studyId || !habitId) return;
 
     const habitIdKey = String(habitId);
-    
-    if (completedHabits.has(habitIdKey)) {
-      return;
-    }
+    if (completedHabits.has(habitIdKey)) return;
 
     try {
       const today = new Date();
@@ -259,30 +247,26 @@ const TodayHabit = () => {
       
       await axiosInstance.post(
         API_ENDPOINTS.HABITS.CREATE_FULFILLMENT(studyId, habitId),
-        {
-          date: today.toISOString()
-        }
+        { date: today.toISOString() }
       );
       
       const refreshedFulfillments = await refreshTodayFulfillments();
       
       const completedHabitPks = new Set();
-      if (refreshedFulfillments && Array.isArray(refreshedFulfillments)) {
+      if (Array.isArray(refreshedFulfillments)) {
         refreshedFulfillments.forEach(fulfillment => {
-          const habitPk = fulfillment.habit_pk;
-          if (habitPk) {
-            completedHabitPks.add(String(habitPk));
+          if (fulfillment.habit_pk) {
+            completedHabitPks.add(String(fulfillment.habit_pk));
           }
         });
       }
       
-      if (allHabits && allHabits.length > 0) {
+      if (allHabits?.length > 0) {
         const habitsWithFulfillment = allHabits.map(habit => {
           const habitPk = String(habit.habit_pk || habit.id);
-          const hasFullfillment = completedHabitPks.has(habitPk);
           return {
             ...habit,
-            hasFullfillment
+            hasFullfillment: completedHabitPks.has(habitPk)
           };
         });
         setDisplayHabits(habitsWithFulfillment);
@@ -292,33 +276,24 @@ const TodayHabit = () => {
     } catch (error) {
       showError('에러가 발생해 실패했습니다.');
     }
-  }
+  }, [studyId, completedHabits, allHabits, refreshTodayFulfillments, showError]);
 
-  const handleCancelHabit = () => {
+  const handleCancelHabit = useCallback(() => {
     if (displayHabits && displayHabits.length > 0) {
-      const habitsWithPk = displayHabits.map(habit => ({
-        habit_pk: habit.habit_pk || habit.id,
-        id: habit.habit_pk || habit.id,
-        name: habit.name || habit.habit_name || ''
-      }));
-      setHabits(habitsWithPk);
+      setHabits(transformHabitsToPk(displayHabits));
     } else {
       setHabits([]);
     }
     setShowHabitModal(false);
-  }
+  }, [displayHabits, transformHabitsToPk]);
 
-  const handleOpenModal = () => {
+  const handleOpenModal = useCallback(() => {
     setShowPasswordModal(true);
-  }
+  }, []);
 
-  const handlePasswordSubmit = () => {
+  const handlePasswordSubmit = useCallback(() => {
     if (displayHabits && displayHabits.length > 0) {
-      const habitsWithPk = displayHabits.map(habit => ({
-        habit_pk: habit.habit_pk || habit.id,
-        id: habit.habit_pk || habit.id,
-        name: habit.name || habit.habit_name || ''
-      }));
+      const habitsWithPk = transformHabitsToPk(displayHabits);
       setHabits(habitsWithPk);
       setOriginalHabits(habitsWithPk);
     } else {
@@ -328,7 +303,7 @@ const TodayHabit = () => {
     setShowPasswordModal(false);
     setPassword('');
     setShowHabitModal(true);
-  }
+  }, [displayHabits, transformHabitsToPk]);
 
   if (loading) {
     return (

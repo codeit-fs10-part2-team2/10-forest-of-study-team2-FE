@@ -1,8 +1,33 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import axiosInstance from '../utils/axiosInstance';
 import API_ENDPOINTS from '../utils/apiEndpoints';
 import useHabit from './useHabit';
+
+const parseEmojisData = (emojisResponseData) => {
+  if (emojisResponseData.success && Array.isArray(emojisResponseData.data)) {
+    return emojisResponseData.data;
+  }
+  if (Array.isArray(emojisResponseData)) {
+    return emojisResponseData;
+  }
+  if (emojisResponseData.emojis && Array.isArray(emojisResponseData.emojis)) {
+    return emojisResponseData.emojis;
+  }
+  if (emojisResponseData.data && Array.isArray(emojisResponseData.data)) {
+    return emojisResponseData.data;
+  }
+  return [];
+};
+
+const transformEmojis = (emojisData) => {
+  return emojisData.map(emoji => ({
+    emojiId: emoji.emoji_id,
+    emoji: emoji.emoji_name || emoji.emoji || emoji.icon || '',
+    count: emoji.emoji_hit || emoji.count || emoji.value || 0
+  })).sort((a, b) => b.count - a.count);
+};
 
 const useStudyView = (studyId) => {
   const navigate = useNavigate();
@@ -20,6 +45,8 @@ const useStudyView = (studyId) => {
   const [studyPassword, setStudyPassword] = useState('');
 
   useEffect(() => {
+    const abortController = new AbortController();
+    
     const fetchStudyData = async () => {
       if (!studyId) {
         return;
@@ -28,7 +55,15 @@ const useStudyView = (studyId) => {
       try {
         setLoading(true);
         
-        const studyResponse = await axiosInstance.get(API_ENDPOINTS.STUDIES.GET_BY_ID(studyId));
+        const [studyResponse, emojisResponse] = await Promise.all([
+          axiosInstance.get(API_ENDPOINTS.STUDIES.GET_BY_ID(studyId), {
+            signal: abortController.signal
+          }),
+          axiosInstance.get(API_ENDPOINTS.EMOJIS.GET_BY_STUDY(studyId), {
+            signal: abortController.signal
+          })
+        ]);
+        
         const responseData = studyResponse.data;
         const studyData = responseData.data || responseData;
         
@@ -39,30 +74,15 @@ const useStudyView = (studyId) => {
           setStudyPassword(studyData.password);
         }
 
-        const emojisResponse = await axiosInstance.get(API_ENDPOINTS.EMOJIS.GET_BY_STUDY(studyId));
         const emojisResponseData = emojisResponse.data || {};
-        
-        let emojisData = [];
-        if (emojisResponseData.success && Array.isArray(emojisResponseData.data)) {
-          emojisData = emojisResponseData.data;
-        } else if (Array.isArray(emojisResponseData)) {
-          emojisData = emojisResponseData;
-        } else if (emojisResponseData.emojis && Array.isArray(emojisResponseData.emojis)) {
-          emojisData = emojisResponseData.emojis;
-        } else if (emojisResponseData.data && Array.isArray(emojisResponseData.data)) {
-          emojisData = emojisResponseData.data;
-        }
-        
-        const transformedEmojis = emojisData.map(emoji => ({
-          emojiId: emoji.emoji_id,
-          emoji: emoji.emoji_name || emoji.emoji || emoji.icon || '',
-          count: emoji.emoji_hit || emoji.count || emoji.value || 0
-        }));
-        
-        const sortedEmojis = [...transformedEmojis].sort((a, b) => b.count - a.count);
+        const emojisData = parseEmojisData(emojisResponseData);
+        const sortedEmojis = transformEmojis(emojisData);
         setEmojiMetrics(sortedEmojis);
 
       } catch (error) {
+        if (axios.isCancel(error) || error.name === 'AbortError' || error.code === 'ERR_CANCELED') {
+          return;
+        }
         setViewStudyDetailTitle('Study name is not available');
         setStudyIntroduction('');
         setPoints(0);
@@ -73,6 +93,10 @@ const useStudyView = (studyId) => {
     };
 
     fetchStudyData();
+    
+    return () => {
+      abortController.abort();
+    };
   }, [studyId]);
 
   useEffect(() => {
@@ -123,17 +147,7 @@ const useStudyView = (studyId) => {
     try {
       const emojisResponse = await axiosInstance.get(API_ENDPOINTS.EMOJIS.GET_BY_STUDY(studyId));
       const emojisResponseData = emojisResponse.data || {};
-      
-      let emojisData = [];
-      if (emojisResponseData.success && Array.isArray(emojisResponseData.data)) {
-        emojisData = emojisResponseData.data;
-      } else if (Array.isArray(emojisResponseData)) {
-        emojisData = emojisResponseData;
-      } else if (emojisResponseData.emojis && Array.isArray(emojisResponseData.emojis)) {
-        emojisData = emojisResponseData.emojis;
-      } else if (emojisResponseData.data && Array.isArray(emojisResponseData.data)) {
-        emojisData = emojisResponseData.data;
-      }
+      const emojisData = parseEmojisData(emojisResponseData);
       
       const existingEmoji = emojisData.find(item => 
         (item.emoji_name || item.emoji || item.icon || '') === emoji
@@ -165,25 +179,8 @@ const useStudyView = (studyId) => {
       
       const updatedEmojisResponse = await axiosInstance.get(API_ENDPOINTS.EMOJIS.GET_BY_STUDY(studyId));
       const updatedEmojisResponseData = updatedEmojisResponse.data || {};
-      
-      let updatedEmojisData = [];
-      if (updatedEmojisResponseData.success && Array.isArray(updatedEmojisResponseData.data)) {
-        updatedEmojisData = updatedEmojisResponseData.data;
-      } else if (Array.isArray(updatedEmojisResponseData)) {
-        updatedEmojisData = updatedEmojisResponseData;
-      } else if (updatedEmojisResponseData.emojis && Array.isArray(updatedEmojisResponseData.emojis)) {
-        updatedEmojisData = updatedEmojisResponseData.emojis;
-      } else if (updatedEmojisResponseData.data && Array.isArray(updatedEmojisResponseData.data)) {
-        updatedEmojisData = updatedEmojisResponseData.data;
-      }
-      
-      const transformedEmojis = updatedEmojisData.map(emojiItem => ({
-        emojiId: emojiItem.emoji_id,
-        emoji: emojiItem.emoji_name || emojiItem.emoji || emojiItem.icon || '',
-        count: emojiItem.emoji_hit || emojiItem.count || emojiItem.value || 0
-      }));
-      
-      const sortedEmojis = [...transformedEmojis].sort((a, b) => b.count - a.count);
+      const updatedEmojisData = parseEmojisData(updatedEmojisResponseData);
+      const sortedEmojis = transformEmojis(updatedEmojisData);
       setEmojiMetrics(sortedEmojis);
       
     } catch (error) {
@@ -191,17 +188,7 @@ const useStudyView = (studyId) => {
         try {
           const emojisResponse = await axiosInstance.get(API_ENDPOINTS.EMOJIS.GET_BY_STUDY(studyId));
           const emojisResponseData = emojisResponse.data || {};
-          
-          let emojisData = [];
-          if (emojisResponseData.success && Array.isArray(emojisResponseData.data)) {
-            emojisData = emojisResponseData.data;
-          } else if (Array.isArray(emojisResponseData)) {
-            emojisData = emojisResponseData;
-          } else if (emojisResponseData.emojis && Array.isArray(emojisResponseData.emojis)) {
-            emojisData = emojisResponseData.emojis;
-          } else if (emojisResponseData.data && Array.isArray(emojisResponseData.data)) {
-            emojisData = emojisResponseData.data;
-          }
+          const emojisData = parseEmojisData(emojisResponseData);
           
           const existingEmoji = emojisData.find(item => 
             (item.emoji_name || item.emoji || item.icon || '') === emoji
