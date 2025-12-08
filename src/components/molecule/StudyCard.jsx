@@ -3,11 +3,10 @@ import Emoji from '../atom/Emoji';
 import ThumbNail from '../atom/ThumbNail';
 import day from 'dayjs';
 import { Link } from 'react-router';
+import { addToRecentStudyQueue } from '../../utils/recentStudyQueue';
 
-//스터디카드
 const StudyCard = ({ id, nickName, studyName, introduction, createdAt, point, thumbNail = 0, stats = [] }) => {
 
-  //사용자의 스터디 생성일자를 '2025-11-11' -> 금일 기준 '00'일째인지 
   const dayDiff = (createdAt) => {
     const today = day();
     const createdDate = day(createdAt);
@@ -19,19 +18,28 @@ const StudyCard = ({ id, nickName, studyName, introduction, createdAt, point, th
 
   const date = dayDiff(createdAt)
   const textColor = thumbNail > 3 ? '#fff' : '';
-  //사용자가 선택한 배경이미지에 따라 글자색상 다르게 적용
+
+  const handleCardClick = () => {
+    if (id) {
+      addToRecentStudyQueue(id);
+      window.dispatchEvent(new CustomEvent('recentStudyUpdated'));
+    }
+  };
 
   return (
     <section>
-      <Link to={`/detail/${id}`} className={styles.underlineLink}>
+      <Link to={`/detail/${id}`} className={styles.underlineLink} onClick={handleCardClick}>
         <div className={`${styles.container} ${styles[`thumbnail${thumbNail}`]}`} > 
           <ThumbNail value={thumbNail}>
             <div className={styles.content}>
               <div className={styles.titleBox}>
                 <h3 className={styles.title}>
-                  <p className={styles.nickName}>{nickName}</p><p style={{ color: textColor }} className={styles.studyName}>의 {studyName}</p>
+                  {nickName && <p className={styles.nickName}>{nickName}</p>}
+                  <p style={{ color: textColor }} className={styles.studyName}>
+                    {nickName ? `의 ${studyName}` : studyName}
+                  </p>
                 </h3>
-                {point && 
+                {(point !== undefined && point !== null) && 
                 <div className={styles.badge}> 
                   <img className={styles.emoji} src='/assets/images/icon/ic_point.svg' alt="Point" /> 
                   {point}P 획득 

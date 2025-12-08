@@ -3,7 +3,6 @@ import EmptyState from '../UI/EmptyState';
 import templateStyles from '../../styles/Template.module.css';
 import styles from '../../styles/LandingPage.module.css';
 
-//최근 조회한 스터디
 const RecentStudy = ({studies}) => {
 
   return (

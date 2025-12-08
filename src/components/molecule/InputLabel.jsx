@@ -22,7 +22,6 @@ const InputLabel = ({
       <label className={styles.label}>{label}</label>
       
       {introInput ? (
-        //input label : '소개'일 때 
         <textarea 
           className={`${styles.input} ${styles.inputLabel} ${styles.introInput}`}
           placeholder={placeholder}
@@ -30,7 +29,6 @@ const InputLabel = ({
           onChange={onChange}
         /> 
       ) : type === 'password' ? (
-        //input type : 'password'일 때 
         <div className={`${styles.input} ${styles.inputLabel} ${styles.passwordWrapper} ${error ? styles.inputError : ''}`}>
           <input 
             className={styles.passwordBox}
@@ -48,7 +46,6 @@ const InputLabel = ({
           </button>
         </div>
       ) : (
-        //일반 input
         <input 
           className={`${styles.input} ${styles.inputLabel} ${error ? styles.inputError : ''}`}
           type={type}

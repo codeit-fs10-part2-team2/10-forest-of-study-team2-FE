@@ -5,7 +5,6 @@ import styles from './Toast.module.css';
 const Toast = ({ message, type = 'info', duration = 3000, onDismiss }) => {
 
 
-    // Icon mapping (simplified)
     const icons = {
         success: '✅',
         error: '❌',

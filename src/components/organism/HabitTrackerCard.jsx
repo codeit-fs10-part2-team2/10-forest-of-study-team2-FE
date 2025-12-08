@@ -2,7 +2,9 @@ import React from 'react';
 import styles from '../../pages/ViewStudyDetails/ViewStudyDetails.module.css';
 import Sticker from '../UI/Sticker/Sticker';
 
-const HabitTrackerCard = ({ habits = [], days = [] }) => {
+const HabitTrackerCard = ({ habits = [], days = [], studyId }) => {
+  const reversedHabits = [...habits].reverse();
+
     return (
         <>
         <div className={styles.habitTrackerCard}>
@@ -16,20 +18,24 @@ const HabitTrackerCard = ({ habits = [], days = [] }) => {
                         </div>
                     ))}
                     </div>
-                    {habits.map(habit => (
+                    {reversedHabits.map(habit => (
                     <div key={habit.id} className={styles.habitRow}>
                         <div className={styles.habitNameCell}>{habit.name}</div>
-                        {days.map((_day, dayIndex) => (
-                        <div
-                            key={dayIndex} 
-                            className={styles.habitCell}
-                        >
-                            <Sticker 
-                            completed={habit.completed.includes(dayIndex)} // set the completion status
-                            className={habit.completed.includes(dayIndex) ? styles.completed : styles.incomplete}
-                            />
-                        </div>
-                        ))}
+                        {days.map((_day, frontendDayIndex) => {
+                          const dbDayIndex = (frontendDayIndex + 1) % 7;
+                          const isCompleted = habit.completed.includes(dbDayIndex);
+                          return (
+                            <div
+                              key={frontendDayIndex} 
+                              className={styles.habitCell}
+                            >
+                              <Sticker 
+                                completed={isCompleted}
+                                className={isCompleted ? styles.completed : styles.incomplete}
+                              />
+                            </div>
+                          );
+                        })}
                     </div>
                     ))}
             </div>
