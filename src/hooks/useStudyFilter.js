@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 
 const useStudyFilter = (studies = []) => {
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -33,21 +33,21 @@ const useStudyFilter = (studies = []) => {
     });
   }, [filteredStudies, sortOption]);
 
-  const displayedStudies = sortedStudies.slice(0, displayCount);
+  const displayedStudies = useMemo(() => sortedStudies.slice(0, displayCount), [sortedStudies, displayCount]);
 
-  const handleLoadMore = () => {
+  const handleLoadMore = useCallback(() => {
     setDisplayCount(prevCount => prevCount + 6);
-  };
+  }, []);
 
-  const handleSearchChange = (e) => {
+  const handleSearchChange = useCallback((e) => {
     setSearchKeyword(e.target.value);
     setDisplayCount(6);
-  };
+  }, []);
 
-  const handleSortChange = (e) => {
+  const handleSortChange = useCallback((e) => {
     setSortOption(e.target.value);
     setDisplayCount(6);
-  };
+  }, []);
 
   return {
     searchKeyword,

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 import API_ENDPOINTS from '../utils/apiEndpoints';
 
@@ -37,7 +37,7 @@ const useTimerPage = (studyId) => {
     fetchStudyData();
   }, [studyId]);
 
-  const updateConcentrationTime = async (newTime) => {
+  const updateConcentrationTime = useCallback(async (newTime) => {
     if (!studyId) {
       return false;
     }
@@ -52,9 +52,9 @@ const useTimerPage = (studyId) => {
       console.error('Failed to update concentration time:', error);
       return false;
     }
-  };
+  }, [studyId]);
 
-  const addPoints = async (minutes, contentOverride) => {
+  const addPoints = useCallback(async (minutes, contentOverride) => {
     if (!studyId) {
       return false;
     }
@@ -74,9 +74,9 @@ const useTimerPage = (studyId) => {
       console.error('Failed to add points:', error);
       return false;
     }
-  };
+  }, [studyId]);
 
-  const parseTimeToSeconds = (timeString) => {
+  const parseTimeToSeconds = useCallback((timeString) => {
     const parts = timeString.split(':');
     if (parts.length === 3) {
       const hours = parseInt(parts[0], 10) || 0;
@@ -85,7 +85,7 @@ const useTimerPage = (studyId) => {
       return hours * 3600 + minutes * 60 + seconds;
     }
     return 25 * 60; // 기본값 25분
-  };
+  }, []);
 
   return {
     studyName,

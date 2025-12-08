@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import API_ENDPOINTS from '../utils/apiEndpoints';
@@ -81,7 +81,7 @@ const useStudyView = (studyId) => {
 
   const lastClickTimeRef = useRef({});
 
-  const handleEmojiClick = async (emojiId) => {
+  const handleEmojiClick = useCallback(async (emojiId) => {
     const now = Date.now();
     const lastClick = lastClickTimeRef.current[emojiId] || 0;
     
@@ -113,9 +113,9 @@ const useStudyView = (studyId) => {
       setEmojiMetrics(previousMetrics);
       lastClickTimeRef.current[emojiId] = 0;
     }
-  };
+  }, [studyId]);
 
-  const handleEmojiSelect = async (emoji) => {
+  const handleEmojiSelect = useCallback(async (emoji) => {
     if (!studyId) {
       return;
     }
@@ -217,9 +217,9 @@ const useStudyView = (studyId) => {
       
       setEmojiMetrics(previousMetrics);
     }
-  };
+  }, [studyId, handleEmojiClick]);
 
-  const handleDeleteStudy = async () => {
+  const handleDeleteStudy = useCallback(async () => {
     if (!studyId) {
       alert('스터디 ID가 없습니다.');
       return;
@@ -258,11 +258,11 @@ const useStudyView = (studyId) => {
         alert('스터디 삭제에 실패했습니다. 다시 시도해주세요.');
       }
     }
-  };
+  }, [studyId, deletePassword, studyPassword, navigate]);
 
-  const handleEditStudy = () => {
+  const handleEditStudy = useCallback(() => {
     navigate(`/enrollment/${studyId}`);
-  };
+  }, [studyId, navigate]);
 
   return {
     viewStudyDetailTitle,

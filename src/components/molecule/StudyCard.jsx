@@ -22,6 +22,8 @@ const StudyCard = ({ id, nickName, studyName, introduction, createdAt, point, th
   const handleCardClick = () => {
     if (id) {
       addToRecentStudyQueue(id);
+      // detail page로 이동할 때 session storage에 studyId 저장
+      sessionStorage.setItem('current_study_id', String(id));
       window.dispatchEvent(new CustomEvent('recentStudyUpdated'));
     }
   };

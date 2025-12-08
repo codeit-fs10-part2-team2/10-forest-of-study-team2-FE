@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 import API_ENDPOINTS from '../utils/apiEndpoints';
 import useHabitByStudyId from './useHabitByStudyId';
@@ -64,7 +64,7 @@ const useWeekHabit = (studyId) => {
     fetchWeekHabitsData();
   }, [studyId]);
 
-  const refreshHabits = async () => {
+  const refreshHabits = useCallback(async () => {
     if (!studyId) return;
     
     try {
@@ -102,9 +102,9 @@ const useWeekHabit = (studyId) => {
       console.error(`useWeekHabit: refresh habits failed: ${error}`);
       console.error(`useWeekHabit: error details:`, error.response?.data || error.message);
     }
-  };
+  }, [studyId]);
 
-  const setHabitsFromSaved = (savedHabits) => {
+  const setHabitsFromSaved = useCallback((savedHabits) => {
     if (!savedHabits || !Array.isArray(savedHabits)) return;
     
     const isTransformed = savedHabits.length === 0 || (savedHabits[0].id !== undefined && savedHabits[0].name !== undefined);
@@ -121,7 +121,7 @@ const useWeekHabit = (studyId) => {
     
     console.log(`useWeekHabit: setting habits from saved data:`, transformedHabits);
     setHabits(transformedHabits);
-  };
+  }, []);
 
   return {
     loading: loading || studyLoading,

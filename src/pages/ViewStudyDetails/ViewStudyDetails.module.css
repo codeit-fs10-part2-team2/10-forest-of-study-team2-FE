@@ -732,6 +732,11 @@
 .todayHabitListItem {
   max-width: 400px;
   min-width: 280px;
+  min-height: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .todayHabitListItem:hover {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import API_ENDPOINTS from '../utils/apiEndpoints';
@@ -18,6 +18,7 @@ const useStudyModification = (studyId) => {
 
   const [errors, setErrors] = useState({});
   const [touched,     setTouched] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (studyId) {
@@ -39,24 +40,43 @@ const useStudyModification = (studyId) => {
     }
   }, [studyId]);
 
-  const handleChange = (field, value) => {
+  const handleChange = useCallback((field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-  };
+  }, []);
 
-  const handleBlur = (field) => {
+  const handleBlur = useCallback((field) => {
     setTouched(prev => ({ ...prev, [field]: true }));
 
-    const value = formData[field]?.trim?.() ?? '';
+    setFormData(prev => {
+      const value = prev[field]?.trim?.() ?? '';
 
-    if (!value) {
-      setErrors(prev => ({ ...prev, [field]: true }));
-      return;
-    }
+      if (!value) {
+        setErrors(prevErrors => ({ ...prevErrors, [field]: true }));
+        return prev;
+      }
 
-    setErrors(prev => ({ ...prev, [field]: false }));
-  };
+      // Validation rules
+      if (field === 'nickName' && value.length < 3) {
+        setErrors(prevErrors => ({ ...prevErrors, [field]: true }));
+        return prev;
+      }
 
-  const handleSubmit = async (e) => {
+      if (field === 'studyName' && value.length < 5) {
+        setErrors(prevErrors => ({ ...prevErrors, [field]: true }));
+        return prev;
+      }
+
+      if (field === 'introduction' && value.length < 10) {
+        setErrors(prevErrors => ({ ...prevErrors, [field]: true }));
+        return prev;
+      }
+
+      setErrors(prevErrors => ({ ...prevErrors, [field]: false }));
+      return prev;
+    });
+  }, []);
+
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
 
     const requiredFields = ['nickName', 'studyName'];
@@ -74,6 +94,22 @@ const useStudyModification = (studyId) => {
       }
     });
 
+    // Validation rules
+    if (formData.nickName.trim() && formData.nickName.trim().length < 3) {
+      newErrors.nickName = true;
+      hasError = true;
+    }
+
+    if (formData.studyName.trim() && formData.studyName.trim().length < 5) {
+      newErrors.studyName = true;
+      hasError = true;
+    }
+
+    if (formData.introduction.trim() && formData.introduction.trim().length < 10) {
+      newErrors.introduction = true;
+      hasError = true;
+    }
+
     setTouched(newTouched);
     setErrors(newErrors);
 
@@ -81,6 +117,7 @@ const useStudyModification = (studyId) => {
       return;
     }
 
+    setIsSubmitting(true);
     try {
       const backgroundNumber = formData.thumbNail.replace('thumbnail', '');
       const background = parseInt(backgroundNumber, 10);
@@ -101,13 +138,16 @@ const useStudyModification = (studyId) => {
       
     } catch (error) {
       alert('스터디 수정에 실패했습니다. 다시 시도해주세요.');
+    } finally {
+      setIsSubmitting(false);
     }
-  };
+  }, [formData, studyId, navigate]);
 
   return {
     formData,
     errors,
     touched,
+    isSubmitting,
     handleChange,
     handleBlur,
     handleSubmit

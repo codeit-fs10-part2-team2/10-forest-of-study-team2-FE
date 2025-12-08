@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 import API_ENDPOINTS from '../utils/apiEndpoints';
 import useHabitByStudyId from './useHabitByStudyId';
@@ -55,7 +55,7 @@ const useTodayHabit = (studyId) => {
     fetchTodayFulfillments();
   }, [studyId]);
 
-  const refreshTodayFulfillments = async () => {
+  const refreshTodayFulfillments = useCallback(async () => {
     if (!studyId) return [];
     
     try {
@@ -85,7 +85,7 @@ const useTodayHabit = (studyId) => {
     } catch (error) {
       return [];
     }
-  };
+  }, [studyId]);
 
   return {
     loading: loading || studyLoading,

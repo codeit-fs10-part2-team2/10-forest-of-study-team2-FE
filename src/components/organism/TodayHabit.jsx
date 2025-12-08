@@ -22,7 +22,7 @@ import { useNavigate } from 'react-router-dom';
 const TodayHabit = () => {
   const navigate = useNavigate();
   const { studyId } = useParams();
-  const { showSuccess, showError } = useToast();
+  const { showSuccess, showError, showInfo } = useToast();
   const { loading: todayHabitLoading, todayFulfillments, refreshTodayFulfillments } = useTodayHabit(studyId);
   const { loading: studyLoading, viewStudyDetailTitle, habits: allHabits, refreshHabits: refreshAllHabits } = useHabitByStudyId(studyId);
   const [saving, setSaving] = useState(false);
@@ -84,6 +84,7 @@ const TodayHabit = () => {
 
   const handleCompleteEdit = async () => {
     setSaving(true);
+    showInfo('수정 중');
     try {
       const validHabits = habits.filter(habit => {
         const habitName = habit.name || habit.habit_name || '';
@@ -252,25 +253,6 @@ const TodayHabit = () => {
       return;
     }
 
-    const previousCompletedHabits = new Set(completedHabits);
-    const previousDisplayHabits = [...displayHabits];
-    
-    const newCompletedHabits = new Set(completedHabits);
-    newCompletedHabits.add(habitIdKey);
-    setCompletedHabits(newCompletedHabits);
-    
-    if (allHabits && allHabits.length > 0) {
-      const habitsWithFulfillment = allHabits.map(habit => {
-        const habitPk = String(habit.habit_pk || habit.id);
-        const hasFullfillment = newCompletedHabits.has(habitPk);
-        return {
-          ...habit,
-          hasFullfillment
-        };
-      });
-      setDisplayHabits(habitsWithFulfillment);
-    }
-
     try {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
@@ -308,8 +290,6 @@ const TodayHabit = () => {
       
       setCompletedHabits(completedHabitPks);
     } catch (error) {
-      setCompletedHabits(previousCompletedHabits);
-      setDisplayHabits(previousDisplayHabits);
       showError('에러가 발생해 실패했습니다.');
     }
   }

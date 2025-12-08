@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 import API_ENDPOINTS from '../utils/apiEndpoints';
 
@@ -7,7 +7,7 @@ const useTodayHabitInsert = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
 
-  const insertTodayHabits = async (studyId, habits) => {
+  const insertTodayHabits = useCallback(async (studyId, habits) => {
     if (!studyId) {
       console.log(`useTodayHabitInsert: no studyId provided: ${studyId}`);
       setError('studyId is required');
@@ -49,7 +49,7 @@ const useTodayHabitInsert = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   return {
     loading,

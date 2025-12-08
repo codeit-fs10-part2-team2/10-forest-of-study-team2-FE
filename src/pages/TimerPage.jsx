@@ -9,6 +9,9 @@ const formatSeconds = (seconds) => {
   const h = Math.floor(seconds / 3600);
   const m = Math.floor((seconds % 3600) / 60);
   const s = seconds % 60;
+  if (h === 0) {
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  }
   return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
 };
 
@@ -53,18 +56,22 @@ function Timer() {
   const hasCompletedRef = useRef(false);
   const [isEditingTime, setIsEditingTime] = useState(false);
   const [timeInput, setTimeInput] = useState(formatSecondsToHMS(initialSecondsFromServer));
+  const wasRunningRef = useRef(false);
 
+  // 서버에서 받은 시간이 변경될 때만 초기화 (타이머가 시작되지 않았거나 완료된 경우)
   useEffect(() => {
     const sec = parseTimeToSeconds(concentrationTime);
     setInitialSeconds(sec);
-    if (!isRunning) {
+    // 타이머가 한 번도 실행되지 않았거나, 완료된 경우에만 초기화
+    // 일시정지 상태에서는 현재 시간을 유지
+    if (!isRunning && !wasRunningRef.current && !isEditingTime) {
       setTime(sec);
       if (!isEditingTime) {
         setTimeInput(formatSecondsToHMS(sec));
       }
       hasCompletedRef.current = false;
     }
-  }, [concentrationTime, isRunning, parseTimeToSeconds, isEditingTime]);
+  }, [concentrationTime, parseTimeToSeconds, isEditingTime]);
 
   useEffect(() => {
     return () => {
@@ -86,6 +93,7 @@ function Timer() {
     hasCompletedRef.current = true;
     stopInterval();
     setIsRunning(false);
+    wasRunningRef.current = false;
     setTime(0);
 
     const minutes = Math.max(1, Math.ceil(initialSeconds / 60));
@@ -103,6 +111,7 @@ function Timer() {
     if (isRunning || time <= 0) return;
     stopInterval();
     hasCompletedRef.current = false;
+    wasRunningRef.current = true;
     setIsRunning(true);
     showInfo('집중을 시작합니다.');
     intervalRef.current = setInterval(() => {
@@ -126,6 +135,7 @@ function Timer() {
   const handleReset = useCallback(() => {
     stopInterval();
     setIsRunning(false);
+    wasRunningRef.current = false;
     setTime(initialSeconds);
     hasCompletedRef.current = false;
     showInfo('집중이 초기화되었습니다.');

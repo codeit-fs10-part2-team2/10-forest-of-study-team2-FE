@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import InputLabel from '../molecule/InputLabel';
 import ThumbNailSelect from '../molecule/ThumbNailSelect';
 import templateStyles from '../../styles/Template.module.css';
@@ -17,28 +18,35 @@ const StudyInsertion = () => {
     handleSubmit
   } = useStudyCreation();
   
-  const topInputFields = [
+  const topInputFields = useMemo(() => [
     { 
       label: '닉네임',
       placeholder: '닉네임을 입력해 주세요',
       type: 'text',
       field: 'nickName' ,
-      errorMessage: '닉네임을 입력해주세요'
+      errorMessage: formData.nickName.trim() && formData.nickName.trim().length < 3 
+        ? '닉네임은 3글자 이상 입력해주세요' 
+        : '닉네임을 입력해주세요'
     },
     { 
       label: '스터디 이름', 
       placeholder: '스터디 이름을 입력해 주세요', 
       type: 'text', 
       field: 'studyName' ,
-      errorMessage: '스터디 이름을 입력해주세요'
+      errorMessage: formData.studyName.trim() && formData.studyName.trim().length < 5
+        ? '스터디 이름은 5글자 이상 입력해주세요'
+        : '스터디 이름을 입력해주세요'
     },
     { 
       label: '소개', 
       placeholder: '소개 멘트를 작성해 주세요', 
       type: 'text', 
-      field: 'introduction'
+      field: 'introduction',
+      errorMessage: formData.introduction.trim() && formData.introduction.trim().length < 10
+        ? '소개는 10글자 이상 입력해주세요'
+        : '소개를 입력해주세요'
     },
-  ];
+  ], [formData.nickName, formData.studyName, formData.introduction]);
 
   return (
     <section>
