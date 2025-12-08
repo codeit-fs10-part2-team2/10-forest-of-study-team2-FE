@@ -31,6 +31,16 @@
   color: inherit;
 }
 
+.habitButtonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.habitButtonContainer button {
+  font-family: 'EF_jejudoldam', sans-serif;
+}
+
 @media (max-width: 768px) {
   .habitButtonContainer {
     flex-direction: row;
