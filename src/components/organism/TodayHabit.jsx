@@ -418,9 +418,9 @@ const TodayHabit = () => {
         onClose={() => setShowHabitModal(false)}
         footer={
           <div className={todayHabitStyles.habitButtonContainer}>
-            <Button onClick={handleCancelHabit} disabled={saving}><img src={backIcon} alt="back" /></Button>
+            <Button onClick={handleCancelHabit} disabled={saving}>취소</Button>
             <Button onClick={handleCompleteEdit} disabled={saving}>
-              <img src={modifyIcon} alt="modify" />
+              {saving ? '저장 중...' : '수정완료'}
             </Button>
           </div>
         }

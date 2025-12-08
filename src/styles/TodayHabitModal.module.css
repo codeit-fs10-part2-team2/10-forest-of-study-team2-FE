@@ -34,9 +34,11 @@
 .habitButtonContainer {
   display: flex;
   justify-content: center;
-  align-items: center;
   gap: 16px;
-  width: 100%;
+}
+
+.habitButtonContainer button {
+  font-family: 'EF_jejudoldam', sans-serif;
 }
 
 @media (max-width: 768px) {
