@@ -5,16 +5,13 @@ const arrowRightIcon = '/assets/images/icons/arrow_right.svg';
 import Button from '../../components/UI/Button/Button';
 import HabitTrackerCard from '../../components/organism/HabitTrackerCard';
 import PasswordModal from '../../components/UI/PasswordModal/PasswordModal';
+import Modal from '../../components/UI/Model/Modal';
 import styles from './ViewStudyDetails.module.css';
 import todayHabitStyles from '../../styles/TodayHabitModal.module.css';
 import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import useStudyView from '../../hooks/useStudyView';
-<<<<<<< HEAD
-import useSkeleton from '../../hooks/useSkeleton';
-=======
 import LoadingSpinner from '../../components/UI/LoadingSpinner/LoadingSpinner';
->>>>>>> 4c9ca16be551b02b3354e3b53b90c10f40e9f18b
 
 const ViewStudyDetails = memo(() => {
   const navigate = useNavigate();
@@ -54,6 +51,7 @@ const ViewStudyDetails = memo(() => {
   const moreEmojisButtonRef = useRef(null);
   const [showMoreEmojisDropdown, setShowMoreEmojisDropdown] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+  const [showShareModal, setShowShareModal] = useState(false);
   
   const updateDropdownPosition = useCallback(() => {
     if (showMoreEmojisDropdown && moreEmojisButtonRef.current) {
@@ -88,12 +86,48 @@ const ViewStudyDetails = memo(() => {
     }
   }, [showMoreEmojisDropdown, handleClickOutside]);
 
+  const handleCopy = useCallback(() => {
+    const currentUrl = window.location.href;
+    navigator.clipboard.writeText(currentUrl).then(() => {
+      alert('링크가 복사되었습니다.');
+    }).catch(() => {
+      alert('링크 복사에 실패했습니다.');
+    });
+  }, []);
+
+
+  // SNS 공유 처리 함수들
+  const shareToKakao = useCallback(() => {
+    const currentUrl = window.location.href;
+    const text = encodeURIComponent(`${viewStudyDetailTitle} - 스터디 공유`);
+    const kakaoUrl = `https://story.kakao.com/share?url=${encodeURIComponent(currentUrl)}&text=${text}`;
+    window.open(kakaoUrl, '_blank', 'width=550,height=420');
+  }, [viewStudyDetailTitle]);
+
+  const shareToTwitter = useCallback(() => {
+    const currentUrl = window.location.href;
+    const text = encodeURIComponent(`${viewStudyDetailTitle} - 스터디 공유`);
+    const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${text}`;
+    window.open(twitterUrl, '_blank', 'width=550,height=420');
+  }, [viewStudyDetailTitle]);
+
+  const shareToFacebook = useCallback(() => {
+    const currentUrl = window.location.href;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
+    window.open(facebookUrl, '_blank', 'width=550,height=420');
+  }, []);
+
+  const shareToLine = useCallback(() => {
+    const currentUrl = window.location.href;
+    navigator.clipboard.writeText(currentUrl).then(() => {
+      alert('링크가 복사되었습니다. Line 채널이나 친구에게 붙여넣기 해주세요.');
+    }).catch(() => {
+      alert('링크 복사에 실패했습니다.');
+    });
+  }, []);
+
   if (loading) {
-<<<<<<< HEAD
-    return ViewStudyDetailsSkeleton;
-=======
-    return <div className={styles.loadingText}>로딩 중...</div>;
->>>>>>> 4c9ca16be551b02b3354e3b53b90c10f40e9f18b
+    return <LoadingSpinner />;
   }
 
   return (
@@ -152,7 +186,7 @@ const ViewStudyDetails = memo(() => {
                         <EmojiPickerButton onEmojiSelect={handleEmojiSelect} />
                     </div>
                     <div className={styles.actionButtons}>
-                        <Link to="#" className={todayHabitStyles.todayActionLink} onClick={(e) => e.preventDefault()}>공유하기</Link>
+                        <Link to="#" className={todayHabitStyles.todayActionLink} onClick={(e) => { e.preventDefault(); setShowShareModal(true); }}>공유하기</Link>
                         <span className={styles.divider}>|</span>
                         <Link to="#" className={todayHabitStyles.todayActionLink} onClick={(e) => { e.preventDefault(); setShowEditStudyModal(true); }}>수정하기</Link>
                         <span className={styles.divider}>|</span>
@@ -196,8 +230,7 @@ const ViewStudyDetails = memo(() => {
         password={editPassword}
         onPasswordChange={(e) => setEditPassword(e.target.value)}
         onPasswordSubmit={handleEditStudy}
-        buttonText=""
-        buttonIcon="/assets/images/icons/btn_modification.svg"
+        buttonText="수정하러 가기"
         modalTitleText="스터디 수정"
         errorMessageText="권한이 필요합니다."
         onPasswordExit={() => setShowEditStudyModal(false)}
@@ -217,6 +250,154 @@ const ViewStudyDetails = memo(() => {
         onPasswordExitText="나가기"
         studyId={studyId}
       />
+    )}
+    {showShareModal && (
+      <Modal
+        title="공유하기"
+        onClose={() => setShowShareModal(false)}
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '8px',
+            padding: '12px',
+            backgroundColor: '#F5F5F5',
+            borderRadius: '8px',
+            border: '1px solid #E0E0E0'
+          }}>
+            <span style={{ 
+              flex: 1, 
+              fontSize: '14px', 
+              color: '#333',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap'
+            }}>
+              {window.location.href}
+            </span>
+            <button
+              onClick={handleCopy}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0
+              }}
+              aria-label="링크 복사"
+            >
+              <img 
+                src="/assets/images/icons/ftcopy.svg" 
+                alt="복사" 
+                style={{ width: '20px', height: '20px' }}
+              />
+            </button>
+          </div>
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            gap: '12px',
+            paddingTop: '8px'
+          }}>
+            <button
+              onClick={shareToKakao}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '50%',
+                transition: 'transform 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              aria-label="Kakao 공유"
+            >
+              <img 
+                src="/assets/images/icons/kakao-icon.png" 
+                alt="Kakao" 
+                style={{ width: '40px', height: '40px' }}
+              />
+            </button>
+            <button
+              onClick={shareToFacebook}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '50%',
+                transition: 'transform 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              aria-label="Facebook 공유"
+            >
+              <img 
+                src="/assets/images/icons/facebook-icon.png" 
+                alt="Facebook" 
+                style={{ width: '40px', height: '40px' }}
+              />
+            </button>
+            <button
+              onClick={shareToTwitter}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '50%',
+                transition: 'transform 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              aria-label="Twitter 공유"
+            >
+              <img 
+                src="/assets/images/icons/twitter-icon.png" 
+                alt="Twitter" 
+                style={{ width: '40px', height: '40px' }}
+              />
+            </button>
+            <button
+              onClick={shareToLine}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '8px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: '50%',
+                transition: 'transform 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+              aria-label="Line 공유"
+            >
+              <img 
+                src="/assets/images/icons/line-icon.png" 
+                alt="Twitter" 
+                style={{ width: '40px', height: '40px' }}
+              />
+            </button>
+          </div>
+        </div>
+      </Modal>
     )}
   </>
   );

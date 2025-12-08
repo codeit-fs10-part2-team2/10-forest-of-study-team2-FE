@@ -11,7 +11,20 @@ const Modal = ({ children, title, footer, onClose }) => {
     return (
         <div className={styles.modalContainer} onClick={handleBackdropClick}>
             <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-                {title && <h2 className={styles.modalTitle}>{title}</h2>}
+                {title && (
+                    <div className={styles.modalHeader}>
+                        <h2 className={styles.modalTitle}>{title}</h2>
+                        {onClose && (
+                            <button 
+                                className={styles.modalCloseButton}
+                                onClick={onClose}
+                                aria-label="닫기"
+                            >
+                                ×
+                            </button>
+                        )}
+                    </div>
+                )}
                 <div className={styles.modalBody}>
                     {children}
                 </div>

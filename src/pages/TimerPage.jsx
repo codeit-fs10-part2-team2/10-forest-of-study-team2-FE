@@ -64,7 +64,7 @@ function Timer() {
       }
       hasCompletedRef.current = false;
     }
-  }, [concentrationTime, isRunning, parseTimeToSeconds, isEditingTime]);
+  }, [concentrationTime, parseTimeToSeconds, isEditingTime]);
 
   useEffect(() => {
     return () => {

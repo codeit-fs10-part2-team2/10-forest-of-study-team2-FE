@@ -364,7 +364,7 @@ const TodayHabit = () => {
     <section className={styles.titleSection}>
       <h1 className={styles.mainTitle}>{viewStudyDetailTitle || ''}</h1>
       <div className={styles.navButtons}>
-        <Button className={styles.navBtn} onClick={() => navigate(`/Timer`)}>
+        <Button className={styles.navBtn} onClick={() => navigate(`/Timer/${studyId}`)}>
           <span className={styles.navBtnText}>오늘의 집중 <img src={arrowRightIcon} alt="arrow right" className={styles.arrowRightIcon} /></span>
         </Button>
         <Button className={styles.navBtn} onClick={() => navigate(`/detail/${studyId}`)}>

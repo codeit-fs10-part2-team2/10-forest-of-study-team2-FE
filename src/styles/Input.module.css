@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'EF_jejudoldam';
+  src: url('../fonts/EF_jejudoldam.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -92,6 +100,39 @@
   border-color: red;
 }
 
+.passwordWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.passwordBox {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding: 12px 0;
+  background: transparent;
+}
+
+.passwordBox::placeholder {
+  color: #818181;
+}
+
+.eyesButton {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
 .selectIcon {
   position: absolute;
   bottom: calc(50% - 16px);
@@ -157,4 +198,64 @@
   color: red;
   margin-top: 8px;
   font-weight: 400;
+}
+
+.buttonBox {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.buttonBox .button {
+  min-width: 180px;
+}
+
+
+
+
+.errorMessage {
+  font-size: 14px;
+  color: red;
+  margin-top: 8px;
+  font-weight: 400;
+}
+
+.buttonBox {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.buttonBox .button {
+  min-width: 180px;
+}
+
+.buttonBoxForEditForm {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.buttonBoxForEditForm .button {
+  flex: 1;
+  width: 100%;
+  min-width: 140px;
+  font-family: 'EF_jejudoldam', sans-serif;
+}
+
+.buttonBoxForEditForm .button:first-child {
+  background-color: #DDDDDD;
+}
+
+.buttonBoxForEditForm .button:first-child:hover {
+  background-color: #CCCCCC;
+}
+
+.buttonBoxForEditForm .button:last-child {
+  background-color: #99C08E;
+}
+
+.buttonBoxForEditForm .button:last-child:hover {
+  background-color: #7FA872;
 }
