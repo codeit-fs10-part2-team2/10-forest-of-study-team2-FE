@@ -182,17 +182,6 @@
   background-color: #7FA872;
 }
 
-@media (max-width: 1023px) {
-  .buttonCreateForm {
-    width: 160px;
-    font-size: 16px;
-    padding: 12px 14px;
-  }
-}
-
-
-
-
 
 .errorMessage {
   font-size: 14px;
